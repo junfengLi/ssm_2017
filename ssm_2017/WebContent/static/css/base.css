@@ -1,0 +1,9 @@
+
+
+.block{display: block;}
+.main-content {margin-top: 45px;}
+.dropzone.btn-primary.dz-clickable{
+    float: left;
+    padding: 5px 10px;
+    cursor: pointer;
+}
