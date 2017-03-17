@@ -6,6 +6,8 @@
 */
 package com.web.manage.pojo;
 
+import java.util.List;
+
 import com.web.commons.pojo.BasePage;
 
 public class User extends BasePage {
@@ -44,6 +46,8 @@ public class User extends BasePage {
 
     /**  */
     private Long updatetime;
+    
+    private List<Role> roles;
 
     public String getId() {
         return id;
@@ -140,4 +144,14 @@ public class User extends BasePage {
     public void setUpdatetime(Long updatetime) {
         this.updatetime = updatetime;
     }
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+    
+    
 }

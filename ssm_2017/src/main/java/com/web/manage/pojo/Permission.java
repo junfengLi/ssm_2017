@@ -2,21 +2,17 @@
 * @ClassName:Permission.java
 * @Description: TODO desc 
 * @author: Lijunfeng
-* @date 2017-03-10
+* @date 2017-03-17
 */
 package com.web.manage.pojo;
 
 public class Permission {
-    /**  */
     private String id;
 
-    /**  */
     private String name;
 
-    /**  */
     private String code;
 
-    /**  */
     private String note;
 
     public String getId() {

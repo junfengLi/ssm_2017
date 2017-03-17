@@ -42,7 +42,7 @@ function openFrame(title,url,width,height){
 			zIndex: layer.zIndex,
 			success: function(layero){
 				layer.setTop(layero);
-			}
+			},btn: ['提交', '关闭'] //只是为了演示
 		});  
 	});
 }

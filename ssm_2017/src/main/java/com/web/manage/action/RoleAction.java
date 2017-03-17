@@ -21,14 +21,12 @@ import com.web.commons.jqgrid.UIPage;
 import com.web.manage.pojo.User;
 import com.web.manage.service.UserService;
 
-@RequestMapping("/user")  
+@RequestMapping("/role")  
 @Controller
-public class UserAction {  
-	@Autowired
-	private UserService userService;
+public class RoleAction {  
 	
 	
-	private static final String BASE_PATH = "/manage/sys/user/";
+	private static final String BASE_PATH = "/manage/sys/role/";
 
     /**
      * 页面加载
@@ -83,9 +81,25 @@ public class UserAction {
     public UIPage getPage(@RequestParam(value="page",defaultValue="1")int pageNum,
 			@RequestParam(value="rows",defaultValue="10")int pageSize,
 			HttpServletRequest request){
-    	Map<String, Object> searchParams = new HashMap<>();
-    	searchParams.put("loginName", "lijunfeng");
-    	UIPage page = userService.getPage(searchParams, pageNum, pageSize); 
+    	UIPage page = new UIPage();
+    	List<Map<String,Object>> rows=new ArrayList<Map<String,Object>>();
+//    	for (User user : users) {
+//    		Map<String,String> row=new HashMap<String, String>();
+//    		row.put("id", user.getId());
+//    		row.put("name", user.getName());
+//    		rows.add(row);
+//    		rows.add(row);
+//    		rows.add(row);
+//    		rows.add(row);
+//		}
+    	for (int i = Integer.valueOf(pageNum) - 1 ; i < Integer.valueOf(pageNum) *pageSize ; i++) {
+    		Map<String,Object> row=new HashMap<String, Object>();
+    		row.put("id", i);
+    		row.put("name", "name" + i);
+    		rows.add(row);
+		}
+    	page.setRows(rows);
+    	page.setRecords(20);
     	return page;
     }
 }  

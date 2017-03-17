@@ -68,6 +68,8 @@
 <!-- ace scripts -->
 <script src="${ctx}/static/ace/js/ace-elements.min.js"></script>
 <script src="${ctx}/static/ace/js/ace.min.js"></script>
+
+<script src="${ctx}/static/js/common/base.js"></script>
 <script type="text/javascript">
 	jQuery(function($) {
 		//美化浏览器的滚动条

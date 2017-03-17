@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.web.manage.dao.PermissionDao" >
-  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Permission" >
+<mapper namespace="com.web.manage.dao.RoleDao" >
+  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Role" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
-    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="BIGINT" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    ID, NAME, CODE, NOTE
+    ID, NAME, CODE, CREATETIME
   </sql>
 
   <sql id="whereFields" >
@@ -20,8 +20,8 @@
       <if test="code != null" >
          and CODE = #{code,jdbcType=VARCHAR}
       </if>
-      <if test="note != null" >
-         and NOTE = #{note,jdbcType=VARCHAR}
+      <if test="createtime != null" >
+         and CREATETIME = #{createtime,jdbcType=BIGINT}
       </if>
     </where>
   </sql>
@@ -29,37 +29,30 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from li_sys_permission
+    from li_sys_role
     where ID = #{id,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Permission" >
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Role" >
     select 
     <include refid="Base_Column_List" />
-    from li_sys_permission
+    from li_sys_role
     <include refid="whereFields" />
      limit #{offset},#{rows} 
   </select>
 
-  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Permission" >
-    select count(1) from li_sys_permission
+  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Role" >
+    select count(1) from li_sys_role
     <include refid="whereFields" />
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from li_sys_permission
+    delete from li_sys_role
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.web.manage.pojo.Permission" >
-    insert into li_sys_permission (ID, NAME, CODE, 
-      NOTE)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
-
-  <insert id="insertSelective" parameterType="com.web.manage.pojo.Permission" useGeneratedKeys="true" keyProperty="id" >
-    insert into li_sys_permission
+  <insert id="insertSelective" parameterType="com.web.manage.pojo.Role" useGeneratedKeys="true" keyProperty="id" >
+    insert into li_sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -70,8 +63,8 @@
       <if test="code != null" >
         CODE,
       </if>
-      <if test="note != null" >
-        NOTE,
+      <if test="createtime != null" >
+        CREATETIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -84,14 +77,14 @@
       <if test="code != null" >
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="note != null" >
-        #{note,jdbcType=VARCHAR},
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Permission" >
-    update li_sys_permission
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Role" >
+    update li_sys_role
     <set >
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
@@ -99,8 +92,8 @@
       <if test="code != null" >
         CODE = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="note != null" >
-        NOTE = #{note,jdbcType=VARCHAR},
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=BIGINT},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

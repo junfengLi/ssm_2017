@@ -50,11 +50,21 @@ public class LoginAction {
 		Subject subject = SecurityUtils.getSubject();
 		if(subject.isAuthenticated())
 			subject.logout();
-		
+		request.setAttribute("logout", true);
 		String pageUri = "/login";
 		return pageUri;
 	}
 	
+	/**
+	 * LOGIN GET请求
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/loginForward", method = RequestMethod.GET)
+	public String loginForward(HttpServletRequest request,Model model) {
+		request.removeAttribute("logout");
+		return "/login";
+	}
 
 	/**
 	 * 登录失败后的信息跳转

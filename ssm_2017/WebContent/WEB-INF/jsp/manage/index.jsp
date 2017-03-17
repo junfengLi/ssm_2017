@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <jsp:include page="include/css-js.jsp" />
+<jsp:include page="include/header-js.jsp" />
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">

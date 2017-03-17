@@ -7,6 +7,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.web.manage.dao.UserDao;
+import com.web.manage.pojo.Permission;
+import com.web.manage.pojo.Role;
 import com.web.manage.pojo.User;
 import com.web.manage.service.MyAuthService;
 
@@ -28,17 +30,28 @@ public class MyAuthServiceImpl implements MyAuthService {
 	}  
 	@Override
     public List<String> getPermissionsByUserName(String loginName) {  
-        List<String> roles = getRolesByUserName(loginName);
+		User user = getUserByUserName(loginName);
+		List<Role> roles= user.getRoles();
+		List<String> list = new ArrayList<>();
         List<String> permissionList = new ArrayList<>();
-        for (String roleCode : roles) {  
-            List<String> permissions = userDao.selectPermissionCodeByRoleCode(roleCode);
-            permissionList.addAll(permissions);
-        }  
+        for (Role role : roles) {
+        	List<Permission> permissions = role.getPermissions();
+        	for (Permission permission : permissions) {
+        		list.add(permission.getCode());
+        	}
+        	permissionList.addAll(list);
+        }
         return permissionList;  
     }
 	@Override
 	public List<String> getRolesByUserName(String loginName) {
-		return userDao.selectRoleCodeByLoginName(loginName);
+		User user = getUserByUserName(loginName);
+		List<Role> roles= user.getRoles();
+		List<String> list = new ArrayList<>();
+		 for (Role role : roles) {
+			list.add(role.getCode());
+		}
+		return list;
 	}  
 
 }

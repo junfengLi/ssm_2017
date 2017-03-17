@@ -2,23 +2,23 @@
 * @ClassName:Role.java
 * @Description: TODO desc 
 * @author: Lijunfeng
-* @date 2017-03-10
+* @date 2017-03-17
 */
 package com.web.manage.pojo;
 
+import java.util.List;
+
 public class Role {
-    /**  */
     private String id;
 
-    /**  */
     private String name;
 
-    /**  */
     private String code;
 
-    /**  */
     private Long createtime;
-
+    
+    private List<Permission> permissions;
+    
     public String getId() {
         return id;
     }
@@ -50,4 +50,13 @@ public class Role {
     public void setCreatetime(Long createtime) {
         this.createtime = createtime;
     }
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
+    
 }

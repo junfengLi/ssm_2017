@@ -9,9 +9,16 @@
 <meta http-equiv="Pragma" CONTENT="no-cache">
 <meta charset="utf-8">
 <title>登陆</title>
+<script type="text/javascript">
+	var logout = '${logout}';
+	if (logout != '') {
+		window.location.href="${ctx}/loginForward";
+	}
+</script>
 <script type="text/javascript" src="${ctx }/static/js/jquery/jquery-1.11.0.min.js"></script>
 </head>
 <body>
+<c:if test="${empty logout}">
 <div id="particles">
 	<div class="intro">
 		<div class="login_main">
@@ -37,8 +44,8 @@
 		</div>
 	</div>
 </div>
+</c:if>
 <script type="text/javascript">
-
 </script>
 </body>
 </html>

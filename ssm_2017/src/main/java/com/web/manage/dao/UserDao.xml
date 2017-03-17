@@ -14,13 +14,38 @@
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="createTime" property="createtime" jdbcType="BIGINT" />
     <result column="updateTime" property="updatetime" jdbcType="BIGINT" />
+    <collection property="roles" select="selectRoleByUser" column="id" ofType="Role"></collection>  
   </resultMap>
 
+  
+    <resultMap type="com.web.manage.pojo.Role" id="RoleResult">  
+	    <id column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="BIGINT" />
+	     <collection property="permissions" select="selectPermissionByRole" column="id" ofType="Permission"></collection>  
+    </resultMap>  
+	<resultMap type="com.web.manage.pojo.Permission" id="PermissionResult">  
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="NOTE" property="note" jdbcType="VARCHAR" />
+	</resultMap>  
+  
+    <select id="selectRoleByUser" parameterType="java.lang.String" resultMap="RoleResult">  
+	    SELECT r.* from li_sys_role r LEFT JOIN li_sys_user_role j on r.id= j.role_id  WHERE j.user_id = #{id,jdbcType=VARCHAR} 
+    </select>  
+    <select id="selectPermissionByRole" parameterType="java.lang.String" resultMap="PermissionResult">  
+	    SELECT p.* from li_sys_permission p LEFT JOIN li_sys_role_permission j on p.id= j.permission_id  WHERE j.role_id = #{id,jdbcType=VARCHAR} 
+    </select>  
+    
+
+    
   <sql id="Base_Column_List" >
     ID, LOGINNAME, password, ORGUID, NAME, MOBILE, ADDRESS, SEQ, isdelete, sex, createTime, 
     updateTime
   </sql>
-
+  
   <sql id="whereFields" >
     <where >
       <if test="loginname != null" >
@@ -66,14 +91,14 @@
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectRoleCodeByLoginName" resultType="java.lang.String" parameterType="java.lang.String" >
-    SELECT r.code from li_sys_user_role j LEFT JOIN li_sys_role r on r.id= j.role_id LEFT JOIN li_sys_user u
+  <!-- <select id="selectRoleByLoginName" resultType="RolseBaseResultMap" parameterType="java.lang.String" >
+    SELECT r.ID, r.NAME, r.CODE, r.CREATETIME from li_sys_user_role j LEFT JOIN li_sys_role r on r.id= j.role_id LEFT JOIN li_sys_user u
      on u.id= j.user_id WHERE u.loginName = #{loginName,jdbcType=VARCHAR}
   </select>
-  <select id="selectPermissionCodeByRoleCode" resultType="java.lang.String" parameterType="java.lang.String" >
-    SELECT p.code from li_sys_role_permission j LEFT JOIN li_sys_role r on r.id= j.role_id LEFT JOIN li_sys_permission p
+  <select id="selectPermissionByRoleCode" resultType="PermissionBaseResultMap" parameterType="java.lang.String" >
+    SELECT p.ID, p.NAME, p.CODE, p.NOTE from li_sys_role_permission j LEFT JOIN li_sys_role r on r.id= j.role_id LEFT JOIN li_sys_permission p
      on p.id= j.permission_id WHERE r.code = #{code,jdbcType=VARCHAR}
-  </select>
+  </select> -->
   
   
 

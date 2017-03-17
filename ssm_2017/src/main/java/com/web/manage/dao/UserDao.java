@@ -6,25 +6,16 @@
 */
 package com.web.manage.dao;
 
-import com.web.manage.pojo.User;
 import java.util.List;
 
-public interface UserDao {
-    int deleteByPrimaryKey(String id);
+import com.web.commons.dao.BaseDao;
+import com.web.manage.pojo.Permission;
+import com.web.manage.pojo.Role;
+import com.web.manage.pojo.User;
 
-    int insert(User record);
+public interface UserDao extends BaseDao<User> {
 
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(String id);
-
-    List<User> selectByStatement(User record);
-
-    int selectByStatementCount(User record);
-
-    int updateByPrimaryKeySelective(User record);
-    
-    List<String> selectRoleCodeByLoginName(String loginName);
-    
-    List<String> selectPermissionCodeByRoleCode(String roleCode);
+//	List<Role> selectRoleByLoginName(String loginName);
+//    
+//    List<Permission> selectPermissionByRoleCode(String roleCode);
 }
