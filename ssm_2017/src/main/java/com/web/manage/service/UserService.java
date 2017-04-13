@@ -9,9 +9,11 @@ import com.web.manage.pojo.User;
 
 
 public interface UserService {
-	public List<User> getUsers();
+	User findById(String id);
+	void saveUser(User user);
+	void deleteUserById(String id);
 	public User findByLoginName(String loginName);
-	UIPage getPage(Map<String, Object> searchParams, int pageNumber, int pageSize);
+	UIPage getPage(User user, int pageNumber, int pageSize);
 	List<Role> getRolesByLoginName(String loginName);
 	
 }

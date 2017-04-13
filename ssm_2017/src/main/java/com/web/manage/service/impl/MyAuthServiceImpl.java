@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.web.commons.util.IsOrEnum;
 import com.web.manage.dao.UserDao;
 import com.web.manage.pojo.Permission;
 import com.web.manage.pojo.Role;
@@ -21,6 +22,7 @@ public class MyAuthServiceImpl implements MyAuthService {
 	public User getUserByUserName(String loginName) {  
 		User user = new User();
 		user.setLoginname(loginName);
+		user.setIsdelete(IsOrEnum.FOU.getKey());
 		List<User> users = userDao.selectByStatement(user);
 		if (CollectionUtils.isNotEmpty(users)) {
 			return users.get(0);

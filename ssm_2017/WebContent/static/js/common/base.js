@@ -1,3 +1,11 @@
+/**
+ * 全局的js变量
+ */
+var contants = {
+	basePath : '/ssm'
+		
+}
+
 
 /**
  * 美化分页插件

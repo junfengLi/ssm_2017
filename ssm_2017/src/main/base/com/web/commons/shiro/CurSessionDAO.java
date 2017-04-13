@@ -1,5 +1,7 @@
 package com.web.commons.shiro;
 
+import java.util.Date;
+
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
@@ -9,7 +11,7 @@ public class CurSessionDAO extends EnterpriseCacheSessionDAO implements SessionL
 
 	@Override
 	public void delete(Session session) {
-		System.out.println("-------------------------------delete-------------------------------"); 
+		System.out.println(new Date().toString() + "-------------------------------delete-------------------------------"); 
 		if (null != session) {
 			// 根据sessionid取出登录日志
 			String sessionidstr = session.getId().toString();

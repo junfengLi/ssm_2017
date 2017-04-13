@@ -36,6 +36,7 @@
 <script src="${ctx}/static/js/jquery/jquery.slimscroll.min.js"></script>
 <script src="${ctx}/static/js/jquery/jquery.easy-pie-chart.min.js"></script>
 <script src="${ctx}/static/js/jquery/jquery.sparkline.min.js"></script>
+<script src="${ctx}/static/js/jquery/jquery.validate.min.js"></script>
 <script src="${ctx}/static/ace/js/flot/jquery.flot.min.js"></script>
 <script src="${ctx}/static/ace/js/flot/jquery.flot.pie.min.js"></script>
 <script src="${ctx}/static/ace/js/flot/jquery.flot.resize.min.js"></script>
@@ -70,6 +71,8 @@
 <script src="${ctx}/static/ace/js/ace.min.js"></script>
 
 <script src="${ctx}/static/js/common/base.js"></script>
+<script src="${ctx}/static/js/common/my.validate.rule.js"></script>
+
 <script type="text/javascript">
 	jQuery(function($) {
 		//美化浏览器的滚动条
@@ -83,7 +86,8 @@
 			autohidemode:true,
 			background:'none',
 			cursorheight:20,
-			cursorborder:'solid 1px #ccc'
+			cursorborder:'solid 1px #ccc',
+			horizrailenabled:false//不处理横向滚动条，交给layerui处理
 		});
 	});
 </script>

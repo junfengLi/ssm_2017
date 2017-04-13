@@ -10,13 +10,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="overflow-x:hidden;">
 <div class="page-content">
 	<div class="page-header">
 		<ul class="breadcrumb">
 			<li>
-				<i class="icon-home home-icon"></i>
-				<a href="#" onclick="openFrame('百度','${ctx }/user/add/forward',500,400);" >首页</a>
+				<a href="#" onclick="openFrame('百度','${ctx }/user/add/forward',600,400);" ><i class="icon-legal home-icon">添加</i></a>
 			</li>
 		</ul><!-- .breadcrumb -->
 	</div><!-- /.page-header -->
@@ -32,9 +31,22 @@
 </div><!-- /.page-content -->
 
 <script type="text/javascript">
+var layer = null;
+var queryData = {};
 $(function(){
+	//queryData.loginname='lijunfeng';
 	pageInit();
+	layui.use(['layer'], function(){layer = layui.layer;});
 });
+
+function pageReload(){
+	var grid_selector = "#grid-table";
+	var pager_selector = "#grid-pager";
+	jQuery(grid_selector).jqGrid("clearGridData");
+	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData });
+	jQuery(grid_selector).trigger("reloadGrid");
+//	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData }).trigger("reloadGrid");
+}
 function pageInit(){
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
@@ -42,6 +54,7 @@ function pageInit(){
 	jQuery(grid_selector).jqGrid({
 	      url : '${ctx}/user/getPage',
 	      datatype : "json",
+	      postData : queryData,
 	      mtype:'POST',
 	      colModel : [ 
 	                   {name : 'id',label: '操作', width : 55,sortable : false, align : 'center'}, 
@@ -52,7 +65,7 @@ function pageInit(){
 	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
 	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'},
-	                   {name: 'flag', label: '操作', width: 150, align: 'center',formatter: 
+	                   {name: 'flag', label: '操作', width: 250, align: 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}},
 	                 ],
 	      rowNum : 10,
@@ -67,7 +80,7 @@ function pageInit(){
 	      //multiboxonly: true,
 	      //viewrecords : true,
 	      //emptyrecords : "暂无数据",
-	      caption : "表格名称",
+	      caption : "用户管理",
 	      height: 'auto',
 	      loadComplete : function() {
 	    	  $(grid_selector).setGridHeight($(window).height() - 290);  
@@ -83,19 +96,44 @@ function pageInit(){
 			},
 	    });
 }	
-function operate(value,rowData,rowIndex){
+function operate(cellvalue, options, rowObject){
 	var html = [];
-	html.push("<a href='#' onclick='show(\""+rowData.id+"\")'>查看</a>");
-	html.push("<a href='#' onclick='show(\""+rowData.id+"\")'>编辑</a>");
-	html.push("<a href='#' onclick='show(\""+rowData.id+"\")'>删除</a>");
+	html.push("<a href='#' class='icon-eye-open' onclick='show(\""+rowObject.id+"\")'>查看</a>");
+	html.push("<a href='#' class='icon-edit' onclick='edit(\""+rowObject.id+"\")'>编辑</a>");
+	html.push("<a href='#' class='icon-undo' onclick='resetPassword(\""+rowObject.id+"\")'>重置密码</a>");
+	if (rowObject.isdelete == '0') {
+		html.push("<a href='#' class='icon-unlock' onclick='lock(\""+rowObject.id+"\",\"锁定\")'>锁定</a>");
+	} else {
+		html.push("<a href='#' class='icon-lock' onclick='lock(\""+rowObject.id+"\",\"解锁\")'>解锁</a>");
+	}
 	return html.join("&nbsp;|&nbsp;");
 }
-
-
-/*****************************************         add方法        ****************************************************/
-function formSub(){
-	 closeFrame();
+function show(id){
+	openFrame('百度','${ctx }/user/show/forward',600,400);
 }
+function edit(id){
+	openFrame('百度','${ctx }/user/add/forward?id=' + id,600,400);
+}
+function resetPassword(id){
+	$.post('${ctx}/user/resetPassword',{id:id},function(data){
+		if (data.result) {
+			layer.msg("重置成功");
+		} else {
+			layer.msg("重置失败");
+		}
+	});
+}
+function lock(id,open){
+	$.post('${ctx}/user/lock',{id:id,open:open},function(data){
+		if (data.result) {
+			layer.msg(open + "成功");
+			pageReload();
+		} else {
+			layer.msg(open + "失败");
+		}
+	});
+}
+
 </script>
 </body>
 </html>

@@ -17,4 +17,31 @@
 <link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" />
 <link rel="stylesheet" href="${ctx }/static/css/base.css" />
 
+<!-- ace settings handler -->
+<script type="text/javascript" src="${ctx }/static/ace/js/ace-extra.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="${ctx }/static/layui/layui.js"></script>
 
+<script type="text/javascript">
+function formSubmit(formId,noCallBack){
+	layui.use(['layer', 'form'], function(){
+		var layer = layui.layer;
+		var _form = $('#'+formId);
+		var _url = _form.attr('action');
+		var index = layer.load(2, {
+			  shade: [0.1,'#ccc'] //0.1透明度的白色背景
+			});
+		$.post(_url, $(_form).serialize(), function (data) {
+			layer.close(index);
+			if(data.success){
+				//noCallBack不传走回调，传了就不走回调
+				if(!noCallBack){
+					submitHandler(data); 
+				}
+			}else{
+				layer.msg('提交失败');
+			}
+		});
+	});
+}
+</script>

@@ -52,6 +52,9 @@
   </delete>
 
   <insert id="insertSelective" parameterType="com.web.manage.pojo.Role" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
     insert into li_sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

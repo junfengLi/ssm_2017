@@ -121,6 +121,9 @@
   </delete>
 
   <insert id="insert" parameterType="com.web.manage.pojo.User" >
+  	<selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
     insert into li_sys_user (ID, LOGINNAME, password, 
       ORGUID, NAME, MOBILE, 
       ADDRESS, SEQ, isdelete, 

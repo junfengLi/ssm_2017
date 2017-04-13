@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	var logout = '${logout}';
 	if (logout != '') {
-		window.location.href="${ctx}/loginForward";
+		top.location.href="${ctx}/loginForward";
 	}
 </script>
 <script type="text/javascript" src="${ctx }/static/js/jquery/jquery-1.11.0.min.js"></script>
@@ -32,8 +32,10 @@
 					<input type="text" name="username" id="username" /> 
 					<span>密码：</span>
 					<input type="password" name="password" id="password" /> 
+					<span>验证码：</span>
+					<input type="text" name="jcaptchaCode" id="jcaptchaCode" /> 
 					<div style="width:100px; height:40px;">
-						<img src="${ctx }/imageCode" class="imageCode" onclick="this.src='${ctx }/imageCode'" />
+						<img src="${ctx }/jcaptcha.jpg" class="imageCode" onclick="this.src='${ctx }/jcaptcha.jpg'" />
 					</div>
 					<button type="submit" class="button" id="login_submit">登 陆</button>
 				</form>

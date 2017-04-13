@@ -18,7 +18,7 @@
     </bean>  
     <!-- 会话管理器 -->
     <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="2800000"/>
+        <property name="globalSessionTimeout" value="1800000"/>
         <property name="deleteInvalidSessions" value="true"/>
 		<property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
@@ -34,7 +34,7 @@
     </bean>
 	<!-- 会话验证调度器 -->
     <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="1800000"/>
+        <property name="sessionValidationInterval" value="600000"/>
         <property name="sessionManager" ref="shiroSessionManager"/>
     </bean>
     <bean id="sessionDAO" class="com.web.commons.shiro.CurSessionDAO">
@@ -51,7 +51,13 @@
         <property name="sessionManager" ref="shiroSessionManager"/>
     </bean>  
 
-	
+	<!-- 验证码过滤器 --> 
+	<bean id="jCaptchaValidateFilter"   
+	  class="com.web.commons.shiro.filter.JCaptchaValidateFilter">  
+	    <property name="jcaptchaEbabled" value="true"/>  
+	    <property name="jcaptchaParam" value="jcaptchaCode"/>  
+	    <property name="failureKeyAttribute" value="shiroLoginFailure"/>  
+	</bean>  
 
     <!--   
        Shiro主过滤器本身功能十分强大，其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行  
@@ -72,6 +78,7 @@
         <property name="filters">
             <util:map>
             	<entry key="logout" value-ref="logoutFilter"/>  
+            	<entry key="jCaptchaValidate" value-ref="jCaptchaValidateFilter" />
                 <entry key="authc" value-ref="myFormAuthenticationFilter"/>
             </util:map>
         </property>
@@ -83,7 +90,8 @@
                 /static/*=anon  
                 /index/*=anon 
                 /imageCode=anon
-                /login=authc
+                /jcaptcha*=anon
+                /login=jCaptchaValidate,authc
                 /logout = logout
                 /**=authc  
             </value>  

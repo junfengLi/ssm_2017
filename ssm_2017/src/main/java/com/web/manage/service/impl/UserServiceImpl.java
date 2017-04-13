@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.CopyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.commons.dao.BaseDao;
 import com.web.commons.jqgrid.UIPage;
+import com.web.commons.util.BeanCopyUtil;
+import com.web.commons.util.IsOrEnum;
 import com.web.manage.dao.UserDao;
 import com.web.manage.pojo.Role;
 import com.web.manage.pojo.User;
@@ -22,20 +25,39 @@ import com.web.manage.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired 
 	private UserDao userDao;
-//	@Autowired
-//	private BaseDao baseDao;
 
 	@Override
-	public List<User> getUsers() {
-		return userDao.selectByStatement(new User());
+	public User findById(String id) {
+		return userDao.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public void saveUser(User user) {
+		if (StringUtils.isBlank(user.getIsdelete())) {
+			user.setIsdelete(IsOrEnum.FOU.getKey());
+		}
+		if (StringUtils.isBlank(user.getId())) {
+			user.setCreatetime(System.currentTimeMillis());
+			user.setUpdatetime(System.currentTimeMillis());
+			userDao.insert(user);
+		} else {
+			user.setUpdatetime(System.currentTimeMillis());
+			userDao.updateByPrimaryKeySelective(user);
+		}
+	}
+
+	@Override
+	public void deleteUserById(String id) {
+		userDao.deleteByPrimaryKey(id);
+	}
+	
 
 	@Override
 	public User findByLoginName(String loginName) {
 		User user = new User();
 		user.setLoginname(loginName);
 		List<User> users = userDao.selectByStatement(user);
-		if (CollectionUtils.isEmpty(users) && users.size() != 0) {
+		if (CollectionUtils.isNotEmpty(users) && users.size() != 0) {
 			return users.get(0);
 		} else {
 			return null;
@@ -43,28 +65,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UIPage getPage(Map<String, Object> searchParams, int pageNumber, int pageSize) {
-		
-//		List<Map<String, Object>> maps = baseDao.select(new SqlVO("select * from li_sys_user"));
-//		System.out.println(maps);
-//		userDao.selectByStatementCount(record)
+	public UIPage getPage(User user, int pageNumber, int pageSize) {
 		UIPage page = new UIPage();
 		List<Map<String,Object>> rows=new ArrayList<Map<String,Object>>();
-		for (int i = Integer.valueOf(pageNumber) - 1 ; i < Integer.valueOf(pageNumber) *pageSize ; i++) {
-    		Map<String,Object> row=new HashMap<String, Object>();
-    		row.put("id", i);
-    		row.put("name", "name" + i);
+		List<User> users = userDao.selectByStatement(user);
+		long count = userDao.selectByStatementCount(user);
+		for (User user2 : users) {
+			@SuppressWarnings("unchecked")
+			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(user2);
     		rows.add(row);
 		}
 		page.setRows(rows);
-    	page.setRecords(20);
+    	page.setRecords(count);
     	return page;
 	}
 
 	@Override
 	public List<Role> getRolesByLoginName(String loginName) {
-		return null;// userDao.selectRoleByLoginName(loginName);
+		User user = findByLoginName(loginName);
+		if (user != null) {
+			return user.getRoles();
+		} else {
+			return null;
+		}
 	}
+
+
 	
 
 }

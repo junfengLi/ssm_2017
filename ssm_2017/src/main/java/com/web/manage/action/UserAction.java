@@ -8,16 +8,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.commons.jqgrid.UIPage;
+import com.web.commons.util.IsOrEnum;
 import com.web.manage.pojo.User;
 import com.web.manage.service.UserService;
 
@@ -62,7 +65,12 @@ public class UserAction {
      */
     @RequestMapping("/{module}/forward")
     public String forward(@PathVariable("module")String module,
-    		Model model,HttpServletRequest request,HttpServletResponse response) {  
+    		@RequestParam(value="id",defaultValue="")String id,
+    		Model model,HttpServletRequest request,HttpServletResponse response) {
+    	if (StringUtils.isNotBlank(id)) {
+			User user = userService.findById(id);
+			model.addAttribute("user", user);
+		}
     	
         return BASE_PATH + module;  
     }
@@ -80,12 +88,78 @@ public class UserAction {
     //--------------------------------------异步数据---------------------------------------------------
     @RequestMapping("/getPage")
     @ResponseBody
-    public UIPage getPage(@RequestParam(value="page",defaultValue="1")int pageNum,
+    public UIPage getPage(User user,@RequestParam(value="page",defaultValue="1")int pageNum,
 			@RequestParam(value="rows",defaultValue="10")int pageSize,
 			HttpServletRequest request){
-    	Map<String, Object> searchParams = new HashMap<>();
-    	searchParams.put("loginName", "lijunfeng");
-    	UIPage page = userService.getPage(searchParams, pageNum, pageSize); 
+    	UIPage page = userService.getPage(user, pageNum, pageSize); 
     	return page;
     }
+    
+    @RequestMapping(value="/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> save(User user,
+			HttpServletRequest request){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	userService.saveUser(user);
+    	resultMap.put("result", true);
+    	resultMap.put("success", true);
+    	return resultMap;
+    }
+    
+    
+    @RequestMapping(value="/isOnly", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> isOnly(@RequestParam(value="loginName", defaultValue = "") String loginName){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	if (StringUtils.isNotBlank(loginName)) {
+    		User user = userService.findByLoginName(loginName);
+    		resultMap.put("result", user == null);
+		} else {
+			resultMap.put("result", true);
+		}
+    	return resultMap;
+    }
+    
+    
+    @RequestMapping(value="/resetPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> resetPassword(@RequestParam(value="id", defaultValue = "") String id){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	if (StringUtils.isNotBlank(id)) {
+    		User user = userService.findById(id);
+    		if (user != null) {
+				user.setPassword("123456");
+				userService.saveUser(user);
+				resultMap.put("result", true);
+			} else {
+				resultMap.put("result", false);
+			}
+		} else {
+			resultMap.put("result", false);
+		}
+    	return resultMap;
+    }
+    
+    @RequestMapping(value="/lock", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> lock(@RequestParam(value="id", defaultValue = "") String id,
+    		@RequestParam(value="open", defaultValue = "") String open){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	if (StringUtils.isNotBlank(id)) {
+    		User user = userService.findById(id);
+    		if (user != null) {
+    			String isDelete = "锁定".equals(open) ? IsOrEnum.SHI.getKey() : IsOrEnum.FOU.getKey();
+				user.setIsdelete(isDelete);
+				userService.saveUser(user);
+				resultMap.put("result", true);
+			} else {
+				resultMap.put("result", false);
+			}
+		} else {
+			resultMap.put("result", false);
+		}
+    	return resultMap;
+    }
+    
+    
 }  

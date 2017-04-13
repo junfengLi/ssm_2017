@@ -49,6 +49,12 @@ public static HashMap CopyBeanToMap(Object source) {
 	return CopyBeanToMap(source, true);
 }
 
+/**
+ * 
+ * @param source对象数据
+ * @param toLower是否区分大小写
+ * @return
+ */
 public static HashMap CopyBeanToMap(Object source, boolean toLower) {
 	HashMap map = new HashMap();
 	try {
