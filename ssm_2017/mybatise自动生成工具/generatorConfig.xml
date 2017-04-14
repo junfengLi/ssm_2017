@@ -35,9 +35,11 @@
         	<!-- <property name="rootInterface" value="com.web.commons.dao.BaseDao"/> -->
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-         <table tableName="li_sys_role" domainObjectName="Role" enableCountByExample="false" 
+         <table tableName="li_project_info" domainObjectName="Info" enableCountByExample="false" 
         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-         <table tableName="li_sys_permission" domainObjectName="Permission" enableCountByExample="false" 
+         <table tableName="li_project_speed" domainObjectName="Speed" enableCountByExample="false" 
+        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="li_project_online" domainObjectName="Online" enableCountByExample="false" 
         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 </generatorConfiguration>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.manage.dao.OnlineDao" >
+  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Online" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="infoid" property="infoid" jdbcType="VARCHAR" />
+    <result column="editbackgroundtime" property="editbackgroundtime" jdbcType="BIGINT" />
+    <result column="pushheadtime" property="pushheadtime" jdbcType="BIGINT" />
+    <result column="informationtime" property="informationtime" jdbcType="BIGINT" />
+    <result column="itemsettime" property="itemsettime" jdbcType="BIGINT" />
+    <result column="bannertime" property="bannertime" jdbcType="BIGINT" />
+    <result column="infohref" property="infohref" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, userid, infoid, editbackgroundtime, pushheadtime, informationtime, itemsettime, 
+    bannertime, infohref
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="userid != null" >
+         and userid = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="infoid != null" >
+         and infoid = #{infoid,jdbcType=VARCHAR}
+      </if>
+      <if test="editbackgroundtime != null" >
+         and editbackgroundtime = #{editbackgroundtime,jdbcType=BIGINT}
+      </if>
+      <if test="pushheadtime != null" >
+         and pushheadtime = #{pushheadtime,jdbcType=BIGINT}
+      </if>
+      <if test="informationtime != null" >
+         and informationtime = #{informationtime,jdbcType=BIGINT}
+      </if>
+      <if test="itemsettime != null" >
+         and itemsettime = #{itemsettime,jdbcType=BIGINT}
+      </if>
+      <if test="bannertime != null" >
+         and bannertime = #{bannertime,jdbcType=BIGINT}
+      </if>
+      <if test="infohref != null" >
+         and infohref = #{infohref,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_online
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Online" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_online
+    <include refid="whereFields" />
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Online" >
+    select count(1) from li_project_online
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from li_project_online
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.web.manage.pojo.Online" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+    insert into li_project_online
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="infoid != null" >
+        infoid,
+      </if>
+      <if test="editbackgroundtime != null" >
+        editbackgroundtime,
+      </if>
+      <if test="pushheadtime != null" >
+        pushheadtime,
+      </if>
+      <if test="informationtime != null" >
+        informationtime,
+      </if>
+      <if test="itemsettime != null" >
+        itemsettime,
+      </if>
+      <if test="bannertime != null" >
+        bannertime,
+      </if>
+      <if test="infohref != null" >
+        infohref,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoid != null" >
+        #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="editbackgroundtime != null" >
+        #{editbackgroundtime,jdbcType=BIGINT},
+      </if>
+      <if test="pushheadtime != null" >
+        #{pushheadtime,jdbcType=BIGINT},
+      </if>
+      <if test="informationtime != null" >
+        #{informationtime,jdbcType=BIGINT},
+      </if>
+      <if test="itemsettime != null" >
+        #{itemsettime,jdbcType=BIGINT},
+      </if>
+      <if test="bannertime != null" >
+        #{bannertime,jdbcType=BIGINT},
+      </if>
+      <if test="infohref != null" >
+        #{infohref,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Online" >
+    update li_project_online
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoid != null" >
+        infoid = #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="editbackgroundtime != null" >
+        editbackgroundtime = #{editbackgroundtime,jdbcType=BIGINT},
+      </if>
+      <if test="pushheadtime != null" >
+        pushheadtime = #{pushheadtime,jdbcType=BIGINT},
+      </if>
+      <if test="informationtime != null" >
+        informationtime = #{informationtime,jdbcType=BIGINT},
+      </if>
+      <if test="itemsettime != null" >
+        itemsettime = #{itemsettime,jdbcType=BIGINT},
+      </if>
+      <if test="bannertime != null" >
+        bannertime = #{bannertime,jdbcType=BIGINT},
+      </if>
+      <if test="infohref != null" >
+        infohref = #{infohref,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

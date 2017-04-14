@@ -22,14 +22,14 @@ import com.web.commons.util.IsOrEnum;
 import com.web.manage.pojo.User;
 import com.web.manage.service.UserService;
 
-@RequestMapping("/user")  
+@RequestMapping("/info")  
 @Controller
-public class UserAction {  
+public class InfoAction {  
 	@Autowired
 	private UserService userService;
 	
 	
-	private static final String BASE_PATH = "/manage/sys/user/";
+	private static final String BASE_PATH = "/manage/info/";
 
     /**
      * 页面加载

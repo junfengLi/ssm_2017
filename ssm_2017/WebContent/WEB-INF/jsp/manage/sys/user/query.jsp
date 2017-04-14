@@ -23,79 +23,120 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<!-- PAGE CONTENT BEGINS -->
-			<table id="grid-table"></table>
-			<div id="grid-pager"></div>
-			<!-- PAGE CONTENT ENDS -->
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="table-header">
+						Results for "Latest Registered Domains"
+					</div>
+					<div class="table-responsive">
+					<table id="example" class="display" cellspacing="0" width="100%">
+				        <thead>
+				            <tr>
+				                <th>Name</th>
+				                <th>Position</th>
+				                <th>Office</th>
+				                <th>Extn.</th>
+				                <th>Start date</th>
+				                <th>Salary</th>
+				            </tr>
+				        </thead>
+				        <tfoot>
+				            <tr>
+				                <th>Name</th>
+				                <th>Position</th>
+				                <th>Office</th>
+				                <th>Extn.</th>
+				                <th>Start date</th>
+				                <th>Salary</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+						<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center">
+										<label>
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th>Domain</th>
+									<th>Price</th>
+									<th>Clicks</th>
+									<th>Update</th>
+									<th>Status</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="center">
+										<label>
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</td>
+									<td>
+										<a href="#">app.com</a>
+									</td>
+									<td>$45</td>
+									<td class="hidden-480">3,330</td>
+									<td>Feb 12</td>
+									<td class="hidden-480">
+										<span class="label label-sm label-warning">Expiring</span>
+									</td>
+									<td>
+										<a href="#">app.com</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="center">
+										<label>
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</td>
+									<td>
+										<a href="#">app.com</a>
+									</td>
+									<td>$45</td>
+									<td class="hidden-480">3,330</td>
+									<td>Feb 12</td>
+									<td class="hidden-480">
+										<span class="label label-sm label-warning">Expiring</span>
+									</td>
+									<td>
+										<a href="#">app.com</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div><!-- /.col -->
 	</div><!-- /.row -->
 </div><!-- /.page-content -->
 
 <script type="text/javascript">
-var layer = null;
-var queryData = {};
-$(function(){
-	//queryData.loginname='lijunfeng';
-	pageInit();
-	layui.use(['layer'], function(){layer = layui.layer;});
-});
-
-function pageReload(){
-	var grid_selector = "#grid-table";
-	var pager_selector = "#grid-pager";
-	jQuery(grid_selector).jqGrid("clearGridData");
-	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData });
-	jQuery(grid_selector).trigger("reloadGrid");
-//	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData }).trigger("reloadGrid");
-}
-function pageInit(){
-	var grid_selector = "#grid-table";
-	var pager_selector = "#grid-pager";
-	
-	jQuery(grid_selector).jqGrid({
-	      url : '${ctx}/user/getPage',
-	      datatype : "json",
-	      postData : queryData,
-	      mtype:'POST',
-	      colModel : [ 
-	                   {name : 'id',label: '操作', width : 55,sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'},
-	                   {name: 'flag', label: '操作', width: 250, align: 'center',formatter: 
-	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}},
-	                 ],
-	      rowNum : 10,
-	      rowList : [ 10, 20, 30 ],
-	      pager : pager_selector,
-	      sortname : 'id',
-	      viewrecords : true,
-	      autowidth: true,
-	      sortorder : "desc",
-	      rownumbers : true,
-	      //multiselect: true,
-	      //multiboxonly: true,
-	      //viewrecords : true,
-	      //emptyrecords : "暂无数据",
-	      caption : "用户管理",
-	      height: 'auto',
-	      loadComplete : function() {
-	    	  $(grid_selector).setGridHeight($(window).height() - 290);  
-				var w2 = parseInt($('.ui-jqgrid-labels>th:eq(2)').css('width'))-3;  
-					$('.ui-jqgrid-lables>th:eq(2)').css('width',w2);  
-					$('#grid-table tr').find("td:eq(2)").each(function(){  
-					$(this).css('width',w2);  
-				});  
-				var table = this;
-				setTimeout(function(){
-					updatePagerIcons(table);
-				}, 0);
-			},
-	    });
-}	
+			jQuery(function($) {
+				
+				$('#example').DataTable( {
+			        "processing": true,
+			        "serverSide": true,
+			        "ajax": '${ctx}/user/getPage'
+			    } );
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			})
 function operate(cellvalue, options, rowObject){
 	var html = [];
 	html.push("<a href='#' class='icon-eye-open' onclick='show(\""+rowObject.id+"\")'>查看</a>");

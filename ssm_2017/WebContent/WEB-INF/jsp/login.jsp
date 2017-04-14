@@ -9,6 +9,8 @@
 <meta http-equiv="Pragma" CONTENT="no-cache">
 <meta charset="utf-8">
 <title>登陆</title>
+</head>
+<body>
 <script type="text/javascript">
 	var logout = '${logout}';
 	if (logout != '') {
@@ -16,8 +18,6 @@
 	}
 </script>
 <script type="text/javascript" src="${ctx }/static/js/jquery/jquery-1.11.0.min.js"></script>
-</head>
-<body>
 <c:if test="${empty logout}">
 <div id="particles">
 	<div class="intro">

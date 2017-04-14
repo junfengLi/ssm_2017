@@ -59,7 +59,8 @@
 <script src="${ctx}/static/js/jqForm/jquery.inputlimiter.1.3.1.min.js"></script>
 <script src="${ctx}/static/js/jqForm/jquery.maskedinput.min.js"></script>
 
-
+<script src="${ctx}/static/js/jquery/jquery.dataTables.min.js"></script>
+<script src="${ctx}/static/js/jquery/jquery.dataTables.bootstrap.js"></script>
 
 
 <script src="${ctx}/static/js/jqGrid/jquery.dataTables.min.js"></script>

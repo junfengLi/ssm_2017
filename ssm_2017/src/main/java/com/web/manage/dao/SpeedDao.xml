@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.manage.dao.SpeedDao" >
+  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Speed" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="infoid" property="infoid" jdbcType="VARCHAR" />
+    <result column="asktime" property="asktime" jdbcType="BIGINT" />
+    <result column="sendmenutime" property="sendmenutime" jdbcType="BIGINT" />
+    <result column="interviewtime" property="interviewtime" jdbcType="BIGINT" />
+    <result column="asktype" property="asktype" jdbcType="VARCHAR" />
+    <result column="finshnewstime" property="finshnewstime" jdbcType="BIGINT" />
+    <result column="onlinetime" property="onlinetime" jdbcType="BIGINT" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="sendneedtime" property="sendneedtime" jdbcType="BIGINT" />
+    <result column="backtime" property="backtime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, userid, infoid, asktime, sendmenutime, interviewtime, asktype, finshnewstime, 
+    onlinetime, source, sendneedtime, backtime
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="userid != null" >
+         and userid = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="infoid != null" >
+         and infoid = #{infoid,jdbcType=VARCHAR}
+      </if>
+      <if test="asktime != null" >
+         and asktime = #{asktime,jdbcType=BIGINT}
+      </if>
+      <if test="sendmenutime != null" >
+         and sendmenutime = #{sendmenutime,jdbcType=BIGINT}
+      </if>
+      <if test="interviewtime != null" >
+         and interviewtime = #{interviewtime,jdbcType=BIGINT}
+      </if>
+      <if test="asktype != null" >
+         and asktype = #{asktype,jdbcType=VARCHAR}
+      </if>
+      <if test="finshnewstime != null" >
+         and finshnewstime = #{finshnewstime,jdbcType=BIGINT}
+      </if>
+      <if test="onlinetime != null" >
+         and onlinetime = #{onlinetime,jdbcType=BIGINT}
+      </if>
+      <if test="source != null" >
+         and source = #{source,jdbcType=VARCHAR}
+      </if>
+      <if test="sendneedtime != null" >
+         and sendneedtime = #{sendneedtime,jdbcType=BIGINT}
+      </if>
+      <if test="backtime != null" >
+         and backtime = #{backtime,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_speed
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Speed" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_speed
+    <include refid="whereFields" />
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Speed" >
+    select count(1) from li_project_speed
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from li_project_speed
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.web.manage.pojo.Speed" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+    insert into li_project_speed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="infoid != null" >
+        infoid,
+      </if>
+      <if test="asktime != null" >
+        asktime,
+      </if>
+      <if test="sendmenutime != null" >
+        sendmenutime,
+      </if>
+      <if test="interviewtime != null" >
+        interviewtime,
+      </if>
+      <if test="asktype != null" >
+        asktype,
+      </if>
+      <if test="finshnewstime != null" >
+        finshnewstime,
+      </if>
+      <if test="onlinetime != null" >
+        onlinetime,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="sendneedtime != null" >
+        sendneedtime,
+      </if>
+      <if test="backtime != null" >
+        backtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoid != null" >
+        #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="asktime != null" >
+        #{asktime,jdbcType=BIGINT},
+      </if>
+      <if test="sendmenutime != null" >
+        #{sendmenutime,jdbcType=BIGINT},
+      </if>
+      <if test="interviewtime != null" >
+        #{interviewtime,jdbcType=BIGINT},
+      </if>
+      <if test="asktype != null" >
+        #{asktype,jdbcType=VARCHAR},
+      </if>
+      <if test="finshnewstime != null" >
+        #{finshnewstime,jdbcType=BIGINT},
+      </if>
+      <if test="onlinetime != null" >
+        #{onlinetime,jdbcType=BIGINT},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sendneedtime != null" >
+        #{sendneedtime,jdbcType=BIGINT},
+      </if>
+      <if test="backtime != null" >
+        #{backtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Speed" >
+    update li_project_speed
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoid != null" >
+        infoid = #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="asktime != null" >
+        asktime = #{asktime,jdbcType=BIGINT},
+      </if>
+      <if test="sendmenutime != null" >
+        sendmenutime = #{sendmenutime,jdbcType=BIGINT},
+      </if>
+      <if test="interviewtime != null" >
+        interviewtime = #{interviewtime,jdbcType=BIGINT},
+      </if>
+      <if test="asktype != null" >
+        asktype = #{asktype,jdbcType=VARCHAR},
+      </if>
+      <if test="finshnewstime != null" >
+        finshnewstime = #{finshnewstime,jdbcType=BIGINT},
+      </if>
+      <if test="onlinetime != null" >
+        onlinetime = #{onlinetime,jdbcType=BIGINT},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="sendneedtime != null" >
+        sendneedtime = #{sendneedtime,jdbcType=BIGINT},
+      </if>
+      <if test="backtime != null" >
+        backtime = #{backtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

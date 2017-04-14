@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Bootstrap控制台</title>
+<title>投融界客户记录管理系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <jsp:include page="include/css-js.jsp" />
@@ -23,13 +23,13 @@
 			<a href="#" class="navbar-brand">
 				<small>
 					<i class="icon-leaf"></i>
-					ACE后台管理系统
+					投融界客户记录管理系统
 				</small>
 			</a><!-- /.brand -->
 		</div><!-- /.navbar-header -->
 		<div class="navbar-header pull-right" role="navigation">
 			<ul class="nav ace-nav">
-				<li class="grey">
+				<!-- <li class="grey">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 						<i class="icon-tasks"></i>
 						<span class="badge badge-grey">4</span>
@@ -100,9 +100,9 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li>  -->
 
-				<li class="purple">
+				<!-- <li class="purple">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 						<i class="icon-bell-alt icon-animated-bell"></i>
 						<span class="badge badge-important">8</span>
@@ -164,9 +164,9 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li>  -->
 
-				<li class="green">
+				<%-- <li class="green">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 						<i class="icon-envelope icon-animated-vertical"></i>
 						<span class="badge badge-success">5</span>
@@ -235,13 +235,13 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --%>
 				<li class="light-blue">
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-						<img class="nav-user-photo" src="${ctx}/static/ace/avatars/user.jpg" alt="Jason's Photo" />
+						<img class="nav-user-photo" src="${ctx}/static/ace/avatars/user.jpg" />
 						<span class="user-info">
-							<small>欢迎光临,</small>
-							Jason
+							<small>欢迎光临</small>
+							${user.name }
 						</span>
 
 						<i class="icon-caret-down"></i>
@@ -296,9 +296,29 @@
 						<span class="menu-text"> 控制台 </span>
 					</a>
 				</li>
-				<li>
+				<li class="">
+					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/info/query/load">
+						<i class="icon-group"></i>
+						<span class="menu-text"> 客户管理 </span>
+					</a>
+				</li>
+				<shiro:hasPermission name="sys">
+				<%-- <li class="">
+					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/user/query/load">
+						<i class="icon-group"></i>
+						<span class="menu-text"> 用户管理 </span>
+					</a>
+				</li> --%>
+				<li class="">
+					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/user/query2/load">
+						<i class="icon-group"></i>
+						<span class="menu-text"> 用户管理 </span>
+					</a>
+				</li>
+				</shiro:hasPermission>
+				<%-- <li>
 					<a href="#" class="dropdown-toggle">
-						<i class="icon-desktop"></i>
+						<i class="icon-group"></i>
 						<span class="menu-text">系统配置</span>
 						<b class="arrow icon-angle-down"></b>
 					</a>
@@ -330,7 +350,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --%>
 			</ul><!-- /.nav-list -->
 			<div class="sidebar-collapse" id="sidebar-collapse">
 				<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
