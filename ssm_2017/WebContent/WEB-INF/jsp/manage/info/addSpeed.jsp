@@ -71,17 +71,6 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td class="titleTd"> 客户确认上线时间：</td>
-			<td>
-			<input class="form-control date-picker" id="id-date-picker-6" type="text" name="onlinetime-d" value="${onlinetime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td class="titleTd">客户打分：</td>
 			<td>
 			<input type="text" id="source" name="source" value="${speed.source }" 
@@ -152,9 +141,6 @@ jQuery(function($) {
 		$(this).prev().focus();
 	});
 	$('#id-date-picker-5').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
-	$('#id-date-picker-6').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
 	$('#id-date-picker-7').datepicker({autoclose:true}).next().on(ace.click_event, function(){
