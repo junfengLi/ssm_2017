@@ -34,7 +34,7 @@
 var layer = null;
 var queryData = {};
 $(function(){
-	//queryData.loginname='lijunfeng';
+	queryData.userid='${userid}';
 	pageInit();
 	layui.use(['layer'], function(){layer = layui.layer;});
 });
@@ -135,14 +135,14 @@ function operate(cellvalue, options, rowObject){
 	var speedDesc = rowObject.haveSpeed == '0' ? '新增进度' : '编辑进度';
 	html.push("<a href='#' onclick='addSpeed(\""+rowObject.id+"\",\""+speedDesc+"\")'>" +speedDesc+ "</a>");
 	var onlineDesc = rowObject.haveOnline == '0' ? '新增上线信息' : '编辑上线信息';
-	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\",\""+speedDesc+"\")'>" +onlineDesc+ "</a>");
+	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\",\""+onlineDesc+"\")'>" +onlineDesc+ "</a>");
 	
 	html.push("<a href='#' onclick='deleteinfo(\""+rowObject.id+"\")'>删除客户信息</a>");
 	
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,400,320);
+	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,700,500);
 }
 function edit(id){
 	openFrame('编辑信息','${ctx }/info/add/forward?id=' + id,600,500);

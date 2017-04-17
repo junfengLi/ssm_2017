@@ -49,7 +49,7 @@ public class InfoAction {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(BASE_PATH + module);
 		//-------------------业务数据------------------------
-		
+		model.addAttribute("userid", CommonUtil.getLoginName());		
 		
 		//-------------------业务数据-------------------------
 		modelAndView.addObject(model);
@@ -78,45 +78,49 @@ public class InfoAction {
     		if (module.contains("Speed")) {
 				Speed speed = infoService.findSpeedByInfoId(id);
 				model.addAttribute("speed", speed);
-				if (speed.getAsktime() > 0) {
-	    			model.addAttribute("asktime", DateUtil.getFormatDate(speed.getAsktime()));
-				}
-				if (speed.getSendmenutime() > 0) {
-	    			model.addAttribute("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
-				}
-				if (speed.getInterviewtime() > 0) {
-	    			model.addAttribute("interviewtime", DateUtil.getFormatDate(speed.getInterviewtime()));
-				}
-				if (speed.getFinshnewstime() > 0) {
-	    			model.addAttribute("finshnewstime", DateUtil.getFormatDate(speed.getFinshnewstime()));
-				}
-				if (speed.getOnlinetime() > 0) {
-	    			model.addAttribute("onlinetime", DateUtil.getFormatDate(speed.getOnlinetime()));
-				}
-				if (speed.getSendneedtime() > 0) {
-	    			model.addAttribute("sendneedtime", DateUtil.getFormatDate(speed.getSendneedtime()));
-				}
-				if (speed.getBacktime() > 0) {
-	    			model.addAttribute("backtime", DateUtil.getFormatDate(speed.getBacktime()));
+				if (speed != null) {
+					if (speed.getAsktime() > 0) {
+						model.addAttribute("asktime", DateUtil.getFormatDate(speed.getAsktime()));
+					}
+					if (speed.getSendmenutime() > 0) {
+						model.addAttribute("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
+					}
+					if (speed.getInterviewtime() > 0) {
+						model.addAttribute("interviewtime", DateUtil.getFormatDate(speed.getInterviewtime()));
+					}
+					if (speed.getFinshnewstime() > 0) {
+						model.addAttribute("finshnewstime", DateUtil.getFormatDate(speed.getFinshnewstime()));
+					}
+					if (speed.getOnlinetime() > 0) {
+						model.addAttribute("onlinetime", DateUtil.getFormatDate(speed.getOnlinetime()));
+					}
+					if (speed.getSendneedtime() > 0) {
+						model.addAttribute("sendneedtime", DateUtil.getFormatDate(speed.getSendneedtime()));
+					}
+					if (speed.getBacktime() > 0) {
+						model.addAttribute("backtime", DateUtil.getFormatDate(speed.getBacktime()));
+					}
 				}
 			}
     		if (module.contains("Online")) {
 				Online online = infoService.findOnlineByInfoId(id);
 				model.addAttribute("online", online);
-				if (online.getEditbackgroundtime() > 0) {
-	    			model.addAttribute("editbackgroundtime", DateUtil.getFormatDate(online.getEditbackgroundtime()));
-				}
-				if (online.getPushheadtime() > 0) {
-	    			model.addAttribute("pushheadtime", DateUtil.getFormatDate(online.getPushheadtime()));
-				}
-				if (online.getInformationtime() > 0) {
-	    			model.addAttribute("informationtime", DateUtil.getFormatDate(online.getInformationtime()));
-				}
-				if (online.getItemsettime() > 0) {
-	    			model.addAttribute("itemsettime", DateUtil.getFormatDate(online.getItemsettime()));
-				}
-				if (online.getBannertime() > 0) {
-	    			model.addAttribute("bannertime", DateUtil.getFormatDate(online.getBannertime()));
+				if (online != null) {
+					if (online.getEditbackgroundtime() > 0) {
+						model.addAttribute("editbackgroundtime", DateUtil.getFormatDate(online.getEditbackgroundtime()));
+					}
+					if (online.getPushheadtime() > 0) {
+						model.addAttribute("pushheadtime", DateUtil.getFormatDate(online.getPushheadtime()));
+					}
+					if (online.getInformationtime() > 0) {
+						model.addAttribute("informationtime", DateUtil.getFormatDate(online.getInformationtime()));
+					}
+					if (online.getItemsettime() > 0) {
+						model.addAttribute("itemsettime", DateUtil.getFormatDate(online.getItemsettime()));
+					}
+					if (online.getBannertime() > 0) {
+						model.addAttribute("bannertime", DateUtil.getFormatDate(online.getBannertime()));
+					}
 				}
 			}
     		
