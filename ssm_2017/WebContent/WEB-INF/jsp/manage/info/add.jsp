@@ -98,6 +98,14 @@
 			</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td class="titleTd">排序：</td>
+			<td>
+			<input type="text" id="seq" name="seq" value="${user.seq }<c:if test="${empty user }">500</c:if>" 
+			 placeholder="排序" class="col-xs-12 col-sm-5">
+			</td>
+			<td></td>
+		</tr>
 	</table>
 	<div class="frame_close">
 		<input type="hidden" name="id" value="${info.id }" />
@@ -168,6 +176,10 @@ jQuery(function($) {
 			},
 			note:{
 				maxlength:1000
+			},
+			seq:{
+				number:true,
+				rangelength:[3,3]
 			}
 		},
 		messages: {
@@ -201,6 +213,10 @@ jQuery(function($) {
 			},
 			note:{
 				maxlength:"最多输入{0}个字符",
+			},
+			seq:{
+				number:"只能输入数字",
+				rangelength:"请输入一个{0}位数字"
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法

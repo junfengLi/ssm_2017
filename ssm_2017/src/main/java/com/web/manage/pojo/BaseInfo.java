@@ -36,6 +36,8 @@ public class BaseInfo  extends BasePage{
     private Long createtime;
 
     private Long updatetime;
+    
+    private String seq;
 
     public String getId() {
         return id;
@@ -148,4 +150,12 @@ public class BaseInfo  extends BasePage{
     public void setUpdatetime(Long updatetime) {
         this.updatetime = updatetime;
     }
+
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
 }

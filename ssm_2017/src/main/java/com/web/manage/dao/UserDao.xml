@@ -107,6 +107,7 @@
     <include refid="Base_Column_List" />
     from li_sys_user
     <include refid="whereFields" />
+    order by SEQ desc
      limit #{offset},#{rows} 
   </select>
 
