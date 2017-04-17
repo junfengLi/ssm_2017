@@ -150,10 +150,10 @@ function operate(cellvalue, options, rowObject){
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	openFrame('百度','${ctx }/user/show/forward',600,400);
+	openFrame('查看用户信息','${ctx }/user/show/forward',600,400);
 }
 function edit(id){
-	openFrame('百度','${ctx }/user/add/forward?id=' + id,600,400);
+	openFrame('编辑用户信息','${ctx }/user/add/forward?id=' + id,600,400);
 }
 function resetPassword(id){
 	$.post('${ctx}/user/resetPassword',{id:id},function(data){

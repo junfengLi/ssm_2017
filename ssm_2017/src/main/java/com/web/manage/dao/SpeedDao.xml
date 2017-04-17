@@ -96,6 +96,11 @@
     delete from li_project_speed
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  
+   <delete id="deleteByInfoId" parameterType="java.lang.String" >
+    delete from li_project_speed
+    where infoid = #{infoid,jdbcType=VARCHAR}
+  </delete>
 
   <insert id="insertSelective" parameterType="com.web.manage.pojo.Speed" useGeneratedKeys="true" keyProperty="id" >
   <selectKey keyProperty="id" resultType="String" order="BEFORE">

@@ -13,4 +13,5 @@ import java.util.List;
 public interface SpeedDao extends BaseDao<Speed> {
 	List<Speed> findByUserId(String userid);
 	Speed findByInfoId(String infoid);
+	void deleteByInfoId(String id);
 }

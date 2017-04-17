@@ -17,4 +17,6 @@ public interface InfoService {
 	
 	void saveSpeed(Speed speed);
 	void saveOnline(Online online);
+	void deleteSpeedById(String id);
+	void deleteOnlineById(String id);
 }

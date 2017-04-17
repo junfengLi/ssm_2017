@@ -42,7 +42,7 @@ $(function(){
 $(".page-content").resize(function(){
 	var grid_selector = "#grid-table";
 	jQuery(grid_selector).setGridWidth($(".col-xs-12").width());
-});　
+});
 function pageReload(){
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
@@ -133,11 +133,11 @@ function operate(cellvalue, options, rowObject){
 	html.push("<a href='#' class='icon-edit' onclick='edit(\""+rowObject.id+"\")'>编辑</a>");
 	
 	var speedDesc = rowObject.haveSpeed == '0' ? '新增进度' : '编辑进度';
-	html.push("<a href='#' onclick='addSpeed(\""+rowObject.id+"\")'>" +speedDesc+ "</a>");
+	html.push("<a href='#' onclick='addSpeed(\""+rowObject.id+"\",\""+speedDesc+"\")'>" +speedDesc+ "</a>");
 	var onlineDesc = rowObject.haveOnline == '0' ? '新增上线信息' : '编辑上线信息';
-	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\")'>" +onlineDesc+ "</a>");
+	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\",\""+speedDesc+"\")'>" +onlineDesc+ "</a>");
 	
-	html.push("<a href='#' onclick='delete(\""+rowObject.id+"\")'>删除客户信息</a>");
+	html.push("<a href='#' onclick='deleteinfo(\""+rowObject.id+"\")'>删除客户信息</a>");
 	
 	return html.join("&nbsp;|&nbsp;");
 }
@@ -147,13 +147,29 @@ function show(id){
 function edit(id){
 	openFrame('编辑信息','${ctx }/info/add/forward?id=' + id,600,500);
 }
-function addSpeed(id){
-	openFrame('编辑信息','${ctx }/info/addSpeed/forward?id=' + id,600,500);
+function addSpeed(id,title){
+	openFrame(title + '信息','${ctx }/info/addSpeed/forward?id=' + id,600,500);
 }
-function addOnline(id){
-	openFrame('编辑信息','${ctx }/info/addOnline/forward?id=' + id,600,500);
+function addOnline(id,title){
+	openFrame(title + '信息','${ctx }/info/addOnline/forward?id=' + id,500,400);
 }
-
+function deleteinfo(id){
+	layer.confirm('确认删除客户信息（包括进度和上线信息）', {icon: 3, title:'确认信息'}, function(index){
+		var index2 = layer.load(2, {
+			  shade: [0.1,'#ccc'] //0.1透明度的白色背景
+			});
+		$.post('${ctx }/info/delete', {id:id}, function (data) {
+			layer.close(index2);
+			if(data.result){
+				layer.msg('删除成功');
+				pageReload();
+			}else{
+				layer.msg('删除失败');
+			}
+		});
+	  layer.close(index);
+	});
+}
 </script>
 </body>
 </html>

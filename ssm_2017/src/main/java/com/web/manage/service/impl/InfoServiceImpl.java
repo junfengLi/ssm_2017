@@ -64,9 +64,15 @@ public class InfoServiceImpl implements InfoService {
 			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(info2);
 			Speed speed = speedDao.findByInfoId(info2.getId());
 			if (speed != null) {
-				row.put("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
-				row.put("finshnewstime", DateUtil.getFormatDate(speed.getFinshnewstime()));
-				row.put("backtime", DateUtil.getFormatDate(speed.getBacktime()));
+				if (speed.getSendmenutime() > 0) {
+					row.put("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
+				}
+				if (speed.getFinshnewstime() > 0) {
+					row.put("finshnewstime", DateUtil.getFormatDate(speed.getFinshnewstime()));
+				}
+				if (speed.getBacktime() > 0) {
+					row.put("backtime", DateUtil.getFormatDate(speed.getBacktime()));
+				}
 			} else {
 				row.put("haveSpeed", IsOrEnum.FOU.getKey());
 			}
@@ -110,6 +116,16 @@ public class InfoServiceImpl implements InfoService {
 		} else {
 			onlineDao.insertSelective(online);
 		}
+	}
+
+	@Override
+	public void deleteSpeedById(String id) {
+		speedDao.deleteByInfoId(id);
+	}
+
+	@Override
+	public void deleteOnlineById(String id) {
+		onlineDao.deleteByInfoId(id);
 	}
 
 

@@ -75,13 +75,49 @@ public class InfoAction {
     		if (info.getServicetime() > 0) {
     			model.addAttribute("servicetime", DateUtil.getFormatDate(info.getServicetime()));
 			}
-    		if (module.contains("speed")) {
+    		if (module.contains("Speed")) {
 				Speed speed = infoService.findSpeedByInfoId(id);
 				model.addAttribute("speed", speed);
+				if (speed.getAsktime() > 0) {
+	    			model.addAttribute("asktime", DateUtil.getFormatDate(speed.getAsktime()));
+				}
+				if (speed.getSendmenutime() > 0) {
+	    			model.addAttribute("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
+				}
+				if (speed.getInterviewtime() > 0) {
+	    			model.addAttribute("interviewtime", DateUtil.getFormatDate(speed.getInterviewtime()));
+				}
+				if (speed.getFinshnewstime() > 0) {
+	    			model.addAttribute("finshnewstime", DateUtil.getFormatDate(speed.getFinshnewstime()));
+				}
+				if (speed.getOnlinetime() > 0) {
+	    			model.addAttribute("onlinetime", DateUtil.getFormatDate(speed.getOnlinetime()));
+				}
+				if (speed.getSendneedtime() > 0) {
+	    			model.addAttribute("sendneedtime", DateUtil.getFormatDate(speed.getSendneedtime()));
+				}
+				if (speed.getBacktime() > 0) {
+	    			model.addAttribute("backtime", DateUtil.getFormatDate(speed.getBacktime()));
+				}
 			}
-    		if (module.contains("online")) {
+    		if (module.contains("Online")) {
 				Online online = infoService.findOnlineByInfoId(id);
 				model.addAttribute("online", online);
+				if (online.getEditbackgroundtime() > 0) {
+	    			model.addAttribute("editbackgroundtime", DateUtil.getFormatDate(online.getEditbackgroundtime()));
+				}
+				if (online.getPushheadtime() > 0) {
+	    			model.addAttribute("pushheadtime", DateUtil.getFormatDate(online.getPushheadtime()));
+				}
+				if (online.getInformationtime() > 0) {
+	    			model.addAttribute("informationtime", DateUtil.getFormatDate(online.getInformationtime()));
+				}
+				if (online.getItemsettime() > 0) {
+	    			model.addAttribute("itemsettime", DateUtil.getFormatDate(online.getItemsettime()));
+				}
+				if (online.getBannertime() > 0) {
+	    			model.addAttribute("bannertime", DateUtil.getFormatDate(online.getBannertime()));
+				}
 			}
     		
 		}
@@ -124,29 +160,61 @@ public class InfoAction {
     	return resultMap;
     }
     
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> delete(@RequestParam(value="id",defaultValue="")String id,
+			HttpServletRequest request){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	infoService.deleteInfoById(id);
+    	infoService.deleteSpeedById(id);
+    	infoService.deleteOnlineById(id);
+    	resultMap.put("result", true);
+    	return resultMap;
+    }
+    
     @RequestMapping(value="/speedSave", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> speedSave(Speed speed,
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	String time = request.getParameter("servicetime-d");
-//    	 private Long asktime;
-//    	    private Long sendmenutime;
-//    	    private Long interviewtime;
-//    	    private String asktype;
-//    	    private Long finshnewstime;
-//    	    private Long onlinetime;
-//    	    private String source;
-//    	    private Long sendneedtime;
-//    	    private Long backtime;
+    	String timeasktime = request.getParameter("asktime-d");
+    	String timesendmenutime = request.getParameter("sendmenutime-d");
+    	String timeinterviewtime = request.getParameter("interviewtime-d");
+    	String timefinshnewstime = request.getParameter("finshnewstime-d");
+    	String timeonlinetime = request.getParameter("onlinetime-d");
+    	String timesendneedtime = request.getParameter("sendneedtime-d");
+    	String timebacktime = request.getParameter("backtime-d");
     	
     	
-    	
-    	if (StringUtils.isNotBlank(time)) {
-			long servicetime = DateUtil.getLongDateFromString(time);
-//			info.setServicetime(servicetime);
+    	if (StringUtils.isNotBlank(timeasktime)) {
+			long asktime = DateUtil.getLongDateFromString(timeasktime);
+			speed.setAsktime(asktime);
 		}
-//    	infoService.saveInfo(info);
+    	if (StringUtils.isNotBlank(timesendmenutime)) {
+			long sendmenutime = DateUtil.getLongDateFromString(timesendmenutime);
+			speed.setSendmenutime(sendmenutime);
+		}
+    	if (StringUtils.isNotBlank(timeinterviewtime)) {
+			long interviewtime = DateUtil.getLongDateFromString(timeinterviewtime);
+			speed.setInterviewtime(interviewtime);;
+		}
+    	if (StringUtils.isNotBlank(timefinshnewstime)) {
+			long finshnewstime = DateUtil.getLongDateFromString(timefinshnewstime);
+			speed.setFinshnewstime(finshnewstime);
+		}
+    	if (StringUtils.isNotBlank(timeonlinetime)) {
+			long onlinetime = DateUtil.getLongDateFromString(timeonlinetime);
+			speed.setOnlinetime(onlinetime);
+		}
+    	if (StringUtils.isNotBlank(timesendneedtime)) {
+			long sendneedtime = DateUtil.getLongDateFromString(timesendneedtime);
+			speed.setSendneedtime(sendneedtime);
+		}
+    	if (StringUtils.isNotBlank(timebacktime)) {
+			long backtime = DateUtil.getLongDateFromString(timebacktime);
+			speed.setBacktime(backtime);
+		}
+    	infoService.saveSpeed(speed);
     	resultMap.put("result", true);
     	resultMap.put("success", true);
     	return resultMap;
@@ -157,12 +225,34 @@ public class InfoAction {
     public Map<String, Object> onlineSave(Online online,
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	String time = request.getParameter("servicetime-d");
-    	if (StringUtils.isNotBlank(time)) {
-			long servicetime = DateUtil.getLongDateFromString(time);
-//			info.setServicetime(servicetime);
+    	String timeeditbackgroundtime = request.getParameter("editbackgroundtime-d");
+    	String timepushheadtime = request.getParameter("pushheadtime-d");
+    	String timeinformationtime = request.getParameter("informationtime-d");
+    	String timeitemsettime = request.getParameter("itemsettime-d");
+    	String timebannertime = request.getParameter("bannertime-d");
+    	
+    	if (StringUtils.isNotBlank(timeeditbackgroundtime)) {
+			long editbackgroundtime = DateUtil.getLongDateFromString(timeeditbackgroundtime);
+			online.setEditbackgroundtime(editbackgroundtime);
 		}
-//    	infoService.saveInfo(info);
+    	if (StringUtils.isNotBlank(timepushheadtime)) {
+			long pushheadtime = DateUtil.getLongDateFromString(timepushheadtime);
+			online.setPushheadtime(pushheadtime);
+		}
+    	if (StringUtils.isNotBlank(timeinformationtime)) {
+			long informationtime = DateUtil.getLongDateFromString(timeinformationtime);
+			online.setInformationtime(informationtime);
+		}
+    	if (StringUtils.isNotBlank(timeitemsettime)) {
+			long itemsettime = DateUtil.getLongDateFromString(timeitemsettime);
+			online.setItemsettime(itemsettime);
+		}
+    	if (StringUtils.isNotBlank(timebannertime)) {
+			long bannertime = DateUtil.getLongDateFromString(timebannertime);
+			online.setBannertime(bannertime);
+		}
+    	
+    	infoService.saveOnline(online);
     	resultMap.put("result", true);
     	resultMap.put("success", true);
     	return resultMap;

@@ -13,4 +13,5 @@ import java.util.List;
 public interface OnlineDao extends BaseDao<Online> {
 	List<Online> findByUserId(String userid);
 	Online findByInfoId(String infoid);
+	void deleteByInfoId(String id);
 }
