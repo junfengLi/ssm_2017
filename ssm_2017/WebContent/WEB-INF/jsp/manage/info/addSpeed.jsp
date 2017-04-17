@@ -13,76 +13,23 @@
 </head>
 <body>
 <div class="row">
-	<form action="${ctx }/info/save" id="userForm" method="post">
+	<form action="${ctx }/info/speedSave" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="20%" class="titleTd">姓名：</td>
-			<td  width="50%">
-			<input type="text" id="name" name="name" placeholder="姓名"
-			  value="${info.name }" class="col-xs-12 col-sm-5" autocomplete="off" />
+			<td width="30%" class="titleTd"> 联系客户时间：</td>
+			<td width="45%"> 
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="asktime-d" value="${asktime }"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
 			</td>
 			<td width="25%"></td>
 		</tr>
 		<tr>
-			<td class="titleTd">手机：</td>
+			<td class="titleTd"> 发送采访提纲时间：</td>
 			<td>
-			<input type="text" id="mobile" name="mobile" value="${info.mobile }"
-			 placeholder="手机" class="col-xs-12 col-sm-5" autocomplete="off" />
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">备用手机：</td>
-			<td>
-			<input type="text" id="mobile2" name="mobile2" value="${info.mobile2 }"
-			 placeholder="备用手机" class="col-xs-12 col-sm-5" autocomplete="off" />
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">邮箱：</td>
-			<td>
-			<input type="text" id="email" name="email" value="${info.email }"
-			 placeholder="邮箱" class="col-xs-12 col-sm-5">
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">备用邮箱：</td>
-			<td>
-			<input type="text" id="email2" name="email2" value="${info.email2 }"
-			 placeholder="备用邮箱" class="col-xs-12 col-sm-5">
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">项目名称：</td>
-			<td>
-			<input type="text" id="projectname" name="projectname" value="${info.projectname }"
-			 placeholder="项目名称" class="col-xs-12 col-sm-5">
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">项目链接：</td>
-			<td>
-			<input type="text" id="projecthref" name="projecthref" value="${info.projecthref }" 
-			 placeholder="项目链接" class="col-xs-12 col-sm-5">
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd">服务客服：</td>
-			<td>
-			<input type="text" id="asker" name="asker" value="${info.asker }" 
-			 placeholder="服务客服" class="col-xs-12 col-sm-5">
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="titleTd"> 服务到期时间：</td>
-			<td>
-			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="servicetime-d" value="${servicetime }"
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="sendmenutime-d" value="${sendmenutime }"
 			style="float: left; display: block; width: 85%;" />
 			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
 				<i class="icon-calendar bigger-110"></i>
@@ -91,18 +38,84 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td class="titleTd">备注：</td>
+			<td class="titleTd"> 采访时间：</td>
 			<td>
-			<textarea id="form-field-11" name="note" class="autosize-transition form-control"
-			 style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 70px;margin: 2px 0px;">${info.note }</textarea>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="interviewtime-d" value="${interviewtime }"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd"> 成稿时间：</td>
+			<td>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="finshnewstime-d" value="${finshnewstime }"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd"> 客户确认上线时间：</td>
+			<td>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="onlinetime-d" value="${onlinetime }"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd"> 客户确认上线时间：</td>
+			<td>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="onlinetime-d" value="${onlinetime }"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd">客户打分：</td>
+			<td>
+			<input type="text" id="source" name="source" value="${speed.source }" 
+			 placeholder="客户打分" class="col-xs-12 col-sm-5">
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd"> 发送设计需求时间：</td>
+			<td>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="sendneedtime-d" value="sendneedtime"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd"> 发送反馈时间：</td>
+			<td>
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="backtime-d" value="backtime"
+			style="float: left; display: block; width: 85%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
+				<i class="icon-calendar bigger-110"></i>
+			</span>
 			</td>
 			<td></td>
 		</tr>
 	</table>
 	<div class="frame_close">
-		<input type="hidden" name="id" value="${info.id }" />
-		<input type="hidden" name="createtime" value="${info.createtime }" />
-		<input type="hidden" name="userid" value="${userid }" />
+		<input type="hidden" name="id" value="${speed.id }" />
+		<input type="hidden" name="infoid" value="${info.id }" />
+		<input type="hidden" name="userid" value="${info.userid }" />
 		<button class="btn btn-info" onclick="parent.closeFrame()" type="button"> 关闭</button>
 		<input type="submit" class="btn btn-primary" value="提交" />
 	</div>
@@ -138,69 +151,13 @@ jQuery(function($) {
 			 formSubmit('userForm');
         },
 		rules: {
-			name: {
-				required: true,
+			source: {
 				maxlength: 20
-			},
-			mobile:{
-				mobile: true
-			},
-			mobile2:{
-				mobile: true
-			},
-			email:{
-				maxlength:50,
-				email:true
-			},
-			email2:{
-				maxlength:50,
-				email:true
-			},
-			projectname:{
-				maxlength:100
-			},
-			projecthref:{
-				maxlength:500,
-				url:true
-			},
-			asker:{
-				maxlength:50
-			},
-			note:{
-				maxlength:1000
 			}
 		},
 		messages: {
-			name:{
-				required:"请输入姓名",
+			source:{
 				maxlength: "最多输入20个字符"
-			},
-			mobile:{
-				mobile: "手机格式不正确"
-			},
-			mobile2:{
-				mobile: "手机格式不正确"
-			},
-			email:{
-				maxlength:"最多输入{0}个字符",
-				email:"邮箱格式不正确"
-			},
-			email2:{
-				maxlength:"最多输入{0}个字符",
-				email:"邮箱格式不正确"
-			},
-			projectname:{
-				maxlength:"最多输入{0}个字符",
-			},
-			projecthref:{
-				maxlength:"最多输入{0}个字符",
-				url:"链接格式不正确"
-			},
-			asker:{
-				maxlength:"最多输入{0}个字符",
-			},
-			note:{
-				maxlength:"最多输入{0}个字符",
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法

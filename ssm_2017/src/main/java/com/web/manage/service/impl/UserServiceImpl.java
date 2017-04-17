@@ -1,12 +1,10 @@
 package com.web.manage.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.CopyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.commons.jqgrid.UIPage;
 import com.web.commons.util.BeanCopyUtil;
+import com.web.commons.util.DateUtil;
 import com.web.commons.util.IsOrEnum;
 import com.web.manage.dao.UserDao;
 import com.web.manage.pojo.Role;
@@ -36,12 +35,11 @@ public class UserServiceImpl implements UserService {
 		if (StringUtils.isBlank(user.getIsdelete())) {
 			user.setIsdelete(IsOrEnum.FOU.getKey());
 		}
+		user.setUpdatetime(System.currentTimeMillis());
 		if (StringUtils.isBlank(user.getId())) {
 			user.setCreatetime(System.currentTimeMillis());
-			user.setUpdatetime(System.currentTimeMillis());
-			userDao.insert(user);
+			userDao.insertSelective(user);
 		} else {
-			user.setUpdatetime(System.currentTimeMillis());
 			userDao.updateByPrimaryKeySelective(user);
 		}
 	}
@@ -73,6 +71,7 @@ public class UserServiceImpl implements UserService {
 		for (User user2 : users) {
 			@SuppressWarnings("unchecked")
 			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(user2);
+			row.put("createtime", DateUtil.getFormatDateTime(user2.getCreatetime()));
     		rows.add(row);
 		}
 		page.setRows(rows);

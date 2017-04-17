@@ -15,7 +15,7 @@
 	<div class="page-header">
 		<ul class="breadcrumb">
 			<li>
-				<a href="#" onclick="openFrame('百度','${ctx }/user/add/forward',600,400);" ><i class="icon-legal home-icon">添加</i></a>
+				<a href="#" onclick="openFrame('添加信息','${ctx }/info/add/forward',600,500);" ><i class="icon-legal home-icon">添加</i></a>
 			</li>
 		</ul><!-- .breadcrumb -->
 	</div><!-- /.page-header -->
@@ -39,7 +39,7 @@ $(function(){
 	layui.use(['layer'], function(){layer = layui.layer;});
 });
 
-$(".page-content").resize(function(){　　
+$(".page-content").resize(function(){
 	var grid_selector = "#grid-table";
 	jQuery(grid_selector).setGridWidth($(".col-xs-12").width());
 });　
@@ -56,19 +56,21 @@ function pageInit(){
 	var pager_selector = "#grid-pager";
 	
 	jQuery(grid_selector).jqGrid({
-	      url : '${ctx}/user/getPage',
+	      url : '${ctx}/info/getPage',
 	      datatype : "json",
 	      postData : queryData,
 	      mtype:'POST',
 	      colModel : [ 
-	                   {name : 'id',label: '操作', width : 55,sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'},
+	                   {name : 'name',label: '姓名', width : 55,sortable : false, align : 'center'}, 
+	                   {name : 'mobile',label: '电话', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'email',label: '邮箱', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'projecthref',label: '项目链接', width : 50, sortable : false, align : 'center',formatter: 
+	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'项目链接');}}, 
+	                   {name : 'sendmenutime',label: '发送采访提纲时间', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'finshnewstime',label: '成稿时间', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'backtime',label: '发送反馈时间', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'infohref',label: '文章链接', width : 50, sortable : false, align : 'center',formatter: 
+	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}},
 	                   {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}},
 	                 ],
@@ -100,43 +102,56 @@ function pageInit(){
 			},
 	    });
 }	
+
+function updatePagerIcons(table) {
+	var replacement = 
+	{
+		'ui-icon-seek-first' : 'icon-double-angle-left bigger-140',
+		'ui-icon-seek-prev' : 'icon-angle-left bigger-140',
+		'ui-icon-seek-next' : 'icon-angle-right bigger-140',
+		'ui-icon-seek-end' : 'icon-double-angle-right bigger-140'
+	};
+	$("#grid-pager_right div").hide();
+	$('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+		var icon = $(this);
+		var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+		
+		if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+	})
+}
+function href(href, text){
+	if (href != undefined && href != '') {
+		return "<a href='"+href+"' style='color: #428bca;' target='_blank'>"+text+"</a>";
+	} else {
+		return '';
+	}
+}
+
 function operate(cellvalue, options, rowObject){
 	var html = [];
 	html.push("<a href='#' class='icon-eye-open' onclick='show(\""+rowObject.id+"\")'>查看</a>");
 	html.push("<a href='#' class='icon-edit' onclick='edit(\""+rowObject.id+"\")'>编辑</a>");
-	html.push("<a href='#' class='icon-undo' onclick='resetPassword(\""+rowObject.id+"\")'>重置密码</a>");
-	if (rowObject.isdelete == '0') {
-		html.push("<a href='#' class='icon-unlock' onclick='lock(\""+rowObject.id+"\",\"锁定\")'>锁定</a>");
-	} else {
-		html.push("<a href='#' class='icon-lock' onclick='lock(\""+rowObject.id+"\",\"解锁\")'>解锁</a>");
-	}
+	
+	var speedDesc = rowObject.haveSpeed == '0' ? '新增进度' : '编辑进度';
+	html.push("<a href='#' onclick='addSpeed(\""+rowObject.id+"\")'>" +speedDesc+ "</a>");
+	var onlineDesc = rowObject.haveOnline == '0' ? '新增上线信息' : '编辑上线信息';
+	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\")'>" +onlineDesc+ "</a>");
+	
+	html.push("<a href='#' onclick='delete(\""+rowObject.id+"\")'>删除客户信息</a>");
+	
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	openFrame('百度','${ctx }/user/show/forward',600,400);
+	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,400,320);
 }
 function edit(id){
-	openFrame('百度','${ctx }/user/add/forward?id=' + id,600,400);
+	openFrame('编辑信息','${ctx }/info/add/forward?id=' + id,600,500);
 }
-function resetPassword(id){
-	$.post('${ctx}/user/resetPassword',{id:id},function(data){
-		if (data.result) {
-			layer.msg("重置成功");
-		} else {
-			layer.msg("重置失败");
-		}
-	});
+function addSpeed(id){
+	openFrame('编辑信息','${ctx }/info/addSpeed/forward?id=' + id,600,500);
 }
-function lock(id,open){
-	$.post('${ctx}/user/lock',{id:id,open:open},function(data){
-		if (data.result) {
-			layer.msg(open + "成功");
-			pageReload();
-			
-		} else {
-			layer.msg(open + "失败");
-		}
-	});
+function addOnline(id){
+	openFrame('编辑信息','${ctx }/info/addOnline/forward?id=' + id,600,500);
 }
 
 </script>

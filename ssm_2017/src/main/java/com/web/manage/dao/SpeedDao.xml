@@ -65,6 +65,19 @@
     from li_project_speed
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_speed
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+    <select id="findByInfoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_speed
+    where infoid = #{infoid,jdbcType=VARCHAR}
+  </select>
 
   <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Speed" >
     select 

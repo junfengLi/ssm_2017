@@ -61,14 +61,14 @@ function pageInit(){
 	      postData : queryData,
 	      mtype:'POST',
 	      colModel : [ 
-	                   {name : 'id',label: '操作', width : 55,sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
-	                   {name : 'name',label: '操作', width : 100, sortable : false, align : 'center'},
+	                  // {name : 'id',label: '序号', width : 55,sortable : false, align : 'center'}, 
+	                   {name : 'name',label: '姓名', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'loginname',label: '登录名', width : 55, sortable : false, align : 'center'}, 
+	                   {name : 'mobile',label: '联系手机', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'createtime',label: '创建时间', width : 100, sortable : false, align : 'center'}, 
+	                   //{name : 'name',label: '操作', width : 100, sortable : false, align : 'center'}, 
+	                   //{name : 'id',label: '操作', width : 55, sortable : false, align : 'center'}, 
+	                   //{name : 'name',label: '操作', width : 100, sortable : false, align : 'center'},
 	                   {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}},
 	                 ],
@@ -100,6 +100,22 @@ function pageInit(){
 			},
 	    });
 }	
+function updatePagerIcons(table) {
+	var replacement = 
+	{
+		'ui-icon-seek-first' : 'icon-double-angle-left bigger-140',
+		'ui-icon-seek-prev' : 'icon-angle-left bigger-140',
+		'ui-icon-seek-next' : 'icon-angle-right bigger-140',
+		'ui-icon-seek-end' : 'icon-double-angle-right bigger-140'
+	};
+	$("#grid-pager_right div").hide();
+	$('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+		var icon = $(this);
+		var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+		
+		if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+	})
+}
 function operate(cellvalue, options, rowObject){
 	var html = [];
 	html.push("<a href='#' class='icon-eye-open' onclick='show(\""+rowObject.id+"\")'>查看</a>");
@@ -113,10 +129,10 @@ function operate(cellvalue, options, rowObject){
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	openFrame('百度','${ctx }/user/show/forward',600,400);
+	openFrame('查看信息','${ctx }/user/show/forward?id=' + id,400,320);
 }
 function edit(id){
-	openFrame('百度','${ctx }/user/add/forward?id=' + id,600,400);
+	openFrame('编辑信息','${ctx }/user/add/forward?id=' + id,600,400);
 }
 function resetPassword(id){
 	$.post('${ctx}/user/resetPassword',{id:id},function(data){

@@ -5,7 +5,7 @@ import java.util.List;
 public interface BaseDao<T> {  
 	int deleteByPrimaryKey(String id);
 
-    int insert(T record);
+    //int insert(T record);
 
     int insertSelective(T record);
 

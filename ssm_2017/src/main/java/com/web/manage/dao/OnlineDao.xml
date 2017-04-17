@@ -62,6 +62,20 @@
      limit #{offset},#{rows} 
   </select>
 
+<select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_online
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findByInfoId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_online
+    where infoid = #{infoid,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Online" >
     select count(1) from li_project_online
     <include refid="whereFields" />

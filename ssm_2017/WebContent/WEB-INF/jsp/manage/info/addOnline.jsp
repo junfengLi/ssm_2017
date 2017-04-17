@@ -26,7 +26,7 @@
 		<tr>
 			<td class="titleTd">手机：</td>
 			<td>
-			<input type="text" id="mobile" name="mobile" value="${info.mobile }"
+			<input type="text" id="mobile" name="mobile" value="${info.email }"
 			 placeholder="手机" class="col-xs-12 col-sm-5" autocomplete="off" />
 			</td>
 			<td></td>
@@ -34,7 +34,7 @@
 		<tr>
 			<td class="titleTd">备用手机：</td>
 			<td>
-			<input type="text" id="mobile2" name="mobile2" value="${info.mobile2 }"
+			<input type="text" id="mobile2" name="mobile2" value="${info.email2 }"
 			 placeholder="备用手机" class="col-xs-12 col-sm-5" autocomplete="off" />
 			</td>
 			<td></td>
@@ -82,7 +82,7 @@
 		<tr>
 			<td class="titleTd"> 服务到期时间：</td>
 			<td>
-			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="servicetime-d" value="${servicetime }"
+			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="servicetime-d"
 			style="float: left; display: block; width: 85%;" />
 			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
 				<i class="icon-calendar bigger-110"></i>
@@ -94,7 +94,7 @@
 			<td class="titleTd">备注：</td>
 			<td>
 			<textarea id="form-field-11" name="note" class="autosize-transition form-control"
-			 style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 70px;margin: 2px 0px;">${info.note }</textarea>
+			 style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 70px;margin: 2px 0px;"></textarea>
 			</td>
 			<td></td>
 		</tr>

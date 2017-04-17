@@ -43,8 +43,8 @@ java.io.tmpdir默认的临时文件路径
     <defaultCache
             maxElementsInMemory="10000"
             eternal="false"
-            timeToIdleSeconds="120000"
-            timeToLiveSeconds="120000"
+            timeToIdleSeconds="12000"
+            timeToLiveSeconds="12000"
             overflowToDisk="false"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"

@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.commons.jqgrid.UIPage;
-import com.web.commons.util.IsOrEnum;
-import com.web.manage.pojo.User;
-import com.web.manage.service.UserService;
+import com.web.commons.util.CommonUtil;
+import com.web.commons.util.DateUtil;
+import com.web.manage.pojo.BaseInfo;
+import com.web.manage.pojo.Online;
+import com.web.manage.pojo.Speed;
+import com.web.manage.service.InfoService;
 
 @RequestMapping("/info")  
 @Controller
 public class InfoAction {  
 	@Autowired
-	private UserService userService;
+	private InfoService infoService;
 	
 	
 	private static final String BASE_PATH = "/manage/info/";
@@ -65,11 +68,23 @@ public class InfoAction {
     public String forward(@PathVariable("module")String module,
     		@RequestParam(value="id",defaultValue="")String id,
     		Model model,HttpServletRequest request,HttpServletResponse response) {
+    	model.addAttribute("userid", CommonUtil.getLoginName());
     	if (StringUtils.isNotBlank(id)) {
-			User user = userService.findById(id);
-			model.addAttribute("user", user);
+    		BaseInfo info = infoService.findById(id);
+    		model.addAttribute("info", info);
+    		if (info.getServicetime() > 0) {
+    			model.addAttribute("servicetime", DateUtil.getFormatDate(info.getServicetime()));
+			}
+    		if (module.contains("speed")) {
+				Speed speed = infoService.findSpeedByInfoId(id);
+				model.addAttribute("speed", speed);
+			}
+    		if (module.contains("online")) {
+				Online online = infoService.findOnlineByInfoId(id);
+				model.addAttribute("online", online);
+			}
+    		
 		}
-    	
         return BASE_PATH + module;  
     }
     
@@ -86,78 +101,72 @@ public class InfoAction {
     //--------------------------------------异步数据---------------------------------------------------
     @RequestMapping("/getPage")
     @ResponseBody
-    public UIPage getPage(User user,@RequestParam(value="page",defaultValue="1")int pageNum,
+    public UIPage getPage(BaseInfo info,@RequestParam(value="page",defaultValue="1")int pageNum,
 			@RequestParam(value="rows",defaultValue="10")int pageSize,
 			HttpServletRequest request){
-    	UIPage page = userService.getPage(user, pageNum, pageSize); 
+    	UIPage page = infoService.getPage(info, pageNum, pageSize); 
     	return page;
     }
     
     @RequestMapping(value="/save", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> save(User user,
+    public Map<String, Object> save(BaseInfo info,
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	userService.saveUser(user);
+    	String time = request.getParameter("servicetime-d");
+    	if (StringUtils.isNotBlank(time)) {
+			long servicetime = DateUtil.getLongDateFromString(time);
+			info.setServicetime(servicetime);
+		}
+    	infoService.saveInfo(info);
     	resultMap.put("result", true);
     	resultMap.put("success", true);
     	return resultMap;
     }
     
-    
-    @RequestMapping(value="/isOnly", method = RequestMethod.POST)
+    @RequestMapping(value="/speedSave", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> isOnly(@RequestParam(value="loginName", defaultValue = "") String loginName){
+    public Map<String, Object> speedSave(Speed speed,
+			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	if (StringUtils.isNotBlank(loginName)) {
-    		User user = userService.findByLoginName(loginName);
-    		resultMap.put("result", user == null);
-		} else {
-			resultMap.put("result", true);
+    	String time = request.getParameter("servicetime-d");
+//    	 private Long asktime;
+//    	    private Long sendmenutime;
+//    	    private Long interviewtime;
+//    	    private String asktype;
+//    	    private Long finshnewstime;
+//    	    private Long onlinetime;
+//    	    private String source;
+//    	    private Long sendneedtime;
+//    	    private Long backtime;
+    	
+    	
+    	
+    	if (StringUtils.isNotBlank(time)) {
+			long servicetime = DateUtil.getLongDateFromString(time);
+//			info.setServicetime(servicetime);
 		}
+//    	infoService.saveInfo(info);
+    	resultMap.put("result", true);
+    	resultMap.put("success", true);
     	return resultMap;
     }
     
-    
-    @RequestMapping(value="/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(value="/onlineSave", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> resetPassword(@RequestParam(value="id", defaultValue = "") String id){
+    public Map<String, Object> onlineSave(Online online,
+			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	if (StringUtils.isNotBlank(id)) {
-    		User user = userService.findById(id);
-    		if (user != null) {
-				user.setPassword("123456");
-				userService.saveUser(user);
-				resultMap.put("result", true);
-			} else {
-				resultMap.put("result", false);
-			}
-		} else {
-			resultMap.put("result", false);
+    	String time = request.getParameter("servicetime-d");
+    	if (StringUtils.isNotBlank(time)) {
+			long servicetime = DateUtil.getLongDateFromString(time);
+//			info.setServicetime(servicetime);
 		}
+//    	infoService.saveInfo(info);
+    	resultMap.put("result", true);
+    	resultMap.put("success", true);
     	return resultMap;
     }
-    
-    @RequestMapping(value="/lock", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> lock(@RequestParam(value="id", defaultValue = "") String id,
-    		@RequestParam(value="open", defaultValue = "") String open){
-    	Map<String, Object> resultMap = new HashMap<>();
-    	if (StringUtils.isNotBlank(id)) {
-    		User user = userService.findById(id);
-    		if (user != null) {
-    			String isDelete = "锁定".equals(open) ? IsOrEnum.SHI.getKey() : IsOrEnum.FOU.getKey();
-				user.setIsdelete(isDelete);
-				userService.saveUser(user);
-				resultMap.put("result", true);
-			} else {
-				resultMap.put("result", false);
-			}
-		} else {
-			resultMap.put("result", false);
-		}
-    	return resultMap;
-    }
-    
+  
     
 }  

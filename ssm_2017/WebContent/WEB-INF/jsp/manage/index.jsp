@@ -298,7 +298,7 @@
 				</li>
 				<li class="">
 					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/info/query/load">
-						<i class="icon-group"></i>
+						<i class="icon-bar-chart"></i>
 						<span class="menu-text"> 客户管理 </span>
 					</a>
 				</li>

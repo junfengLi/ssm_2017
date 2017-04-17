@@ -137,6 +137,9 @@
   </insert>
 
   <insert id="insertSelective" parameterType="com.web.manage.pojo.User" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
     insert into li_sys_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
