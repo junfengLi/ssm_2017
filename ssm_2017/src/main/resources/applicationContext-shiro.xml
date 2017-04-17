@@ -87,7 +87,7 @@
             	/ = anon
                 /index = anon
                 /loginForward = anon
-                /static/*=anon  
+                /static/**=anon  
                 /index/*=anon 
                 /imageCode=anon
                 /jcaptcha*=anon

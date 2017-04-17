@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<link href="${ctx}/static/favicon.ico" rel="bookmark" type="image/x-icon" /> 
+<link href="${ctx}/static/favicon.ico" rel="icon" type="image/x-icon" /> 
+<link href="${ctx}/static/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+
 <!-- basic styles -->
 <link href="${ctx }/static/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${ctx }/static/ace/css/font-awesome.min.css" />

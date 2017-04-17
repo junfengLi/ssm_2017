@@ -2,22 +2,19 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<html lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Expires" CONTENT="0">
-<meta http-equiv="Cache-Control" CONTENT="no-cache">
-<meta http-equiv="Pragma" CONTENT="no-cache">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>登陆</title>
-</head>
-<body>
+<script type="text/javascript" src="${ctx }/static/js/jquery/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 	var logout = '${logout}';
 	if (logout != '') {
 		top.location.href="${ctx}/loginForward";
 	}
 </script>
-<script type="text/javascript" src="${ctx }/static/js/jquery/jquery-1.11.0.min.js"></script>
+<script type='text/javascript' src='${ctx }/static/js/login/jquery.particleground.min.js'></script>
+<link rel="stylesheet" href="${ctx }/static/css/login/login_bg.css" />
+</head>
+<body>
 <c:if test="${empty logout}">
 <div id="particles">
 	<div class="intro">
@@ -35,19 +32,17 @@
 					<span>验证码：</span>
 					<input type="text" name="jcaptchaCode" id="jcaptchaCode" /> 
 					<div style="width:100px; height:40px;">
-						<img src="${ctx }/jcaptcha.jpg" class="imageCode" onclick="this.src='${ctx }/jcaptcha.jpg'" />
+						<img src="${ctx }/jcaptcha.jpg" class="imageCode" style="margin-left: 50px;" onclick="this.src='${ctx }/jcaptcha.jpg'" />
 					</div>
 					<button type="submit" class="button" id="login_submit">登 陆</button>
 				</form>
 				<c:if test="${not empty error}">
-					<div style="color:#FF9A0A;height:30px;margin-left:400px;margin-top:8px;" id="err_msg">${error}</div>
+					<div style="    color: #f70000; height: 30px; margin-top: 8px; float: left; width: 103px;" id="err_msg">${error}</div>
 				</c:if>
 			</div>
 		</div>
 	</div>
 </div>
 </c:if>
-<script type="text/javascript">
-</script>
 </body>
 </html>
