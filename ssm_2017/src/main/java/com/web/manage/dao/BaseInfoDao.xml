@@ -17,6 +17,7 @@
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
      <result column="seq" property="seq" jdbcType="VARCHAR" />
+     
   </resultMap>
 
   <sql id="Base_Column_List" >
