@@ -101,7 +101,7 @@
 		<tr>
 			<td class="titleTd">排序：</td>
 			<td>
-			<input type="text" id="seq" name="seq" value="${user.seq }<c:if test="${empty user }">500</c:if>" 
+			<input type="text" id="seq" name="seq" value="${info.seq }<c:if test="${empty info }">500</c:if>" 
 			 placeholder="排序" class="col-xs-12 col-sm-5">
 			</td>
 			<td></td>
