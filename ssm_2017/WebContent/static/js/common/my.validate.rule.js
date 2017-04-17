@@ -29,7 +29,7 @@ jQuery.validator.addMethod("phone", function(value, element) {
 }, "电话号码格式错误");
 jQuery.validator.addMethod("mobile", function(value, element) {
 	var length = value.length;
-	var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/
+	var mobile = /^(((13[0-9]{1})|(18[0-9]{1})|(15[0-9]{1}))+\d{8})$/
 	return this.optional(element) || (length == 11 && mobile.test(value));
 }, "手机号码格式错误");
 
