@@ -16,7 +16,7 @@
 	<form action="${ctx }/info/save" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="20%" class="titleTd">姓名：</td>
+			<td width="20%" class="titleTd">姓名0：</td>
 			<td  width="50%">
 			<input type="text" id="name" name="name" placeholder="姓名"
 			  value="${info.name }" class="col-xs-12 col-sm-5" autocomplete="off" />
