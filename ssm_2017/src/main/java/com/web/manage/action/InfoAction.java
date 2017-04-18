@@ -79,9 +79,6 @@ public class InfoAction {
 				Speed speed = infoService.findSpeedByInfoId(id);
 				model.addAttribute("speed", speed);
 				if (speed != null) {
-					if (speed.getAsktime() > 0) {
-						model.addAttribute("asktime", DateUtil.getFormatDate(speed.getAsktime()));
-					}
 					if (speed.getSendmenutime() > 0) {
 						model.addAttribute("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
 					}
@@ -181,7 +178,6 @@ public class InfoAction {
     public Map<String, Object> speedSave(Speed speed,
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
-    	String timeasktime = request.getParameter("asktime-d");
     	String timesendmenutime = request.getParameter("sendmenutime-d");
     	String timeinterviewtime = request.getParameter("interviewtime-d");
     	String timefinshnewstime = request.getParameter("finshnewstime-d");
@@ -190,10 +186,6 @@ public class InfoAction {
     	String timebacktime = request.getParameter("backtime-d");
     	
     	
-    	if (StringUtils.isNotBlank(timeasktime)) {
-			long asktime = DateUtil.getLongDateFromString(timeasktime);
-			speed.setAsktime(asktime);
-		}
     	if (StringUtils.isNotBlank(timesendmenutime)) {
 			long sendmenutime = DateUtil.getLongDateFromString(timesendmenutime);
 			speed.setSendmenutime(sendmenutime);

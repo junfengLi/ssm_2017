@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="infoid" property="infoid" jdbcType="VARCHAR" />
-    <result column="asktime" property="asktime" jdbcType="BIGINT" />
+    <result column="asktime" property="asktime" jdbcType="VARCHAR" />
     <result column="sendmenutime" property="sendmenutime" jdbcType="BIGINT" />
     <result column="interviewtime" property="interviewtime" jdbcType="BIGINT" />
     <result column="asktype" property="asktype" jdbcType="VARCHAR" />
@@ -30,7 +30,7 @@
          and infoid = #{infoid,jdbcType=VARCHAR}
       </if>
       <if test="asktime != null" >
-         and asktime = #{asktime,jdbcType=BIGINT}
+         and asktime = #{asktime,jdbcType=VARCHAR}
       </if>
       <if test="sendmenutime != null" >
          and sendmenutime = #{sendmenutime,jdbcType=BIGINT}
@@ -156,7 +156,7 @@
         #{infoid,jdbcType=VARCHAR},
       </if>
       <if test="asktime != null" >
-        #{asktime,jdbcType=BIGINT},
+        #{asktime,jdbcType=VARCHAR},
       </if>
       <if test="sendmenutime != null" >
         #{sendmenutime,jdbcType=BIGINT},
@@ -195,7 +195,7 @@
         infoid = #{infoid,jdbcType=VARCHAR},
       </if>
       <if test="asktime != null" >
-        asktime = #{asktime,jdbcType=BIGINT},
+        asktime = #{asktime,jdbcType=VARCHAR},
       </if>
       <if test="sendmenutime != null" >
         sendmenutime = #{sendmenutime,jdbcType=BIGINT},

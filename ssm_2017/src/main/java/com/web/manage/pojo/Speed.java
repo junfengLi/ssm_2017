@@ -13,7 +13,7 @@ public class Speed {
 
     private String infoid;
 
-    private Long asktime;
+    private String asktime;
 
     private Long sendmenutime;
 
@@ -55,11 +55,11 @@ public class Speed {
         this.infoid = infoid;
     }
 
-    public Long getAsktime() {
+    public String getAsktime() {
         return asktime;
     }
 
-    public void setAsktime(Long asktime) {
+    public void setAsktime(String asktime) {
         this.asktime = asktime;
     }
 

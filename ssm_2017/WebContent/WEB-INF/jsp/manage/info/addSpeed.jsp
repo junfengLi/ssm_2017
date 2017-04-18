@@ -18,11 +18,8 @@
 		<tr>
 			<td width="30%" class="titleTd"> 联系客户时间：</td>
 			<td width="45%"> 
-			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="asktime-d" value="${asktime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			<textarea id="form-field-11" name="asktime" class="autosize-transition form-control"
+			 style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 70px;margin: 2px 0px;">${speed.asktime }</textarea>
 			</td>
 			<td width="25%"></td>
 		</tr>
@@ -45,6 +42,23 @@
 			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
 				<i class="icon-calendar bigger-110"></i>
 			</span>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="titleTd">采访类型：</td>
+			<td>
+				<div class="radio">
+					<label>
+						<input name="asktype" type="radio" class="ace" value="mobile" checked="checked" />
+						<span class="lbl"></span><span>&nbsp;&nbsp;电话采访&nbsp;&nbsp;</span>
+					</label>
+					<label>
+						<input name="asktype" type="radio" class="ace" value="email"
+						 <c:if test="${speed.asktype == 'email' }"> checked="checked" </c:if> />
+						<span class="lbl"></span><span>&nbsp;&nbsp;邮件采访&nbsp;&nbsp;</span>
+					</label>
+				</div>
 			</td>
 			<td></td>
 		</tr>
@@ -128,9 +142,6 @@ function submitHandler(obj){
 }
 jQuery(function($) {
 	$('.date-picker').datepicker({dateFormat: "yy-mm-dd"}); 
-	$('#id-date-picker-1').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
 	$('#id-date-picker-2').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
@@ -159,11 +170,17 @@ jQuery(function($) {
 		rules: {
 			source: {
 				maxlength: 20
+			},
+			asktime: {
+				maxlength: 1000
 			}
 		},
 		messages: {
 			source:{
-				maxlength: "最多输入20个字符"
+				maxlength: "最多输入{0}个字符"
+			},
+			asktime: {
+				maxlength: "最多输入{0}个字符"
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
