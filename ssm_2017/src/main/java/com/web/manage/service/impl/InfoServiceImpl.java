@@ -57,8 +57,10 @@ public class InfoServiceImpl implements InfoService {
 	public UIPage getPage(BaseInfo info, int pageNumber, int pageSize) {
 		UIPage page = new UIPage();
 		List<Map<String,Object>> rows=new ArrayList<Map<String,Object>>();
-		List<BaseInfo> infos = infoDao.selectByStatement(info);
 		long count = infoDao.selectByStatementCount(info);
+		info.setOffset(pageNumber);
+		info.setRows(pageSize);
+		List<BaseInfo> infos = infoDao.selectByStatement(info);
 		for (BaseInfo info2 : infos) {
 			@SuppressWarnings("unchecked")
 			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(info2);
@@ -86,7 +88,7 @@ public class InfoServiceImpl implements InfoService {
     		rows.add(row);
 		}
 		page.setRows(rows);
-    	page.setRecords(count);
+    	page.setRecords(count - 1);
     	return page;
 	}
 
