@@ -74,10 +74,11 @@ function pageInit(){
 	                   {name : 'email',label: '邮箱', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'projecthref',label: '项目链接', width : 50, sortable : false, align : 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'项目链接');}}, 
-	                   {name : 'sendmenutime',label: '发送采访提纲时间', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'interviewtime',label: '采访时间', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'finshnewstime',label: '成稿时间', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'backtime',label: '发送反馈时间', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'sendmenutime',label: '发送采访提纲时间', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'interviewtime',label: '采访时间', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'finshnewstime',label: '成稿时间', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'backtime',label: '发送反馈时间', width : 80, sortable : false, align : 'center'}, 
+	                   {name : 'source',label: '打分', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'infohref',label: '文章链接', width : 50, sortable : false, align : 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}},
 	                   {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
@@ -109,6 +110,12 @@ function pageInit(){
 					updatePagerIcons(table);
 				}, 0);
 			},
+			rowattr: function (rd) { //grid配置  
+	            if (rd.backtime != '' && rd.backtime != undefined) {  
+	                return {"style": "color:green;"};  
+	            }  
+	            return null;  
+	        } 
 	    });
 }	
 
