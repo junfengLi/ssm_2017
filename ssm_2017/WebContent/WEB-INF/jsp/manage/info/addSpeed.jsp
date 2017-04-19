@@ -129,6 +129,7 @@
 var layer;
 layui.use(['layer', 'form'], function(){
 	layer = layui.layer;
+	
 });
 
 
