@@ -35,6 +35,7 @@ var layer = null;
 var queryData = {};
 $(function(){
 	queryData.userid='${userid}';
+	queryData.page = 1;
 	pageInit();
 	layui.use(['layer'], function(){layer = layui.layer;});
 });
@@ -46,7 +47,14 @@ $(".page-content").resize(function(){
 function pageReload(){
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
-	jQuery(grid_selector).jqGrid("clearGridData");
+	//jQuery(grid_selector).jqGrid("clearGridData");
+	/* jQuery(grid_selector).jqGrid("setGridParam", {
+		url:'${ctx}/info/getPage',
+		        datatype:'json',
+		        postData : queryData,
+		        page:$(grid_selector).jqGrid("getGridParam","page"),
+		}).trigger("reloadGrid"); */
+	//{ postData: queryData });
 	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData });
 	jQuery(grid_selector).trigger("reloadGrid");
 //	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData }).trigger("reloadGrid");
@@ -67,6 +75,7 @@ function pageInit(){
 	                   {name : 'projecthref',label: '项目链接', width : 50, sortable : false, align : 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'项目链接');}}, 
 	                   {name : 'sendmenutime',label: '发送采访提纲时间', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'interviewtime',label: '采访时间', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'finshnewstime',label: '成稿时间', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'backtime',label: '发送反馈时间', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'infohref',label: '文章链接', width : 50, sortable : false, align : 'center',formatter: 
@@ -132,17 +141,18 @@ function operate(cellvalue, options, rowObject){
 	html.push("<a href='#' class='icon-eye-open' onclick='show(\""+rowObject.id+"\")'>查看</a>");
 	html.push("<a href='#' class='icon-edit' onclick='edit(\""+rowObject.id+"\")'>编辑</a>");
 	
-	var speedDesc = rowObject.haveSpeed == '0' ? '新增进度' : '编辑进度';
+	var speedDesc = '采访进度';//rowObject.haveSpeed == '0' ? '新增进度' : '编辑进度';
 	html.push("<a href='#' onclick='addSpeed(\""+rowObject.id+"\",\""+speedDesc+"\")'>" +speedDesc+ "</a>");
-	var onlineDesc = rowObject.haveOnline == '0' ? '新增上线信息' : '编辑上线信息';
+	var onlineDesc = '上线进度';//rowObject.haveOnline == '0' ? '新增上线信息' : '上线进度';
 	html.push("<a href='#' onclick='addOnline(\""+rowObject.id+"\",\""+onlineDesc+"\")'>" +onlineDesc+ "</a>");
 	
-	html.push("<a href='#' onclick='deleteinfo(\""+rowObject.id+"\")'>删除客户信息</a>");
+	html.push("<a href='#' onclick='deleteinfo(\""+rowObject.id+"\")'>删除</a>");
 	
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,700,500);
+	pageReload();
+//	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,700,500);
 }
 function edit(id){
 	openFrame('编辑信息','${ctx }/info/add/forward?id=' + id,600,500);

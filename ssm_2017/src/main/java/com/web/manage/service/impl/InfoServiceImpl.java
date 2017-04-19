@@ -66,6 +66,9 @@ public class InfoServiceImpl implements InfoService {
 			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(info2);
 			Speed speed = speedDao.findByInfoId(info2.getId());
 			if (speed != null) {
+				if (speed.getInterviewtime() > 0) {
+					row.put("interviewtime", DateUtil.getFormatDate(speed.getInterviewtime()));
+				}
 				if (speed.getSendmenutime() > 0) {
 					row.put("sendmenutime", DateUtil.getFormatDate(speed.getSendmenutime()));
 				}
