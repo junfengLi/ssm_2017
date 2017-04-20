@@ -38,6 +38,10 @@ public class BaseInfo  extends BasePage{
     private Long updatetime;
     
     private String seq;
+    
+    private String isrefuse;
+    
+    private String speed;
 
     public String getId() {
         return id;
@@ -158,4 +162,22 @@ public class BaseInfo  extends BasePage{
 	public void setSeq(String seq) {
 		this.seq = seq;
 	}
+
+	public String getIsrefuse() {
+		return isrefuse;
+	}
+
+	public void setIsrefuse(String isrefuse) {
+		this.isrefuse = isrefuse;
+	}
+
+	public String getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(String speed) {
+		this.speed = speed;
+	}
+	
+	
 }

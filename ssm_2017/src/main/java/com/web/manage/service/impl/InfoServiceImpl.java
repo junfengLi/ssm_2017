@@ -17,9 +17,11 @@ import com.web.manage.dao.BaseInfoDao;
 import com.web.manage.dao.OnlineDao;
 import com.web.manage.dao.SpeedDao;
 import com.web.manage.pojo.BaseInfo;
+import com.web.manage.pojo.BaseInfoResult;
 import com.web.manage.pojo.Online;
 import com.web.manage.pojo.Speed;
 import com.web.manage.service.InfoService;
+import com.web.manage.util.SpeedTypeEnum;
 
 @Component("infoService")
 @Transactional  
@@ -52,15 +54,37 @@ public class InfoServiceImpl implements InfoService {
 	public void deleteInfoById(String id) {
 		infoDao.deleteByPrimaryKey(id);
 	}
-
+	
 	@Override
 	public UIPage getPage(BaseInfo info, int pageNumber, int pageSize) {
-		UIPage page = new UIPage();
+		UIPage page = new UIPage(String.valueOf(pageSize));
 		List<Map<String,Object>> rows=new ArrayList<Map<String,Object>>();
 		long count = infoDao.selectByStatementCount(info);
 		info.setOffset(pageNumber);
 		info.setRows(pageSize);
 		List<BaseInfo> infos = infoDao.selectByStatement(info);
+		setMaps(infos, rows);
+		page.setRows(rows);
+    	page.setRecords(count);
+    	return page;
+	}
+
+	
+	@Override
+	public UIPage getPage(BaseInfoResult info, int pageNumber, int pageSize) {
+		UIPage page = new UIPage(String.valueOf(pageSize));
+		List<Map<String,Object>> rows=new ArrayList<Map<String,Object>>();
+		long count = infoDao.selectByStatementForResultCount(info);
+		info.setOffset(pageNumber);
+		info.setRows(pageSize);
+		List<BaseInfo> infos = infoDao.selectByStatementForResult(info);
+		setMaps(infos, rows);
+		page.setRows(rows);
+    	page.setRecords(count);
+    	return page;
+	}
+	
+	private void setMaps(List<BaseInfo> infos, List<Map<String, Object>> rows){
 		for (BaseInfo info2 : infos) {
 			@SuppressWarnings("unchecked")
 			Map<String,Object> row=BeanCopyUtil.CopyBeanToMap(info2);
@@ -91,9 +115,6 @@ public class InfoServiceImpl implements InfoService {
 			}
     		rows.add(row);
 		}
-		page.setRows(rows);
-    	page.setRecords(count - 1);
-    	return page;
 	}
 
 	@Override
@@ -108,6 +129,22 @@ public class InfoServiceImpl implements InfoService {
 
 	@Override
 	public void saveSpeed(Speed speed) {
+		BaseInfo info = infoDao.selectByPrimaryKey(speed.getInfoid());
+		//记录采访进度
+		if (info != null) {
+			if (StringUtils.isNotBlank(speed.getSource())) {
+				info.setSpeed(SpeedTypeEnum.DF.getKey());
+			} else if (speed.getBacktime()!=null && speed.getBacktime()>0) {
+				info.setSpeed(SpeedTypeEnum.FSFK.getKey());
+			} else if (speed.getFinshnewstime()!=null && speed.getFinshnewstime()>0) {
+				info.setSpeed(SpeedTypeEnum.CG.getKey());
+			} else if (speed.getInterviewtime() !=null &&speed.getInterviewtime()>0 ) {
+				info.setSpeed(SpeedTypeEnum.CF.getKey());
+			} else if (speed.getSendmenutime() !=null && speed.getSendmenutime()>0 ) {
+				info.setSpeed(SpeedTypeEnum.FSCFTG.getKey());
+			}
+			infoDao.updateByPrimaryKeySelective(info);
+		}
 		if (StringUtils.isNotBlank(speed.getId())) {
 			speedDao.updateByPrimaryKeySelective(speed);
 		} else {

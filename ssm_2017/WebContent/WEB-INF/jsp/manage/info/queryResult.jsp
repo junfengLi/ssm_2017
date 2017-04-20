@@ -18,7 +18,32 @@
 				<a href="#" onclick="openFrame('添加信息','${ctx }/info/add/forward',650,550);" ><i class="icon-legal home-icon">添加</i></a>
 			</li>
 		</ul><!-- .breadcrumb -->
-		<div class="nav-search" id="nav-search">
+		<div style="float:right;">
+			<table  class="tableForm">
+				<tr>
+					<td style="width:90px; text-align: right;"> 进度选择：</td>
+					<td >
+					<select class="form-control input-small" id="form-field-select-1" name="speed" style="width:120px;">
+						<c:forEach items="${nodes }" var="node" >
+							<option value="${node.id }">${node.text }</option>
+						</c:forEach>
+					</select>
+					</td>
+					<td style="width:90px; text-align: right;"> 开始时间：</td>
+					<td style="width:190px;">
+					<input class="form-control input-small date-picker" id="id-date-picker-1" type="text" name="starttime" style="float: left; display: block;" />
+					<span class="input-group-addon" style="float: left;height: 34px;line-height: 23px; width:35px;"><i class="icon-calendar bigger-110"></i></span>
+					<span class="input-group-addon clearDate"  style="float: left;height: 34px;line-height: 23px;width:35px;"><i class="icon-remove"></i></span>
+					</td>
+					<td style="width:90px; text-align: right;"> 截止时间：</td>
+					<td style="width:190px;">
+					<input class="form-control input-small date-picker" id="id-date-picker-2" type="text" name="endtime" style="float: left; display: block; " />
+					<span class="input-group-addon" style="float: left;height: 34px;line-height: 23px; width:35px;"><i class="icon-calendar bigger-110"></i></span>
+					<span class="input-group-addon clearDate"  style="float: left;height: 34px;line-height: 23px;width:35px;"><i class="icon-remove"></i></span>
+					</td>
+					<td style="width:20px; cursor: pointer;" onclick="searchResult();"><i class="icon-search nav-search-icon bigger-160"></i></td>
+				</tr>
+			</table>
 		</div>
 	</div><!-- /.page-header -->
 
@@ -36,6 +61,19 @@
 var layer = null;
 var queryData = {};
 $(function(){
+	queryData.speed="F";
+	$('.input-group-addon.clearDate').click(function(){
+		$(this).prev().prev().val('');
+	});
+	$('.date-picker').datepicker({
+		dateFormat: "yy-mm-dd"
+		}); 
+	$('#id-date-picker-1').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	$('#id-date-picker-2').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
 	queryData.userid='${userid}';
 	queryData.page = 1;
 	pageInit();
@@ -66,7 +104,7 @@ function pageInit(){
 	var pager_selector = "#grid-pager";
 	
 	jQuery(grid_selector).jqGrid({
-	      url : '${ctx}/info/getPage',
+	      url : '${ctx}/info/getPageForResult',
 	      datatype : "json",
 	      postData : queryData,
 	      mtype:'POST',
@@ -82,10 +120,10 @@ function pageInit(){
 	                   {name : 'backtime',label: '发送反馈时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'source',label: '打分', width : 100, sortable : false, align : 'center'}, 
 	                   {name : 'isrefuse',label: '是否拒绝采访', width : 1, sortable : false, align : 'center'}, 
-	                   {name : 'infohref',label: '文章链接', width : 50, sortable : false, align : 'center',formatter: 
+	                   {name : 'infohref',label: '文章链接', width : 60, sortable : false, align : 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}},
-	                   {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
-	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}},
+	                  /*  {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
+	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}}, */
 	                 ],
 	      rowNum : 10,
 	      rowList : [ 10, 20, 30 ],
@@ -125,7 +163,7 @@ function pageInit(){
 	            } 
 	            return null;  
 	        },
-	        recordtext:"第 {0} - {1} 条，共 {2} 页",
+	        recordtext:"第 {0} - {1} 条，共 {2} 条",
 	    });
 }	
 
@@ -137,6 +175,7 @@ function updatePagerIcons(table) {
 		'ui-icon-seek-next' : 'icon-angle-right bigger-140',
 		'ui-icon-seek-end' : 'icon-double-angle-right bigger-140'
 	};
+	//$("#grid-pager_right div").hide();
 	$('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
 		var icon = $(this);
 		var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
@@ -150,6 +189,15 @@ function href(href, text){
 	} else {
 		return '';
 	}
+}
+function searchResult(){
+	var speed=$("#form-field-select-1").val();
+	queryData.speed=speed;
+	var starttime=$("#id-date-picker-1").val();
+	queryData.starttime=starttime;
+	var endtime=$("#id-date-picker-2").val();
+	queryData.endtime=endtime;
+	pageReload();
 }
 
 function operate(cellvalue, options, rowObject){

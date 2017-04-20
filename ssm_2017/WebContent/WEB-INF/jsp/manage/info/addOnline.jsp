@@ -19,10 +19,9 @@
 			<td width="30%" class="titleTd"> 编辑后台时间：</td>
 			<td width="45%"> 
 			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="editbackgroundtime-d" value="${editbackgroundtime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td width="25%"></td>
 		</tr>
@@ -30,10 +29,9 @@
 			<td class="titleTd"> 推首时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-2" type="text" name="pushheadtime-d" value="${pushheadtime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -41,10 +39,9 @@
 			<td class="titleTd"> 资讯轮播时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-3" type="text" name="informationtime-d" value="${informationtime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -52,10 +49,9 @@
 			<td class="titleTd"> 项目集合时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-4" type="text" name="itemsettime-d" value="${itemsettime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -63,10 +59,9 @@
 			<td class="titleTd"> 首页Banner时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-5" type="text" name="bannertime-d" value="${bannertime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -105,6 +100,9 @@ function submitHandler(obj){
 	}
 }
 jQuery(function($) {
+	$('.input-group-addon.clearDate').click(function(){
+		$(this).prev().prev().val('');
+	});
 	$('.date-picker').datepicker({dateFormat: "yy-mm-dd"}); 
 	$('#id-date-picker-1').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();

@@ -27,10 +27,9 @@
 			<td class="titleTd"> 发送采访提纲时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-2" type="text" name="sendmenutime-d" value="${sendmenutime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -38,10 +37,9 @@
 			<td class="titleTd"> 采访时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-3" type="text" name="interviewtime-d" value="${interviewtime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -66,10 +64,9 @@
 			<td class="titleTd"> 成稿时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-4" type="text" name="finshnewstime-d" value="${finshnewstime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -77,10 +74,9 @@
 			<td class="titleTd"> 客户确认上线时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-5" type="text" name="onlinetime-d" value="${onlinetime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -96,10 +92,9 @@
 			<td class="titleTd"> 发送设计需求时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-7" type="text" name="sendneedtime-d" value="${sendneedtime}"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -107,10 +102,9 @@
 			<td class="titleTd"> 发送反馈时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-8" type="text" name="backtime-d" value="${backtime}"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -142,8 +136,14 @@ function submitHandler(obj){
 	}
 }
 jQuery(function($) {
-	$('.date-picker').datepicker({dateFormat: "yy-mm-dd"}); 
+	$('.input-group-addon.clearDate').click(function(){
+		$(this).prev().prev().val('');
+	});
+	$('.date-picker').datepicker({
+		dateFormat: "yy-mm-dd"
+		}); 
 	$('#id-date-picker-2').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		
 		$(this).prev().focus();
 	});
 	$('#id-date-picker-3').datepicker({autoclose:true}).next().on(ace.click_event, function(){
@@ -161,6 +161,7 @@ jQuery(function($) {
 	$('#id-date-picker-8').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
+	
 	 $('#userForm').validate({
 		errorElement: 'div',
 		errorClass: 'error-msg',

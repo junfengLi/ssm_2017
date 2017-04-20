@@ -23,7 +23,11 @@ public class UIPage {
 
 	public void setRecords(long records) {
 		this.records = records;
-		this.total = records/Integer.valueOf(this.PAGE_SIZE) + 1;
+		if (records%Integer.valueOf(this.PAGE_SIZE) == 0) {
+			this.total = records/Integer.valueOf(this.PAGE_SIZE);
+		} else {
+			this.total = records/Integer.valueOf(this.PAGE_SIZE) + 1;
+		}
 	}
 
 	public List getRows() {

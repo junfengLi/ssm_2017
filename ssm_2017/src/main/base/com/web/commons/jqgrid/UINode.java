@@ -1,6 +1,5 @@
 package com.web.commons.jqgrid;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,7 @@ public class UINode implements Serializable {
 	private String checked;
 	private String iconCls;
 	private String selected;
-	private HashMap attributes = null;
+	private HashMap<String, Object> attributes = null;
 	private List<UINode> children = null;
 
 	public UINode() {
@@ -47,13 +46,13 @@ public class UINode implements Serializable {
 		this.id = id;
 		this.text = text;
 		this.state = this.getState(state);
-		HashMap attributes = new HashMap();
+		HashMap<String, Object> attributes = new HashMap<>();
 		attributes.put("action", href);
 		attributes.put("target", target);
 		this.attributes = attributes;
 	}
 
-	public UINode(String id, String text, String state, HashMap attributes) {
+	public UINode(String id, String text, String state, HashMap<String, Object> attributes) {
 		this.id = id;
 		this.text = text;
 		this.state = state;
@@ -92,11 +91,11 @@ public class UINode implements Serializable {
 		this.checked = checked;
 	}
 
-	public HashMap getAttributes() {
+	public HashMap<String, Object> getAttributes() {
 		return this.attributes;
 	}
 
-	public void setAttributes(HashMap attributes) {
+	public void setAttributes(HashMap<String, Object> attributes) {
 		this.attributes = attributes;
 	}
 
@@ -126,7 +125,8 @@ public class UINode implements Serializable {
 
 	public void addChildNode(UINode node) {
 		if (this.children == null) {
-			this.children = new ArrayList();
+			
+			this.children = new ArrayList<>();
 		}
 
 		this.children.add(node);
@@ -134,9 +134,8 @@ public class UINode implements Serializable {
 
 	public void addAttributes(String key, String value) {
 		if (this.attributes == null) {
-			this.attributes = new HashMap();
+			this.attributes = new HashMap<>();
 		}
-
 		this.attributes.put(key, value);
 	}
 

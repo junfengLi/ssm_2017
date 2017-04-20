@@ -21,9 +21,11 @@ import com.web.commons.jqgrid.UIPage;
 import com.web.commons.util.CommonUtil;
 import com.web.commons.util.DateUtil;
 import com.web.manage.pojo.BaseInfo;
+import com.web.manage.pojo.BaseInfoResult;
 import com.web.manage.pojo.Online;
 import com.web.manage.pojo.Speed;
 import com.web.manage.service.InfoService;
+import com.web.manage.util.SpeedTypeEnum;
 
 @RequestMapping("/info")  
 @Controller
@@ -50,7 +52,9 @@ public class InfoAction {
 		modelAndView.setViewName(BASE_PATH + module);
 		//-------------------业务数据------------------------
 		model.addAttribute("userid", CommonUtil.getLoginName());		
-		
+		if ("queryResult".equals(module)) {
+    		model.addAttribute("nodes", SpeedTypeEnum.getNodes());
+		}
 		//-------------------业务数据-------------------------
 		modelAndView.addObject(model);
 		return modelAndView;
@@ -69,6 +73,7 @@ public class InfoAction {
     		@RequestParam(value="id",defaultValue="")String id,
     		Model model,HttpServletRequest request,HttpServletResponse response) {
     	model.addAttribute("userid", CommonUtil.getLoginName());
+    	
     	if (StringUtils.isNotBlank(id)) {
     		BaseInfo info = infoService.findById(id);
     		model.addAttribute("info", info);
@@ -144,6 +149,41 @@ public class InfoAction {
     	UIPage page = infoService.getPage(info, pageNum, pageSize); 
     	return page;
     }
+    
+    @RequestMapping("/getPageForResult")
+    @ResponseBody
+    public UIPage getPageForResult(BaseInfoResult info,@RequestParam(value="page",defaultValue="1")int pageNum,
+			@RequestParam(value="rows",defaultValue="10")int pageSize,
+			@RequestParam(value="starttime",defaultValue="")String starttime,
+			@RequestParam(value="endtime",defaultValue="")String endtime,
+			HttpServletRequest request){
+    	long time1 = 0, time2 = 0;
+    	if (StringUtils.isNotBlank(starttime)) {
+    		time1 = DateUtil.getLongDateFromString(starttime) - 1;
+		}
+    	if (StringUtils.isNotBlank(endtime)) {
+    		time2 = DateUtil.getLongDateFromString(endtime) + 86399999L;
+		}
+    	if (StringUtils.isBlank(info.getSpeed())) {
+			info.setSpeed(null);
+		}
+    	if (SpeedTypeEnum.DF.getKey().equals(info.getSpeed()) || SpeedTypeEnum.FSFK.getKey().equals(info.getSpeed())) {
+			if (time1 !=0) info.setBacktime1(time1);
+			if (time2 !=0) info.setBacktime2(time2);
+		} else if (SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
+			if (time1 !=0) info.setFinshnewstime1(time1);
+			if (time2 !=0) info.setFinshnewstime2(time2);
+		} else if (SpeedTypeEnum.CF.getKey().equals(info.getSpeed())) {
+			if (time1 !=0) info.setInterviewtime1(time1);
+			if (time2 !=0) info.setInterviewtime2(time2);
+		} else if (SpeedTypeEnum.FSCFTG.getKey().equals(info.getSpeed())) {
+			if (time1 !=0) info.setSendmenutime1(time1);
+			if (time2 !=0) info.setSendmenutime1(time2);
+		} 
+    	UIPage page = infoService.getPage(info, pageNum, pageSize); 
+    	return page;
+    }
+    
     
     @RequestMapping(value="/save", method = RequestMethod.POST)
     @ResponseBody

@@ -32,6 +32,23 @@
 			<td></td>
 		</tr>
 		<tr>
+			<td class="titleTd">是否拒绝采访：</td>
+			<td>
+				<div class="radio">
+					<label>
+						<input name="isrefuse" type="radio" class="ace" value="1" checked="checked" />
+						<span class="lbl"></span><span>&nbsp;&nbsp;是&nbsp;&nbsp;</span>
+					</label>
+					<label>
+						<input name="isrefuse" type="radio" class="ace" value="0"
+						 <c:if test="${info.isrefuse != '1' }"> checked="checked" </c:if> />
+						<span class="lbl"></span><span>&nbsp;&nbsp;否&nbsp;&nbsp;</span>
+					</label>
+				</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td class="titleTd">备用手机：</td>
 			<td>
 			<input type="text" id="mobile2" name="mobile2" value="${info.mobile2 }"

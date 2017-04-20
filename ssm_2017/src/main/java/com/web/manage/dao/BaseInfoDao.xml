@@ -16,12 +16,19 @@
     <result column="note" property="note" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
-     <result column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="isrefuse" property="isrefuse" jdbcType="VARCHAR" />
+    <result column="speed" property="speed" jdbcType="VARCHAR" /> 
   </resultMap>
 
   <sql id="Base_Column_List" >
     id, userid, name, mobile, mobile2, email, email2, projectname, projecthref, asker, 
-    servicetime, note, createtime, updatetime, seq
+    servicetime, note, createtime, updatetime, seq, isrefuse, speed
+  </sql>
+  
+  <sql id="Base_Column_ListResult" >
+    o.id, o.userid, o.name, o.mobile, o.mobile2, o.email, o.email2, o.projectname, o.projecthref, o.asker, o.
+    servicetime, o.note, o.createtime, o.updatetime, o.seq, o.isrefuse, o.speed
   </sql>
 
   <sql id="whereFields" >
@@ -30,7 +37,7 @@
          and userid = #{userid,jdbcType=VARCHAR}
       </if>
       <if test="name != null" >
-         and name = #{name,jdbcType=VARCHAR}
+         and name like concat('%',#{param},'%') <!-- #{name,jdbcType=VARCHAR}  -->
       </if>
       <if test="mobile != null" >
          and mobile = #{mobile,jdbcType=VARCHAR}
@@ -68,8 +75,65 @@
        <if test="seq != null" >
          and seq = #{seq,jdbcType=VARCHAR}
       </if>
+      <if test="isrefuse != null" >
+         and isrefuse = #{isrefuse,jdbcType=VARCHAR}
+      </if>
+      <if test="speed != null" >
+         and speed = #{speed,jdbcType=VARCHAR}
+      </if>
     </where>
   </sql>
+  
+  
+   <sql id="whereFieldsForResult" >
+    <where >
+      <if test="speed != null" >
+         and o.speed = #{speed,jdbcType=VARCHAR}
+      </if>
+      <if test="sendmenutime1 != null" >
+         and s.sendmenutime &gt; #{sendmenutime1,jdbcType=BIGINT}
+      </if>
+      <if test="sendmenutime2 != null" >
+         and s.sendmenutime &lt; #{sendmenutime2,jdbcType=BIGINT}
+      </if>
+      
+      <if test="interviewtime1 != null" >
+         and s.interviewtime &gt; #{interviewtime1,jdbcType=BIGINT}
+      </if>
+      <if test="interviewtime2 != null" >
+         and s.interviewtime &lt; #{interviewtime2,jdbcType=BIGINT}
+      </if>
+      
+      <if test="finshnewstime1 != null" >
+         and s.finshnewstime &gt; #{finshnewstime1,jdbcType=BIGINT}
+      </if>
+      <if test="finshnewstime2 != null" >
+         and s.finshnewstime &lt; #{finshnewstime2,jdbcType=BIGINT}
+      </if>
+      
+      <if test="backtime1 != null" >
+         and s.backtime &gt; #{backtime1,jdbcType=BIGINT}
+      </if>
+      <if test="backtime2 != null" >
+         and s.backtime &lt; #{backtime2,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  
+  <select id="selectByStatementForResult" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.BaseInfoResult" >
+    select 
+    <include refid="Base_Column_ListResult" />
+    from li_project_info o left join li_project_speed s on o.id=s.infoid
+    <include refid="whereFieldsForResult" />
+    order by o.seq desc
+     limit #{offset},#{rows} 
+  </select>
+  <select id="selectByStatementForResultCount" resultType="int" parameterType="com.web.manage.pojo.BaseInfoResult" >
+    select count(1) from li_project_info o left join li_project_speed s on o.id=s.infoid
+  	 <include refid="whereFieldsForResult" />
+  </select>
+  
+  
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -153,6 +217,12 @@
        <if test="seq != null" >
         seq,
       </if>
+      <if test="isrefuse != null" >
+        isrefuse,
+      </if>
+      <if test="speed != null" >
+        speed,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -199,6 +269,12 @@
       </if>
       <if test="seq != null" >
         #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="isrefuse != null" >
+        #{isrefuse,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null" >
+        #{speed,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -247,6 +323,12 @@
       </if>
        <if test="seq != null" >
         seq = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="isrefuse != null" >
+        isrefuse = #{isrefuse,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null" >
+        speed = #{speed,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
