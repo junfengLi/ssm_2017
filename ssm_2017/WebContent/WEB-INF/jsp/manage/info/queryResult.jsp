@@ -157,7 +157,7 @@ function pageInit(){
 	                return {"style": "color:#b9b9b9;"};  
 	            } else {
 	            	 if (rd.backtime != '' && rd.backtime != undefined) {  
-	 	                return {"style": "color:green;"};  
+	 	                return {"style": "color:#00bf00;"};  
 	 	            }  
 	            	return {"style": "color:black;"};  
 	            } 

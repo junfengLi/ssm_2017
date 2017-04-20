@@ -175,7 +175,7 @@ public class InfoAction {
 			info.setIsmark(IsOrEnum.SHI.getKey());
 			info.setSpeed(null);
 			if (time1 !=0) info.setOnlinetime1(time1);
-			if (time2 !=0) info.setOnlinetime1(time2);
+			if (time2 !=0) info.setOnlinetime2(time2);
 		} else if (SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
 			if (time1 !=0) info.setFinshnewstime1(time1);
 			if (time2 !=0) info.setFinshnewstime2(time2);
