@@ -19,16 +19,17 @@
     <result column="seq" property="seq" jdbcType="VARCHAR" />
     <result column="isrefuse" property="isrefuse" jdbcType="VARCHAR" />
     <result column="speed" property="speed" jdbcType="VARCHAR" /> 
+    <result column="ismark" property="ismark" jdbcType="VARCHAR" /> 
   </resultMap>
 
   <sql id="Base_Column_List" >
     id, userid, name, mobile, mobile2, email, email2, projectname, projecthref, asker, 
-    servicetime, note, createtime, updatetime, seq, isrefuse, speed
+    servicetime, note, createtime, updatetime, seq, isrefuse, speed, ismark
   </sql>
   
   <sql id="Base_Column_ListResult" >
     o.id, o.userid, o.name, o.mobile, o.mobile2, o.email, o.email2, o.projectname, o.projecthref, o.asker, o.
-    servicetime, o.note, o.createtime, o.updatetime, o.seq, o.isrefuse, o.speed
+    servicetime, o.note, o.createtime, o.updatetime, o.seq, o.isrefuse, o.speed, o.ismark
   </sql>
 
   <sql id="whereFields" >
@@ -81,6 +82,9 @@
       <if test="speed != null" >
          and speed = #{speed,jdbcType=VARCHAR}
       </if>
+      <if test="ismark != null" >
+         and ismark = #{ismark,jdbcType=VARCHAR}
+      </if>
     </where>
   </sql>
   
@@ -89,6 +93,9 @@
     <where >
       <if test="speed != null" >
          and o.speed = #{speed,jdbcType=VARCHAR}
+      </if>
+      <if test="ismark != null" >
+         and o.ismark = #{ismark,jdbcType=VARCHAR}
       </if>
       <if test="sendmenutime1 != null" >
          and s.sendmenutime &gt; #{sendmenutime1,jdbcType=BIGINT}
@@ -116,6 +123,13 @@
       </if>
       <if test="backtime2 != null" >
          and s.backtime &lt; #{backtime2,jdbcType=BIGINT}
+      </if>
+      
+      <if test="onlinetime1 != null" >
+         and s.onlinetime &gt; #{onlinetime1,jdbcType=BIGINT}
+      </if>
+      <if test="onlinetime2 != null" >
+         and s.onlinetime &lt; #{onlinetime2,jdbcType=BIGINT}
       </if>
     </where>
   </sql>
@@ -223,6 +237,9 @@
       <if test="speed != null" >
         speed,
       </if>
+      <if test="ismark != null" >
+        ismark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -275,6 +292,9 @@
       </if>
       <if test="speed != null" >
         #{speed,jdbcType=VARCHAR},
+      </if>
+      <if test="ismark != null" >
+        #{ismark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -329,6 +349,9 @@
       </if>
       <if test="speed != null" >
         speed = #{speed,jdbcType=VARCHAR},
+      </if>
+      <if test="ismark != null" >
+        ismark = #{ismark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}

@@ -13,11 +13,15 @@ public class BaseInfoResult  extends BasePage{
     private Long interviewtime1;
     private Long finshnewstime1;
     private Long backtime1;
+    private Long onlinetime1;
     
+    private Long onlinetime2;
     private Long sendmenutime2;
     private Long interviewtime2;
     private Long finshnewstime2;
     private Long backtime2;
+    
+    private String ismark;
     
     private String speed;
 
@@ -91,6 +95,30 @@ public class BaseInfoResult  extends BasePage{
 
 	public void setSpeed(String speed) {
 		this.speed = speed;
+	}
+
+	public Long getOnlinetime1() {
+		return onlinetime1;
+	}
+
+	public void setOnlinetime1(Long onlinetime1) {
+		this.onlinetime1 = onlinetime1;
+	}
+
+	public Long getOnlinetime2() {
+		return onlinetime2;
+	}
+
+	public void setOnlinetime2(Long onlinetime2) {
+		this.onlinetime2 = onlinetime2;
+	}
+
+	public String getIsmark() {
+		return ismark;
+	}
+
+	public void setIsmark(String ismark) {
+		this.ismark = ismark;
 	}
 	
     

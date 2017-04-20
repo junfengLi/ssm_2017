@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.commons.jqgrid.UIPage;
 import com.web.commons.util.CommonUtil;
 import com.web.commons.util.DateUtil;
+import com.web.commons.util.IsOrEnum;
 import com.web.manage.pojo.BaseInfo;
 import com.web.manage.pojo.BaseInfoResult;
 import com.web.manage.pojo.Online;
@@ -170,7 +171,12 @@ public class InfoAction {
     	if (SpeedTypeEnum.FSFK.getKey().equals(info.getSpeed())) {
 			if (time1 !=0) info.setBacktime1(time1);
 			if (time2 !=0) info.setBacktime2(time2);
-		} else if (SpeedTypeEnum.DF.getKey().equals(info.getSpeed()) || SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
+		} else if (SpeedTypeEnum.DF.getKey().equals(info.getSpeed())) {
+			info.setIsmark(IsOrEnum.SHI.getKey());
+			info.setSpeed(null);
+			if (time1 !=0) info.setOnlinetime1(time1);
+			if (time2 !=0) info.setOnlinetime1(time2);
+		} else if (SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
 			if (time1 !=0) info.setFinshnewstime1(time1);
 			if (time2 !=0) info.setFinshnewstime2(time2);
 		} else if (SpeedTypeEnum.CF.getKey().equals(info.getSpeed())) {

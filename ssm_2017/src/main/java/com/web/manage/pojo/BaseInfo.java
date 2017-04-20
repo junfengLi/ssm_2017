@@ -42,6 +42,8 @@ public class BaseInfo  extends BasePage{
     private String isrefuse;
     
     private String speed;
+    
+    private String ismark;
 
     public String getId() {
         return id;
@@ -178,6 +180,15 @@ public class BaseInfo  extends BasePage{
 	public void setSpeed(String speed) {
 		this.speed = speed;
 	}
+
+	public String getIsmark() {
+		return ismark;
+	}
+
+	public void setIsmark(String ismark) {
+		this.ismark = ismark;
+	}
+	
 	
 	
 }

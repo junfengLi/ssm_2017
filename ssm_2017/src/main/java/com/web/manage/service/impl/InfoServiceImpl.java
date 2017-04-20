@@ -132,10 +132,14 @@ public class InfoServiceImpl implements InfoService {
 		BaseInfo info = infoDao.selectByPrimaryKey(speed.getInfoid());
 		//记录采访进度
 		if (info != null) {
-			 if (speed.getBacktime()!=null && speed.getBacktime()>0) {
+			if (speed.getOnlinetime()!=null && speed.getOnlinetime()>0 && StringUtils.isNotBlank(speed.getSource())) {
+				info.setIsmark(IsOrEnum.SHI.getKey());
+			} 
+			
+			if (speed.getBacktime()!=null && speed.getBacktime()>0) {
 				info.setSpeed(SpeedTypeEnum.FSFK.getKey());
-			} else if (StringUtils.isNotBlank(speed.getSource())) {
-				info.setSpeed(SpeedTypeEnum.DF.getKey());
+			//} else if (StringUtils.isNotBlank(speed.getSource())) {
+				//info.setSpeed(SpeedTypeEnum.DF.getKey());
 			} else if (speed.getFinshnewstime()!=null && speed.getFinshnewstime()>0) {
 				info.setSpeed(SpeedTypeEnum.CG.getKey());
 			} else if (speed.getInterviewtime() !=null &&speed.getInterviewtime()>0 ) {
