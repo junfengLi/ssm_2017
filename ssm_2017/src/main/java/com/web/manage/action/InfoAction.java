@@ -167,10 +167,10 @@ public class InfoAction {
     	if (StringUtils.isBlank(info.getSpeed())) {
 			info.setSpeed(null);
 		}
-    	if (SpeedTypeEnum.DF.getKey().equals(info.getSpeed()) || SpeedTypeEnum.FSFK.getKey().equals(info.getSpeed())) {
+    	if (SpeedTypeEnum.FSFK.getKey().equals(info.getSpeed())) {
 			if (time1 !=0) info.setBacktime1(time1);
 			if (time2 !=0) info.setBacktime2(time2);
-		} else if (SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
+		} else if (SpeedTypeEnum.DF.getKey().equals(info.getSpeed()) || SpeedTypeEnum.CG.getKey().equals(info.getSpeed())) {
 			if (time1 !=0) info.setFinshnewstime1(time1);
 			if (time2 !=0) info.setFinshnewstime2(time2);
 		} else if (SpeedTypeEnum.CF.getKey().equals(info.getSpeed())) {

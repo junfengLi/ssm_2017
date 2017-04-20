@@ -79,8 +79,8 @@ function pageInit(){
 	                   {name : 'sendmenutime',label: '发送采访提纲时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'interviewtime',label: '采访时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'finshnewstime',label: '成稿时间', width : 80, sortable : false, align : 'center'}, 
-	                   {name : 'backtime',label: '发送反馈时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'source',label: '打分', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'backtime',label: '发送反馈时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'isrefuse',label: '是否拒绝采访', width : 1, sortable : false, align : 'center'}, 
 	                   {name : 'infohref',label: '文章链接', width : 50, sortable : false, align : 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}},

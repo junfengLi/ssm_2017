@@ -10,8 +10,8 @@ public enum SpeedTypeEnum {
 	FSCFTG("F", "发送采访提纲"),
 	CF("FC", "采访"),
 	CG("FCC", "成稿"),
-	FSFK("FCCF", "发送反馈"),
-	DF("FCCFD", "打分");
+	DF("FCCD", "打分"),
+	FSFK("FCCDF", "发送反馈");
 	private String key; 
 	private String desc;
 	SpeedTypeEnum(String key, String desc){
