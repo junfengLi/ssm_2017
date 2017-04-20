@@ -18,7 +18,20 @@
 				<a href="#" onclick="openFrame('添加信息','${ctx }/info/add/forward',650,550);" ><i class="icon-legal home-icon">添加</i></a>
 			</li>
 		</ul><!-- .breadcrumb -->
-		<div class="nav-search" id="nav-search">
+		<div style="float:right;">
+			<table  class="">
+				<tr>
+					<td style="width:90px; text-align: right;"> 姓名：</td>
+					<td >
+					<input type="text" id="name" name="name" placeholder="按姓名搜索"  value="" class="col-xs-10 input-medium col-sm-5" autocomplete="off" />
+					</td>
+					<td style="width:90px; text-align: right;"> 手机：</td>
+					<td style="width:190px;">
+					<input type="text" id="mobile" name="mobile" value="" placeholder="按手机搜索" class="col-xs-10 input-medium col-sm-5" autocomplete="off" />
+					</td>
+					<td style="width:20px; cursor: pointer;" onclick="searchResult();"><i class="icon-search nav-search-icon bigger-160"></i></td>
+				</tr>
+			</table>
 		</div>
 	</div><!-- /.page-header -->
 
@@ -46,20 +59,20 @@ $(".page-content").resize(function(){
 	var grid_selector = "#grid-table";
 	jQuery(grid_selector).setGridWidth($(".col-xs-12").width());
 });
+
+function searchResult(){
+	var name=$("#name").val();
+	queryData.name=name;
+	var mobile=$("#mobile").val();
+	queryData.mobile=mobile;
+	pageReload();
+}
+
 function pageReload(){
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
-	//jQuery(grid_selector).jqGrid("clearGridData");
-	/* jQuery(grid_selector).jqGrid("setGridParam", {
-		url:'${ctx}/info/getPage',
-		        datatype:'json',
-		        postData : queryData,
-		        page:$(grid_selector).jqGrid("getGridParam","page"),
-		}).trigger("reloadGrid"); */
-	//{ postData: queryData });
 	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData });
 	jQuery(grid_selector).trigger("reloadGrid");
-//	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData }).trigger("reloadGrid");
 }
 function pageInit(){
 	var grid_selector = "#grid-table";

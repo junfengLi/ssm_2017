@@ -19,7 +19,7 @@
 			</li>
 		</ul><!-- .breadcrumb -->
 		<div style="float:right;">
-			<table  class="tableForm">
+			<table  class="">
 				<tr>
 					<td style="width:90px; text-align: right;"> 进度选择：</td>
 					<td >
@@ -84,20 +84,22 @@ $(".page-content").resize(function(){
 	var grid_selector = "#grid-table";
 	jQuery(grid_selector).setGridWidth($(".col-xs-12").width());
 });
+
+function searchResult(){
+	var speed=$("#form-field-select-1").val();
+	queryData.speed=speed;
+	var starttime=$("#id-date-picker-1").val();
+	queryData.starttime=starttime;
+	var endtime=$("#id-date-picker-2").val();
+	queryData.endtime=endtime;
+	pageReload();
+}
+
 function pageReload(){
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
-	//jQuery(grid_selector).jqGrid("clearGridData");
-	/* jQuery(grid_selector).jqGrid("setGridParam", {
-		url:'${ctx}/info/getPage',
-		        datatype:'json',
-		        postData : queryData,
-		        page:$(grid_selector).jqGrid("getGridParam","page"),
-		}).trigger("reloadGrid"); */
-	//{ postData: queryData });
 	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData });
 	jQuery(grid_selector).trigger("reloadGrid");
-//	jQuery(grid_selector).jqGrid("setGridParam", { postData: queryData }).trigger("reloadGrid");
 }
 function pageInit(){
 	var grid_selector = "#grid-table";
@@ -121,7 +123,7 @@ function pageInit(){
 	                   {name : 'backtime',label: '发送反馈时间', width : 80, sortable : false, align : 'center'}, 
 	                   {name : 'isrefuse',label: '是否拒绝采访', width : 1, sortable : false, align : 'center'}, 
 	                   {name : 'infohref',label: '文章链接', width : 60, sortable : false, align : 'center',formatter: 
-	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}},
+	                	   function (cellvalue, options, rowObject) {return href(cellvalue,'文章链接');}}
 	                  /*  {name: 'flag', label: '操作', width: 250, sortable : false,align: 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {return operate(cellvalue, options, rowObject);}}, */
 	                 ],
@@ -135,8 +137,7 @@ function pageInit(){
 	      rownumbers : true,
 	      //multiselect: true,
 	      //multiboxonly: true,
-	      //viewrecords : true,
-	      //emptyrecords : "暂无数据",
+	      emptyrecords : "暂无数据",
 	      caption : "用户管理",
 	      height: 'auto',
 	      loadComplete : function() {
@@ -190,15 +191,7 @@ function href(href, text){
 		return '';
 	}
 }
-function searchResult(){
-	var speed=$("#form-field-select-1").val();
-	queryData.speed=speed;
-	var starttime=$("#id-date-picker-1").val();
-	queryData.starttime=starttime;
-	var endtime=$("#id-date-picker-2").val();
-	queryData.endtime=endtime;
-	pageReload();
-}
+
 
 function operate(cellvalue, options, rowObject){
 	var html = [];

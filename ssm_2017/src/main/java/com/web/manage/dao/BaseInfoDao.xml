@@ -38,7 +38,7 @@
          and userid = #{userid,jdbcType=VARCHAR}
       </if>
       <if test="name != null" >
-         and name like concat('%',#{param},'%') <!-- #{name,jdbcType=VARCHAR}  -->
+         and name like concat('%',#{name},'%') <!-- #{name,jdbcType=VARCHAR}  -->
       </if>
       <if test="mobile != null" >
          and mobile = #{mobile,jdbcType=VARCHAR}
@@ -91,6 +91,9 @@
   
    <sql id="whereFieldsForResult" >
     <where >
+     <if test="userid != null" >
+         and o.userid = #{userid,jdbcType=VARCHAR}
+      </if>
       <if test="speed != null" >
          and o.speed = #{speed,jdbcType=VARCHAR}
       </if>

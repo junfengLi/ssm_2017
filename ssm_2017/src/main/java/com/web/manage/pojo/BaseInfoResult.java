@@ -22,7 +22,7 @@ public class BaseInfoResult  extends BasePage{
     private Long backtime2;
     
     private String ismark;
-    
+    private String userid;
     private String speed;
 
 	public Long getSendmenutime1() {
@@ -119,6 +119,14 @@ public class BaseInfoResult  extends BasePage{
 
 	public void setIsmark(String ismark) {
 		this.ismark = ismark;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
     

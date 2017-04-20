@@ -147,6 +147,11 @@ public class InfoAction {
     public UIPage getPage(BaseInfo info,@RequestParam(value="page",defaultValue="1")int pageNum,
 			@RequestParam(value="rows",defaultValue="10")int pageSize,
 			HttpServletRequest request){
+    	//如果不传用户ID，返回空
+    	if (StringUtils.isBlank(info.getUserid())) new UIPage();
+    	if (StringUtils.isBlank(info.getName())) info.setName(null);
+    	if (StringUtils.isBlank(info.getMobile())) info.setMobile(null);
+    	
     	UIPage page = infoService.getPage(info, pageNum, pageSize); 
     	return page;
     }
@@ -158,6 +163,9 @@ public class InfoAction {
 			@RequestParam(value="starttime",defaultValue="")String starttime,
 			@RequestParam(value="endtime",defaultValue="")String endtime,
 			HttpServletRequest request){
+    	//如果不传用户ID，返回空
+    	if (StringUtils.isBlank(info.getUserid())) new UIPage();
+    	
     	long time1 = 0, time2 = 0;
     	if (StringUtils.isNotBlank(starttime)) {
     		time1 = DateUtil.getLongDateFromString(starttime) - 1;
