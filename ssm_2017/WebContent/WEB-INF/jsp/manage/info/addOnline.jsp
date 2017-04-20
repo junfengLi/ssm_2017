@@ -101,7 +101,7 @@ function submitHandler(obj){
 }
 jQuery(function($) {
 	$('.input-group-addon.clearDate').click(function(){
-		$(this).prev().prev().val('');
+		$(this).prev().prev().datepicker( 'setDate' , '');//.val('');
 	});
 	$('.date-picker').datepicker({dateFormat: "yy-mm-dd"}); 
 	$('#id-date-picker-1').datepicker({autoclose:true}).next().on(ace.click_event, function(){

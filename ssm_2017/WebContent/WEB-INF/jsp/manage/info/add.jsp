@@ -100,10 +100,9 @@
 			<td class="titleTd"> 服务到期时间：</td>
 			<td>
 			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="servicetime-d" value="${servicetime }"
-			style="float: left; display: block; width: 85%;" />
-			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;">
-				<i class="icon-calendar bigger-110"></i>
-			</span>
+			style="float: left; display: block; width: 70%;" />
+			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
+			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
 			<td></td>
 		</tr>
@@ -150,6 +149,9 @@ function submitHandler(obj){
 	}
 }
 jQuery(function($) {
+	$('.input-group-addon.clearDate').click(function(){
+		$(this).prev().prev().datepicker( 'setDate' , '');//.val('');
+	});
 	$('.date-picker').datepicker({dateFormat: "yy-mm-dd"}); 
 	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 		$(this).prev().focus();

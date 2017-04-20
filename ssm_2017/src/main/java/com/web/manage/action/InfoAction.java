@@ -191,6 +191,7 @@ public class InfoAction {
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
     	String time = request.getParameter("servicetime-d");
+    	info.setServicetime(0l);
     	if (StringUtils.isNotBlank(time)) {
 			long servicetime = DateUtil.getLongDateFromString(time);
 			info.setServicetime(servicetime);
@@ -225,6 +226,12 @@ public class InfoAction {
     	String timesendneedtime = request.getParameter("sendneedtime-d");
     	String timebacktime = request.getParameter("backtime-d");
     	
+			speed.setSendmenutime(0L);
+			speed.setInterviewtime(0L);
+			speed.setFinshnewstime(0L);
+			speed.setOnlinetime(0L);
+			speed.setSendneedtime(0L);
+			speed.setBacktime(0L);
     	
     	if (StringUtils.isNotBlank(timesendmenutime)) {
 			long sendmenutime = DateUtil.getLongDateFromString(timesendmenutime);
@@ -232,7 +239,7 @@ public class InfoAction {
 		}
     	if (StringUtils.isNotBlank(timeinterviewtime)) {
 			long interviewtime = DateUtil.getLongDateFromString(timeinterviewtime);
-			speed.setInterviewtime(interviewtime);;
+			speed.setInterviewtime(interviewtime);
 		}
     	if (StringUtils.isNotBlank(timefinshnewstime)) {
 			long finshnewstime = DateUtil.getLongDateFromString(timefinshnewstime);
@@ -266,6 +273,13 @@ public class InfoAction {
     	String timeinformationtime = request.getParameter("informationtime-d");
     	String timeitemsettime = request.getParameter("itemsettime-d");
     	String timebannertime = request.getParameter("bannertime-d");
+    	
+			online.setEditbackgroundtime(0l);
+			online.setPushheadtime(0l);
+			online.setInformationtime(0l);
+			online.setItemsettime(0l);
+			online.setBannertime(0l);
+    	
     	
     	if (StringUtils.isNotBlank(timeeditbackgroundtime)) {
 			long editbackgroundtime = DateUtil.getLongDateFromString(timeeditbackgroundtime);
