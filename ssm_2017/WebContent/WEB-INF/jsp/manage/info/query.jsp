@@ -180,8 +180,7 @@ function operate(cellvalue, options, rowObject){
 	return html.join("&nbsp;|&nbsp;");
 }
 function show(id){
-	pageReload();
-//	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,700,500);
+	openFrame('查看信息','${ctx }/info/show/forward?id=' + id,700,560);
 }
 function edit(id){
 	openFrame('编辑信息','${ctx }/info/add/forward?id=' + id,650,550);

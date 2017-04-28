@@ -81,7 +81,7 @@ public class InfoAction {
     		if (info.getServicetime() > 0) {
     			model.addAttribute("servicetime", DateUtil.getFormatDate(info.getServicetime()));
 			}
-    		if (module.contains("Speed")) {
+    		if (module.contains("Speed") || "show".equals(module)) {
 				Speed speed = infoService.findSpeedByInfoId(id);
 				model.addAttribute("speed", speed);
 				if (speed != null) {
@@ -105,7 +105,7 @@ public class InfoAction {
 					}
 				}
 			}
-    		if (module.contains("Online")) {
+    		if (module.contains("Online") || "show".equals(module)) {
 				Online online = infoService.findOnlineByInfoId(id);
 				model.addAttribute("online", online);
 				if (online != null) {
