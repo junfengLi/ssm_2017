@@ -7,6 +7,17 @@ input[type=radio].ace+.lbl::before
 
 .block{display: block;}
 .main-content {margin-top: 45px;}
+
+/** 查看窗口 **/
+.row .tabbable {
+    margin: 10px 20px 10px 20px;
+    height: 100%;
+    overflow: scroll;
+}
+
+.row .tabbable .tab-content {
+    background: #fff;
+}
 /** 单选框 **/
 span.lbl {z-index: 0 !important;}
 
