@@ -249,14 +249,14 @@
 
 					<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 						<li>
-							<a href="#">
+							<a href="#" onclick="openFrame('编辑信息','${ctx }/user/useredit/forward?id=${user.id }',400,320);" >
 								<i class="icon-cog"></i>
 								设置
 							</a>
 						</li>
 
 						<li>
-							<a href="#">
+							<a href="#" onclick="openFrame('查看信息','${ctx }/user/usershow/forward?id=${user.id }',400,320);" >
 								<i class="icon-user"></i>
 								个人资料
 							</a>
