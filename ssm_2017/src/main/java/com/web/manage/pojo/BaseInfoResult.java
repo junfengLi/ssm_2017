@@ -9,6 +9,14 @@ package com.web.manage.pojo;
 import com.web.commons.pojo.BasePage;
 
 public class BaseInfoResult  extends BasePage{
+	
+	private Long sendmenutime;
+    private Long interviewtime;
+    private Long finshnewstime;
+    private Long backtime;
+    private Long onlinetime;
+    
+    
 	private Long sendmenutime1;
     private Long interviewtime1;
     private Long finshnewstime1;
@@ -24,6 +32,48 @@ public class BaseInfoResult  extends BasePage{
     private String ismark;
     private String userid;
     private String speed;
+    
+
+	public Long getSendmenutime() {
+		return sendmenutime;
+	}
+
+	public void setSendmenutime(Long sendmenutime) {
+		this.sendmenutime = sendmenutime;
+	}
+
+	public Long getInterviewtime() {
+		return interviewtime;
+	}
+
+	public void setInterviewtime(Long interviewtime) {
+		this.interviewtime = interviewtime;
+	}
+
+	public Long getFinshnewstime() {
+		return finshnewstime;
+	}
+
+	public void setFinshnewstime(Long finshnewstime) {
+		this.finshnewstime = finshnewstime;
+	}
+
+	public Long getBacktime() {
+		return backtime;
+	}
+
+	public void setBacktime(Long backtime) {
+		this.backtime = backtime;
+	}
+
+	public Long getOnlinetime() {
+		return onlinetime;
+	}
+
+	public void setOnlinetime(Long onlinetime) {
+		this.onlinetime = onlinetime;
+	}
+
 
 	public Long getSendmenutime1() {
 		return sendmenutime1;

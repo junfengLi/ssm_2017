@@ -134,6 +134,22 @@
       <if test="onlinetime2 != null" >
          and s.onlinetime &lt; #{onlinetime2,jdbcType=BIGINT}
       </if>
+      
+      <if test="sendmenutime != null" >
+         and s.sendmenutime = #{sendmenutime,jdbcType=BIGINT}
+      </if>
+      <if test="interviewtime != null" >
+         and s.interviewtime = #{interviewtime,jdbcType=BIGINT}
+      </if>
+      <if test="finshnewstime != null" >
+         and s.finshnewstime = #{finshnewstime,jdbcType=BIGINT}
+      </if>
+      <if test="backtime != null" >
+         and s.backtime = #{backtime,jdbcType=BIGINT}
+      </if>
+      <if test="onlinetime != null" >
+         and s.onlinetime = #{onlinetime,jdbcType=BIGINT}
+      </if>
     </where>
   </sql>
   
@@ -149,7 +165,6 @@
     select count(1) from li_project_info o left join li_project_speed s on o.id=s.infoid
   	 <include refid="whereFieldsForResult" />
   </select>
-  
   
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

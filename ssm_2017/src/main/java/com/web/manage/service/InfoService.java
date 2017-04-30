@@ -21,4 +21,9 @@ public interface InfoService {
 	void saveOnline(Online online);
 	void deleteSpeedById(String id);
 	void deleteOnlineById(String id);
+	
+	
+	
+	int reportCount(BaseInfoResult info);
+	String reportName(BaseInfoResult info);
 }

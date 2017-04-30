@@ -16,14 +16,14 @@
 	<form action="${ctx }/info/onlineSave" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="30%" class="titleTd"> 编辑后台时间：</td>
-			<td width="45%"> 
+			<td width="25%" class="titleTd"> 编辑后台时间：</td>
+			<td width="50%"> 
 			<input class="form-control date-picker" id="id-date-picker-1" type="text" name="editbackgroundtime-d" value="${editbackgroundtime }"
 			style="float: left; display: block; width: 70%;" />
 			<span class="input-group-addon" style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-calendar bigger-110"></i></span>
 			<span class="input-group-addon clearDate"  style="float: left;width: 15%;height: 34px;line-height: 23px;"><i class="icon-remove"></i></span>
 			</td>
-			<td width="25%"></td>
+			<td width="15%"></td>
 		</tr>
 		<tr>
 			<td class="titleTd"> 推首时间：</td>
@@ -140,7 +140,9 @@ jQuery(function($) {
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
-			error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
+			var id = element.attr("id");
+			layer.tips(error.html(), '#' + id, {tips: [3, '#78BA32']});
+			//error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
 		}
 	});
 		/* rules: {

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.manage.dao.TimesDao" >
+  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Times" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="BIGINT" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, userid, date, times, note, createtime, updatetime
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="userid != null" >
+         and userid = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="date != null" >
+         and date = #{date,jdbcType=BIGINT}
+      </if>
+      <if test="times != null" >
+         and times = #{times,jdbcType=INTEGER}
+      </if>
+      <if test="note != null" >
+         and note = #{note,jdbcType=VARCHAR}
+      </if>
+      <if test="createtime != null" >
+         and createtime = #{createtime,jdbcType=BIGINT}
+      </if>
+      <if test="updatetime != null" >
+         and updatetime = #{updatetime,jdbcType=BIGINT}
+      </if>
+       <if test="date1 != null" >
+         and date &gt; #{date1,jdbcType=BIGINT}
+      </if>
+      <if test="date2 != null" >
+         and date &lt; #{date2,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_times
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Times" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_times
+    <include refid="whereFields" />
+    order by date desc
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Times" >
+    select count(1) from li_project_times
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from li_project_times
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.web.manage.pojo.Times" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+    insert into li_project_times
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=BIGINT},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Times" >
+    update li_project_times
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=BIGINT},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

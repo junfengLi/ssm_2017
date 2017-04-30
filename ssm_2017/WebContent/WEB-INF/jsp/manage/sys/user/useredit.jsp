@@ -16,11 +16,11 @@
 	<form action="${ctx }/user/save" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="20%" class="titleTd">
+			<td width="30%" class="titleTd">
 			登录名：
 			</td>
-			<td  width="45%">${user.loginname }</td>
-			<td width="32%">登录名不能修改</td>
+			<td  width="50%">${user.loginname } [登录名不能修改]</td>
+			<td width="15%"></td>
 		</tr>
 		<tr>
 			<td class="titleTd">密码：</td>
@@ -142,7 +142,9 @@ jQuery(function($) {
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
-			error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
+			var id = element.attr("id");
+			layer.tips(error.html(), '#' + id, {tips: [3, '#78BA32']});
+			//error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
 		}
 	});
 		/* rules: {

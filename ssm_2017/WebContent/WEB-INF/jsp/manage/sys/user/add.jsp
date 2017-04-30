@@ -17,14 +17,14 @@
 	<table  class="tableForm">
 		<c:if test="${not empty user }">
 		<tr>
-			<td width="20%" class="titleTd">
+			<td width="30%" class="titleTd">
 			登录名：
 			</td>
-			<td  width="45%">${user.loginname }
+			<td  width="50%">${user.loginname }
 			<input type="hidden" name="password" value="${user.password }"/>
 			<input type="hidden" name="loginname" value="${user.loginname }"/>
 			</td>
-			<td width="30%"></td>
+			<td width="15%"></td>
 		</tr>
 		</c:if>
 		<c:if test="${empty user }">
@@ -202,7 +202,9 @@ jQuery(function($) {
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
-			error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
+			var id = element.attr("id");
+			layer.tips(error.html(), '#' + id, {tips: [3, '#78BA32']});
+			//error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
 		}
 	});
 		/* rules: {

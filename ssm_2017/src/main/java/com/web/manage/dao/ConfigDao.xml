@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.manage.dao.ConfigDao" >
+  <resultMap id="BaseResultMap" type="com.web.manage.pojo.Config" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="dayconfig" property="dayconfig" jdbcType="VARCHAR" />
+    <result column="weekconfig" property="weekconfig" jdbcType="VARCHAR" />
+    <result column="monthconfig" property="monthconfig" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, userid, dayconfig, weekconfig, monthconfig, createtime, updatetime
+  </sql>
+
+  <sql id="whereFields" >
+    <where >
+      <if test="userid != null" >
+         and userid = #{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="dayconfig != null" >
+         and dayconfig = #{dayconfig,jdbcType=VARCHAR}
+      </if>
+      <if test="weekconfig != null" >
+         and weekconfig = #{weekconfig,jdbcType=VARCHAR}
+      </if>
+      <if test="monthconfig != null" >
+         and monthconfig = #{monthconfig,jdbcType=VARCHAR}
+      </if>
+      <if test="createtime != null" >
+         and createtime = #{createtime,jdbcType=BIGINT}
+      </if>
+      <if test="updatetime != null" >
+         and updatetime = #{updatetime,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStatement" resultMap="BaseResultMap" parameterType="com.web.manage.pojo.Config" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_config
+    <include refid="whereFields" />
+     limit #{offset},#{rows} 
+  </select>
+
+  <select id="selectByStatementCount" resultType="int" parameterType="com.web.manage.pojo.Config" >
+    select count(1) from li_project_config
+    <include refid="whereFields" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from li_project_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.web.manage.pojo.Config" useGeneratedKeys="true" keyProperty="id" >
+  <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+    insert into li_project_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="dayconfig != null" >
+        dayconfig,
+      </if>
+      <if test="weekconfig != null" >
+        weekconfig,
+      </if>
+      <if test="monthconfig != null" >
+        monthconfig,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="dayconfig != null" >
+        #{dayconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="weekconfig != null" >
+        #{weekconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="monthconfig != null" >
+        #{monthconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.manage.pojo.Config" >
+    update li_project_config
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="dayconfig != null" >
+        dayconfig = #{dayconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="weekconfig != null" >
+        weekconfig = #{weekconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="monthconfig != null" >
+        monthconfig = #{monthconfig,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

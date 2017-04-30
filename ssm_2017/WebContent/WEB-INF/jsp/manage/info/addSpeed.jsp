@@ -16,12 +16,12 @@
 	<form action="${ctx }/info/speedSave" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="30%" class="titleTd"> 联系客户时间：</td>
-			<td width="45%"> 
+			<td width="25%" class="titleTd"> 联系客户时间：</td>
+			<td width="50%"> 
 			<textarea id="form-field-11" name="asktime" class="autosize-transition form-control"
 			 style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 70px;margin: 2px 0px;">${speed.asktime }</textarea>
 			</td>
-			<td width="25%"></td>
+			<td width="15%"></td>
 		</tr>
 		<tr>
 			<td class="titleTd"> 发送采访提纲时间：</td>
@@ -186,7 +186,9 @@ jQuery(function($) {
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
-			error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
+			var id = element.attr("id");
+			layer.tips(error.html(), '#' + id, {tips: [3, '#78BA32']});
+			//error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
 		}
 	});
 		/* rules: {

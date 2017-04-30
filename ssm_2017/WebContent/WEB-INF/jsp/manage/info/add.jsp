@@ -16,12 +16,12 @@
 	<form action="${ctx }/info/save" id="userForm" method="post">
 	<table  class="tableForm">
 		<tr>
-			<td width="20%" class="titleTd">姓名：</td>
+			<td width="25%" class="titleTd">姓名：</td>
 			<td  width="50%">
 			<input type="text" id="name" name="name" placeholder="姓名"
 			  value="${info.name }" class="col-xs-12 col-sm-5" autocomplete="off" />
 			</td>
-			<td width="25%"></td>
+			<td width="15%"></td>
 		</tr>
 		<tr>
 			<td class="titleTd">手机：</td>
@@ -239,7 +239,9 @@ jQuery(function($) {
 			}
 		},
 		errorPlacement: function(error, element) { //错误信息位置设置方法
-			error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
+			var id = element.attr("id");
+			layer.tips(error.html(), '#' + id, {tips: [3, '#78BA32']});
+			//error.appendTo( element.parent().next() ); //这里的element是录入数据的对象
 		}
 	});
 		/* rules: {

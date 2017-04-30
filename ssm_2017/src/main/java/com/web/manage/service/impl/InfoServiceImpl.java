@@ -175,6 +175,29 @@ public class InfoServiceImpl implements InfoService {
 		onlineDao.deleteByInfoId(id);
 	}
 
+	@Override
+	public int reportCount(BaseInfoResult info) {
+		return infoDao.selectByStatementForResultCount(info);
+	}
+
+	@Override
+	public String reportName(BaseInfoResult info) {
+		info.setOffset(1);
+		info.setRows(100);
+		List<BaseInfo> infos = infoDao.selectByStatementForResult(info);
+		StringBuffer names = new StringBuffer();
+		int i = 0;
+		for (BaseInfo baseInfo : infos) {
+			if (i == 0) {
+				names.append(baseInfo.getName());
+				i++;
+			} else {
+				names.append("，" + baseInfo.getName());
+			}
+		}
+		return names.toString();
+	}
+
 
 	
 
