@@ -33,10 +33,10 @@
 				<!-- PAGE CONTENT BEGINS -->
 				<div class="row">
 					<div class="col-sm-5">
-						<%-- <div class="row">
+						<div class="row">
 							<div class="widget-box">
 								<div class="widget-header widget-header-flat">
-									<h4><i class="icon-circle"></i>当日情况【2017-02-14】</h4>
+									<h4><i class="icon-circle"></i>一周统计</h4>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main">
@@ -46,11 +46,11 @@
 									</div>
 								</div>
 							</div>
-						</div><!-- /span --> --%>
+						</div><!-- /span -->
 						<div class="row">
 							<div class="widget-box">
 								<div class="widget-header widget-header-flat">
-									<h4><i class="icon-circle"></i>本周周报【2017-02-14到2017-02-14】</h4>
+									<h4><i class="icon-circle"></i>周报</h4>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main">
@@ -64,7 +64,7 @@
 						<div class="row">
 							<div class="widget-box">
 								<div class="widget-header widget-header-flat">
-									<h4><i class="icon-circle"></i>本月月报【2017-02-14到2017-02-14】</h4>
+									<h4><i class="icon-circle"></i>月报</h4>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main">

@@ -17,7 +17,7 @@
 		<table  class="tableForm">
 		<tr>
 		<td>
-			 <%-- <div class="col-sm-4">
+			 <div class="col-sm-4">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat">
 						<h4><i class="icon-bookmark"></i>当日情况配置：</h4>
@@ -33,8 +33,8 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- /span --> --%>
-			<div class="col-sm-6">
+			</div><!-- /span -->
+			<div class="col-sm-4">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat">
 						<h4><i class="icon-bookmark"></i>周报配置：</h4>
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 			</div><!-- /span -->
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat">
 						<h4><i class="icon-bookmark"></i>月报配置：</h4>

@@ -66,7 +66,7 @@ public class ProjectAction {
 		if ("index".equals(module)) {
 			Config config = configService.findByUserId(userid);
 	    	if (config != null) {
-//	    		String dayConfig = config.getDayconfig();
+	    		String dayConfig = config.getDayconfig();
 	    		String weekConfig = config.getWeekconfig();
 	    		String monthConfig = config.getMonthconfig();
 	    		List<UINode> nodes = ReportTypeEnum.getNodes();
@@ -75,6 +75,10 @@ public class ProjectAction {
 	    		for (UINode uiNode : nodes) {
 	    			String id = uiNode.getId();
 	    			//dayConfig = dayConfig.replace("{[" + uiNode.getId() + "]}", "张三，李四");
+	    			if (dayConfig.contains("{[" + id + "]}")) {
+	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "" : weekMap.get(id);
+	    				dayConfig = dayConfig.replace("{[" + id + "]}", value);
+					}
 	    			if (weekConfig.contains("{[" + id + "]}")) {
 	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "" : weekMap.get(id);
 	    				weekConfig = weekConfig.replace("{[" + id + "]}", value);
@@ -84,7 +88,7 @@ public class ProjectAction {
 	    				monthConfig = monthConfig.replace("{[" + id + "]}", value);
 					}
 				}
-//	    		config.setDayconfig(dayConfig);
+	    		config.setDayconfig(dayConfig);
 	    		config.setWeekconfig(weekConfig);
 	    		config.setMonthconfig(monthConfig);
 				model.addAttribute("config", config);
