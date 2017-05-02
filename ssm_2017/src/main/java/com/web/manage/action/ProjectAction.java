@@ -70,21 +70,46 @@ public class ProjectAction {
 	    		String weekConfig = config.getWeekconfig();
 	    		String monthConfig = config.getMonthconfig();
 	    		List<UINode> nodes = ReportTypeEnum.getNodes();
-	    		Map<String, String> weekMap = getWeekMap(weekConfig);
-	    		Map<String, String> monthMap = getMonthMap(monthConfig);
+	    		
+	    		long starttime = 0, endtime = 0;
+	    		Calendar cal = Calendar.getInstance();
+	        	cal.setFirstDayOfWeek(Calendar.MONDAY);
+	        	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	          	cal.set(Calendar.HOUR_OF_DAY, 0);
+	          	cal.set(Calendar.MINUTE, 0);
+	          	cal.set(Calendar.SECOND, 0);
+	        	starttime = cal.getTimeInMillis() -1000l;
+	        	cal.add(Calendar.WEEK_OF_MONTH, 1);
+	        	endtime = cal.getTimeInMillis() -1000l;
+//	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
+//	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
+	    		Map<String, String> weekMap = getWeekMap(weekConfig,dayConfig, starttime, endtime);
+	    		cal = Calendar.getInstance();
+	          	cal.setFirstDayOfWeek(Calendar.MONDAY);
+	          	cal.set(Calendar.DAY_OF_MONTH, 1);
+	          	cal.set(Calendar.HOUR_OF_DAY, 0);
+	          	cal.set(Calendar.MINUTE, 0);
+	          	cal.set(Calendar.SECOND, 0);
+	          	starttime = cal.getTimeInMillis() -1000l;
+	          	cal.add(Calendar.MONTH, 1);
+	        	endtime = cal.getTimeInMillis() -1000l;
+//	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
+//	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
+	    		Map<String, String> monthMap = getMonthMap(monthConfig, starttime, endtime);
+	    		
 	    		for (UINode uiNode : nodes) {
 	    			String id = uiNode.getId();
 	    			//dayConfig = dayConfig.replace("{[" + uiNode.getId() + "]}", "张三，李四");
 	    			if (dayConfig.contains("{[" + id + "]}")) {
-	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "" : weekMap.get(id);
+	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "【暂没有客户】" : weekMap.get(id);
 	    				dayConfig = dayConfig.replace("{[" + id + "]}", value);
 					}
 	    			if (weekConfig.contains("{[" + id + "]}")) {
-	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "" : weekMap.get(id);
+	    				String value = StringUtils.isBlank(weekMap.get(id)) ? "【暂没有客户】" : weekMap.get(id);
 	    				weekConfig = weekConfig.replace("{[" + id + "]}", value);
 					}
 	    			if (monthConfig.contains("{[" + id + "]}")) {
-	    				String value = StringUtils.isBlank(monthMap.get(id)) ? "" : monthMap.get(id);
+	    				String value = StringUtils.isBlank(monthMap.get(id)) ? "【暂没有客户】" : monthMap.get(id);
 	    				monthConfig = monthConfig.replace("{[" + id + "]}", value);
 					}
 				}
@@ -113,21 +138,13 @@ public class ProjectAction {
   	System.out.println(DateUtil.getFormatDateTime(endtime));
 }
 
-    private Map<String, String> getWeekMap(String weekConfig) {
-    	Calendar cal = Calendar.getInstance();
-    	cal.setFirstDayOfWeek(Calendar.MONDAY);
-    	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-      	cal.set(Calendar.HOUR_OF_DAY, 0);
-      	cal.set(Calendar.MINUTE, 0);
-      	cal.set(Calendar.SECOND, 0);
-    	long starttime = cal.getTimeInMillis();
-    	cal.add(Calendar.WEEK_OF_MONTH, 1);
-    	long endtime = cal.getTimeInMillis();
+    private Map<String, String> getWeekMap(String weekConfig, String dayConfig, long starttime, long endtime) {
+    	
     	Map<String, String> weekMap = new HashMap<>();
     	BaseInfoResult info = new BaseInfoResult();
     	StringBuilder key = new StringBuilder();
     	key = new StringBuilder(ReportTypeEnum.SENDMENU.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setSendmenutime1(starttime);
@@ -135,7 +152,7 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.INTERVIEW.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setInterviewtime1(starttime);
@@ -143,7 +160,7 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.FINISH.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setFinshnewstime1(starttime);
@@ -151,7 +168,7 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.BACK.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setBacktime1(starttime);
@@ -159,7 +176,7 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.ONLINE.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setOnlinetime1(starttime);
@@ -167,7 +184,7 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.SCORE.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setIsmark(IsOrEnum.SHI.getKey());
@@ -176,14 +193,14 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.ASK.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		Times times = new Times();
     		times.setDate1(starttime);
     		times.setDate2(endtime);
     		weekMap.put(key.toString(), String.valueOf(timesService.reportCount(times)));
 		}
     	key = new StringBuilder(ReportTypeEnum.FINISHSEND.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setFinshnewstime1(starttime);
@@ -192,16 +209,17 @@ public class ProjectAction {
     		weekMap.put(key.toString(), String.valueOf(infoService.reportName(info)));
 		}
     	key = new StringBuilder(ReportTypeEnum.SENDINTERVIEW.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setInterviewtime1(starttime);
     		info.setInterviewtime2(endtime);
     		info.setFinshnewstime(0l);
-    		weekMap.put(key.toString(), String.valueOf(infoService.reportName(info)));
+    		String names = String.valueOf(infoService.reportName(info));
+    		weekMap.put(key.toString(), names);
 		}
     	key = new StringBuilder(ReportTypeEnum.ONLYSEND.getKey());
-    	if (weekConfig.contains("{[" + key.toString() + "]}")) {
+    	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
     		info.setSendmenutime1(starttime);
@@ -211,16 +229,8 @@ public class ProjectAction {
 		return weekMap;
 	}
 
-    private Map<String, String> getMonthMap(String monthConfig) {
-    	Calendar cal = Calendar.getInstance();
-      	cal.setFirstDayOfWeek(Calendar.MONDAY);
-      	cal.set(Calendar.DAY_OF_MONTH, 1);
-      	cal.set(Calendar.HOUR_OF_DAY, 0);
-      	cal.set(Calendar.MINUTE, 0);
-      	cal.set(Calendar.SECOND, 0);
-      	long starttime = cal.getTimeInMillis();
-      	cal.add(Calendar.MONTH, 1);
-    	long endtime = cal.getTimeInMillis();
+    private Map<String, String> getMonthMap(String monthConfig, long starttime, long endtime) {
+    	
 		Map<String, String> monthMap = new HashMap<>();
 		BaseInfoResult info = new BaseInfoResult();
     	StringBuilder key = new StringBuilder();
@@ -375,6 +385,87 @@ public class ProjectAction {
 			HttpServletRequest request){
     	Map<String, Object> resultMap = new HashMap<>();
     	timesService.deleteTimesById(id);
+    	resultMap.put("result", true);
+    	return resultMap;
+    }
+    
+    @RequestMapping(value="/monthSearch", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> monthSearch(@RequestParam(value="time",defaultValue="")String time,
+			HttpServletRequest request){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	
+    	if (DateUtil.getLongDateFromString(time, false) == 0) return resultMap;
+    	
+		String userid = CommonUtil.getLoginName();
+		Config config = configService.findByUserId(userid);
+    	if (config != null) {
+    		String monthConfig = config.getMonthconfig();
+    		List<UINode> nodes = ReportTypeEnum.getNodes();
+    		long times = DateUtil.getLongDateFromString(time, false);
+        	Calendar cal = Calendar.getInstance();
+    		cal.setTimeInMillis(times);
+          	long starttime = 0, endtime = 0;
+        	starttime = times -1000l;
+        	cal.add(Calendar.MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+//    		System.out.println(DateUtil.getFormatDateTime(starttime));
+//    		System.out.println(DateUtil.getFormatDateTime(endtime));
+    		Map<String, String> monthMap = getMonthMap(monthConfig, starttime, endtime);
+    		for (UINode uiNode : nodes) {
+    			String id = uiNode.getId();
+    			if (monthConfig.contains("{[" + id + "]}")) {
+    				String value = StringUtils.isBlank(monthMap.get(id)) ? "【暂没有客户】" : monthMap.get(id);
+    				monthConfig = monthConfig.replace("{[" + id + "]}", value);
+				}
+			}
+    		resultMap.put("month", monthConfig);
+    	}
+		
+    	resultMap.put("result", true);
+    	return resultMap;
+    }
+    
+    
+    @RequestMapping(value="/weekSearch", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> weekSearch(@RequestParam(value="time",defaultValue="")String time,
+			HttpServletRequest request){
+    	Map<String, Object> resultMap = new HashMap<>();
+    	if (DateUtil.getLongDateFromString(time, false) == 0) return resultMap;
+    	
+		String userid = CommonUtil.getLoginName();
+		Config config = configService.findByUserId(userid);
+    	if (config != null) {
+    		String dayConfig = config.getDayconfig();
+    		String weekConfig = config.getWeekconfig();
+    		List<UINode> nodes = ReportTypeEnum.getNodes();
+    		long times = DateUtil.getLongDateFromString(time);
+        	Calendar cal = Calendar.getInstance();
+    		cal.setTimeInMillis(times);
+          	long starttime = 0, endtime = 0;
+          	cal.setFirstDayOfWeek(Calendar.MONDAY);
+        	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+          	starttime = cal.getTimeInMillis() -1000l;
+        	cal.add(Calendar.WEEK_OF_MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+//    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
+//    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
+    		Map<String, String> weekMap = getWeekMap(weekConfig,dayConfig, starttime, endtime);	
+    		for (UINode uiNode : nodes) {
+    			String id = uiNode.getId();
+    			if (dayConfig.contains("{[" + id + "]}")) {
+    				String value = StringUtils.isBlank(weekMap.get(id)) ? "【暂没有客户】" : weekMap.get(id);
+    				dayConfig = dayConfig.replace("{[" + id + "]}", value);
+				}
+    			if (weekConfig.contains("{[" + id + "]}")) {
+    				String value = StringUtils.isBlank(weekMap.get(id)) ? "【暂没有客户】" : weekMap.get(id);
+    				weekConfig = weekConfig.replace("{[" + id + "]}", value);
+				}
+			}
+    		resultMap.put("day", dayConfig);
+    		resultMap.put("week", weekConfig);
+    	}
     	resultMap.put("result", true);
     	return resultMap;
     }

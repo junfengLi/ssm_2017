@@ -19,8 +19,7 @@
 					<span id="time"></span>
 				</h3>
 				<div class="alert alert-block alert-success">
-					<i class="icon-circle green"></i>
-					当月联系客户20人（次）
+					<!-- <i class="icon-circle green"></i> -->
 					<a href="#" class="menu-text" 
 					 onclick="openFrame('模板配置','${ctx }/project/config/forward?id=${config.id }',900,600);">
 						<span class="icon-cogs"> 模板配置 </span>
@@ -37,11 +36,19 @@
 							<div class="widget-box">
 								<div class="widget-header widget-header-flat">
 									<h4><i class="icon-circle"></i>一周统计</h4>
+									<div class="widget-toolbar">
+										<input class="form-control input-small date-picker" id="id-date-picker-2" type="text" name="starttime" style="    margin-top: 2px;float: left; display: block;" />
+										<span class="input-group-addon" style="float: left;height: 34px; margin-top: 2px;line-height: 23px; width:35px;"><i class="icon-calendar bigger-110"></i></span>
+										<span class="input-group-addon clearDate"  style="float: left; margin-top: 2px;height: 34px;line-height: 23px;width:35px;"><i class="icon-remove"></i></span>
+										<span style="cursor: pointer;width:30px;margin-left:5px;float:left; margin-top: 2px;" onclick="weekSearch();" >
+										<i class="icon-search nav-search-icon bigger-160"></i>
+										</span>
+									</div>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main">
 										<div class="row">
-											<div class="col-xs-12" style="white-space: pre-line;">${config.dayconfig }</div>
+											<div class="col-xs-12" id="dayConfig" style="white-space: pre-line;">${config.dayconfig }</div>
 										</div>
 									</div>
 								</div>
@@ -55,7 +62,7 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										<div class="row">
-											<div class="col-xs-12" style="white-space: pre-line;">${config.weekconfig }</div>
+											<div class="col-xs-12" id="weekConfig" style="white-space: pre-line;">${config.weekconfig }</div>
 										</div>
 									</div>
 								</div>
@@ -65,11 +72,19 @@
 							<div class="widget-box">
 								<div class="widget-header widget-header-flat">
 									<h4><i class="icon-circle"></i>月报</h4>
+									<div class="widget-toolbar">
+										<input class="form-control input-small date-picker" id="id-date-picker-1" type="text" name="starttime" style="    margin-top: 2px;float: left; display: block;" />
+										<span class="input-group-addon" style="float: left;height: 34px; margin-top: 2px;line-height: 23px; width:35px;"><i class="icon-calendar bigger-110"></i></span>
+										<span class="input-group-addon clearDate"  style="float: left; margin-top: 2px;height: 34px;line-height: 23px;width:35px;"><i class="icon-remove"></i></span>
+										<span style="cursor: pointer;width:30px;margin-left:5px;float:left; margin-top: 2px;" onclick="monthSearch();" >
+										<i class="icon-search nav-search-icon bigger-160"></i>
+										</span>
+									</div>
 								</div>
 								<div class="widget-body">
 									<div class="widget-main">
 										<div class="row">
-											<div class="col-xs-12" style="white-space: pre-line;">${config.monthconfig }</div>
+											<div class="col-xs-12" id="monthConfig" style="white-space: pre-line;">${config.monthconfig }</div>
 										</div>
 									</div>
 								</div>
@@ -101,10 +116,57 @@ $(function(){
 	layui.use(['layer'], function(){layer = layui.layer;});
 	getTime();
 	pageInit();
+	$('.input-group-addon.clearDate').click(function(){
+		$(this).prev().prev().val('');
+	});
+	$('#id-date-picker-2').datepicker({dateFormat: "yy-mm-dd",autoclose:true});
+	$('#id-date-picker-1').datetimepicker({language: "zh-CN",format: "yyyy-mm",autoclose:true,
+		startView: 3, //这里就设置了默认视图为年视图
+        minView: 3, //设置最小视图为年视图
+		});
 });
 
 function pageReload(){
 	$("#pageReload").click();
+}
+
+function weekSearch(){
+	var time = $('#id-date-picker-2').val();
+	if (time != '') {
+		var index2 = layer.load(2, {
+			  shade: [0.1,'#ccc'] //0.1透明度的白色背景
+			});
+		$.post('${ctx }/project/weekSearch', {time:time}, function (data) {
+			layer.close(index2);
+			if(data.result){
+				$("#dayConfig").html(data.day);
+				$("#weekConfig").html(data.week);
+			}else{
+				layer.msg('参数错误');
+			}
+		});
+	} else {
+		layer.tips('请选择时间', '#id-date-picker-2', {tips: [3, '#78BA32']});
+	}
+}
+
+function monthSearch(){
+	var time = $('#id-date-picker-1').val();
+	if (time != '') {
+		var index2 = layer.load(2, {
+			  shade: [0.1,'#ccc'] //0.1透明度的白色背景
+			});
+		$.post('${ctx }/project/monthSearch', {time:time}, function (data) {
+			layer.close(index2);
+			if(data.result){
+				$("#monthConfig").html(data.month);
+			}else{
+				layer.msg('参数错误');
+			}
+		});
+	} else {
+		layer.tips('请选择时间', '#id-date-picker-1', {tips: [3, '#78BA32']});
+	}
 }
 
 function getTime(){
@@ -149,8 +211,6 @@ function pageInit(){
 	      caption : "用户管理",
 	      height: 'auto',
 	      loadComplete : function() {
-	    	 /*  $(grid_selector).setGridParam().hideCol("isrefuse").trigger("reloadGrid");
-	    	  $(grid_selector).setGridHeight($(window).height() - 290); */
 				var w2 = parseInt($('.ui-jqgrid-labels>th:eq(0)').css('width'))-3;  
 				$('.ui-jqgrid-lables>th:eq(0)').css('width',w2);  
 				$('#grid-table tr').find("td:eq(0)").each(function(){  

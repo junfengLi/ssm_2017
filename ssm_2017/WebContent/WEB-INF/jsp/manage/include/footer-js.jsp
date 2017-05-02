@@ -22,6 +22,9 @@
 <script src="${ctx}/static/bootstrap-3.3.0/js/typeahead-bs2.min.js"></script>
 <script src="${ctx}/static/bootstrap-3.3.0/js/bootstrap-colorpicker.min.js"></script>
 <script src="${ctx}/static/bootstrap-3.3.0/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="${ctx}/static/bootstrap-3.3.0/js/date-time/bootstrap-datetimepicker.min.js"></script>
+<script src="${ctx}/static/bootstrap-3.3.0/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 <script src="${ctx}/static/bootstrap-3.3.0/js/date-time/bootstrap-timepicker.min.js"></script>
 <script src="${ctx}/static/bootstrap-3.3.0/js/date-time/daterangepicker.min.js"></script>
 <script src="${ctx}/static/bootstrap-3.3.0/js/date-time/moment.min.js"></script>

@@ -7,6 +7,8 @@
 
 <!-- basic styles -->
 <link href="${ctx }/static/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx }/static/bootstrap-3.3.0/css/date-time/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
 <link rel="stylesheet" href="${ctx }/static/ace/css/font-awesome.min.css" />
 <!--[if IE 7]><link rel="stylesheet" href="${ctx }/static/ace/css/font-awesome-ie7.min.css" /><![endif]-->
 <!-- ace styles -->
