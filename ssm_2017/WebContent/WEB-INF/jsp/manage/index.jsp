@@ -105,7 +105,7 @@
 				<%-- <li class="">
 					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/user/query/load">
 						<i class="icon-group"></i>
-						<span class="menu-text"> 用户管理 </span>
+						<span class="menu-text"> 用户管0理 </span>
 					</a>
 				</li> --%>
 				<li class="">
