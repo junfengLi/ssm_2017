@@ -224,6 +224,7 @@ public class ProjectAction {
     		info = new BaseInfoResult();
     		info.setSendmenutime1(starttime);
     		info.setSendmenutime2(endtime);
+    		info.setInterviewtime(0l);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportName(info)));
 		}
 		return weekMap;
