@@ -98,36 +98,6 @@
 			<div id="speed" class="tab-pane">
 				<table  class="tableForm">
 					<tr>
-						<td width="30%" class="titleTd"> 编辑后台时间：</td>
-						<td width="70%"> ${editbackgroundtime }</td>
-					</tr>
-					<tr>
-						<td class="titleTd"> 推首时间：</td>
-						<td>${pushheadtime }</td>
-					</tr>
-					<tr>
-						<td class="titleTd"> 资讯轮播时间：</td>
-						<td>${informationtime }</td>
-					</tr>
-					<tr>
-						<td class="titleTd"> 项目集合时间：</td>
-						<td>${itemsettime }</td>
-					</tr>
-					<tr>
-						<td class="titleTd"> 首页Banner时间：</td>
-						<td>${bannertime }</td>
-					</tr>
-					<tr>
-						<td class="titleTd"> 文章链接：</td>
-						<td><c:if test="${not empty online.infohref  }">
-									<a href="${online.infohref  }" style="color: #428bca;" target="_blank">文章链接</a></c:if></td>
-						<td>
-					</tr>
-				</table>
-			</div>
-			<div id="online" class="tab-pane">
-				<table  class="tableForm">
-					<tr>
 						<td width="30%" class="titleTd"> 联系客户时间：</td>
 						<td width="70%"> ${speed.asktime }</td>
 					</tr>
@@ -164,6 +134,36 @@
 					<tr>
 						<td class="titleTd"> 发送反馈时间：</td>
 						<td>${backtime}</td>
+					</tr>
+				</table>
+			</div>
+			<div id="online" class="tab-pane">
+				<table  class="tableForm">
+					<tr>
+						<td width="30%" class="titleTd"> 编辑后台时间：</td>
+						<td width="70%"> ${editbackgroundtime }</td>
+					</tr>
+					<tr>
+						<td class="titleTd"> 推首时间：</td>
+						<td>${pushheadtime }</td>
+					</tr>
+					<tr>
+						<td class="titleTd"> 资讯轮播时间：</td>
+						<td>${informationtime }</td>
+					</tr>
+					<tr>
+						<td class="titleTd"> 项目集合时间：</td>
+						<td>${itemsettime }</td>
+					</tr>
+					<tr>
+						<td class="titleTd"> 首页Banner时间：</td>
+						<td>${bannertime }</td>
+					</tr>
+					<tr>
+						<td class="titleTd"> 文章链接：</td>
+						<td><c:if test="${not empty online.infohref  }">
+									<a href="${online.infohref  }" style="color: #428bca;" target="_blank">文章链接</a></c:if></td>
+						<td>
 					</tr>
 				</table>
 			</div>
