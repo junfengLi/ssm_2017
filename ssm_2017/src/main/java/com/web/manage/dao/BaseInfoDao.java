@@ -16,4 +16,5 @@ public interface BaseInfoDao extends BaseDao<BaseInfo> {
 	List<BaseInfo> findByUserId(String userid);
 	List<BaseInfo> selectByStatementForResult(BaseInfoResult baseInfoResult);
 	int selectByStatementForResultCount(BaseInfoResult baseInfoResult);
+	List<BaseInfo> selectByStatementForExport(BaseInfo info);
 }

@@ -1,5 +1,6 @@
 package com.web.manage.action;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -19,17 +20,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.commons.excel.ExportUtil;
 import com.web.commons.jqgrid.UINode;
 import com.web.commons.jqgrid.UIPage;
 import com.web.commons.util.CommonUtil;
 import com.web.commons.util.DateUtil;
 import com.web.commons.util.IsOrEnum;
+import com.web.manage.pojo.BaseInfo;
 import com.web.manage.pojo.BaseInfoResult;
 import com.web.manage.pojo.Config;
+import com.web.manage.pojo.Online;
+import com.web.manage.pojo.Speed;
 import com.web.manage.pojo.Times;
 import com.web.manage.service.ConfigService;
 import com.web.manage.service.InfoService;
 import com.web.manage.service.TimesService;
+import com.web.manage.util.AskTypeEnum;
 import com.web.manage.util.ReportTypeEnum;
 
 
@@ -83,7 +89,7 @@ public class ProjectAction {
 	        	endtime = cal.getTimeInMillis() -1000l;
 //	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
 //	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
-	    		Map<String, String> weekMap = getWeekMap(weekConfig,dayConfig, starttime, endtime);
+	    		Map<String, String> weekMap = getWeekMap(userid, weekConfig,dayConfig, starttime, endtime);
 	    		cal = Calendar.getInstance();
 	          	cal.setFirstDayOfWeek(Calendar.MONDAY);
 	          	cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -95,7 +101,7 @@ public class ProjectAction {
 	        	endtime = cal.getTimeInMillis() -1000l;
 //	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
 //	    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
-	    		Map<String, String> monthMap = getMonthMap(monthConfig, starttime, endtime);
+	    		Map<String, String> monthMap = getMonthMap(userid, monthConfig, starttime, endtime);
 	    		
 	    		for (UINode uiNode : nodes) {
 	    			String id = uiNode.getId();
@@ -138,7 +144,7 @@ public class ProjectAction {
   	System.out.println(DateUtil.getFormatDateTime(endtime));
 }
 
-    private Map<String, String> getWeekMap(String weekConfig, String dayConfig, long starttime, long endtime) {
+    private Map<String, String> getWeekMap(String userid, String weekConfig, String dayConfig, long starttime, long endtime) {
     	
     	Map<String, String> weekMap = new HashMap<>();
     	BaseInfoResult info = new BaseInfoResult();
@@ -147,6 +153,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setSendmenutime1(starttime);
     		info.setSendmenutime2(endtime);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -155,6 +162,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setInterviewtime1(starttime);
     		info.setInterviewtime2(endtime);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -163,6 +171,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setFinshnewstime1(starttime);
     		info.setFinshnewstime2(endtime);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -171,6 +180,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setBacktime1(starttime);
     		info.setBacktime2(endtime);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -179,6 +189,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setOnlinetime1(starttime);
     		info.setOnlinetime2(endtime);
     		weekMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -187,6 +198,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setIsmark(IsOrEnum.SHI.getKey());
     		info.setOnlinetime1(starttime);
     		info.setOnlinetime2(endtime);
@@ -195,6 +207,7 @@ public class ProjectAction {
     	key = new StringBuilder(ReportTypeEnum.ASK.getKey());
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		Times times = new Times();
+    		times.setUserid(userid);
     		times.setDate1(starttime);
     		times.setDate2(endtime);
     		weekMap.put(key.toString(), String.valueOf(timesService.reportCount(times)));
@@ -203,6 +216,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setFinshnewstime1(starttime);
     		info.setFinshnewstime2(endtime);
     		info.setOnlinetime(0l);
@@ -212,6 +226,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setInterviewtime1(starttime);
     		info.setInterviewtime2(endtime);
     		info.setFinshnewstime(0l);
@@ -222,6 +237,7 @@ public class ProjectAction {
     	if (weekConfig.contains("{[" + key.toString() + "]}") || dayConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setSendmenutime1(starttime);
     		info.setSendmenutime2(endtime);
     		info.setInterviewtime(0l);
@@ -230,7 +246,7 @@ public class ProjectAction {
 		return weekMap;
 	}
 
-    private Map<String, String> getMonthMap(String monthConfig, long starttime, long endtime) {
+    private Map<String, String> getMonthMap(String userid, String monthConfig, long starttime, long endtime) {
     	
 		Map<String, String> monthMap = new HashMap<>();
 		BaseInfoResult info = new BaseInfoResult();
@@ -239,6 +255,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setSendmenutime1(starttime);
     		info.setSendmenutime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -247,6 +264,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setInterviewtime1(starttime);
     		info.setInterviewtime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -255,6 +273,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setFinshnewstime1(starttime);
     		info.setFinshnewstime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -263,6 +282,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setBacktime1(starttime);
     		info.setBacktime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -271,6 +291,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setOnlinetime1(starttime);
     		info.setOnlinetime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportCount(info)));
@@ -279,6 +300,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setIsmark(IsOrEnum.SHI.getKey());
     		info.setOnlinetime1(starttime);
     		info.setOnlinetime2(endtime);
@@ -287,6 +309,7 @@ public class ProjectAction {
     	key = new StringBuilder(ReportTypeEnum.ASK.getKey());
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		Times times = new Times();
+    		times.setUserid(userid);
     		times.setDate1(starttime);
     		times.setDate2(endtime);
     		monthMap.put(key.toString(), String.valueOf(timesService.reportCount(times)));
@@ -295,6 +318,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setFinshnewstime1(starttime);
     		info.setFinshnewstime2(endtime);
     		info.setOnlinetime(0l);
@@ -304,6 +328,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setInterviewtime1(starttime);
     		info.setInterviewtime2(endtime);
     		info.setFinshnewstime(0l);
@@ -313,6 +338,7 @@ public class ProjectAction {
     	if (monthConfig.contains("{[" + key.toString() + "]}")) {
     		info = null;
     		info = new BaseInfoResult();
+    		info.setUserid(userid);
     		info.setSendmenutime1(starttime);
     		info.setSendmenutime2(endtime);
     		monthMap.put(key.toString(), String.valueOf(infoService.reportName(info)));
@@ -412,7 +438,7 @@ public class ProjectAction {
         	endtime = cal.getTimeInMillis() -1000l;
 //    		System.out.println(DateUtil.getFormatDateTime(starttime));
 //    		System.out.println(DateUtil.getFormatDateTime(endtime));
-    		Map<String, String> monthMap = getMonthMap(monthConfig, starttime, endtime);
+    		Map<String, String> monthMap = getMonthMap(userid, monthConfig, starttime, endtime);
     		for (UINode uiNode : nodes) {
     			String id = uiNode.getId();
     			if (monthConfig.contains("{[" + id + "]}")) {
@@ -452,7 +478,7 @@ public class ProjectAction {
         	endtime = cal.getTimeInMillis() -1000l;
 //    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(starttime));
 //    		System.out.println(DateUtil.getFormatDateTimeWithoutSecond(endtime));
-    		Map<String, String> weekMap = getWeekMap(weekConfig,dayConfig, starttime, endtime);	
+    		Map<String, String> weekMap = getWeekMap(userid, weekConfig,dayConfig, starttime, endtime);	
     		for (UINode uiNode : nodes) {
     			String id = uiNode.getId();
     			if (dayConfig.contains("{[" + id + "]}")) {
@@ -470,6 +496,108 @@ public class ProjectAction {
     	resultMap.put("result", true);
     	return resultMap;
     }
+    
+    
+    @RequestMapping(value = "/doExport", method = RequestMethod.GET)
+	public void doExport(HttpServletRequest request, HttpServletResponse response){
+    	String userid = CommonUtil.getLoginName();
+		if (StringUtils.isNotBlank(userid)) {
+			List<String[]> datas = new ArrayList<String[]>();
+			BaseInfo info = new BaseInfo();
+			info.setUserid(userid);
+			List<BaseInfo> baseInfos = infoService.findList(info);
+			for (BaseInfo baseInfo : baseInfos) {
+				String[] data = new String[24];
+				//姓名
+				data[0] = StringUtils.trimToEmpty(baseInfo.getName());
+				//电话
+				data[1] = StringUtils.trimToEmpty(baseInfo.getMobile());
+				//备用电话
+				data[2] = StringUtils.trimToEmpty(baseInfo.getMobile2());
+				//邮箱
+				data[3] = StringUtils.trimToEmpty(baseInfo.getEmail());
+				//备用邮箱
+				data[4] = StringUtils.trimToEmpty(baseInfo.getEmail2());
+				//项目名称
+				data[5] = StringUtils.trimToEmpty(baseInfo.getProjectname());
+				//项目链接
+				data[6] = StringUtils.trimToEmpty(baseInfo.getProjecthref());
+				//客服
+				data[7] = StringUtils.trimToEmpty(baseInfo.getAsker());
+				//服务到期时间
+				if (baseInfo.getServicetime() > 0) {
+					data[8] = DateUtil.getFormatDate(baseInfo.getServicetime());					
+				} else {
+					data[8] = "";
+				}
+				Speed speed = baseInfo.getInfospeed();
+				if (speed != null) {
+					//联系客户时间
+					data[9] = StringUtils.trimToEmpty(speed.getAsktime());					
+					//发送采访提纲时间
+					if (speed.getSendmenutime() > 0) {
+						data[10] = DateUtil.getFormatDate(speed.getSendmenutime());					
+					} else {
+						data[10] = "";
+					}
+					//采访时间
+					if (speed.getInterviewtime() > 0) {
+						data[11] = DateUtil.getFormatDate(speed.getInterviewtime());					
+					} 
+					//采访类型
+					data[12] = AskTypeEnum.getDescByKey(speed.getAsktype());					
+					//成稿时间
+					if (speed.getFinshnewstime() > 0) {
+						data[13] = DateUtil.getFormatDate(speed.getFinshnewstime());					
+					} 
+					//客户确认上线时间
+					if (speed.getOnlinetime() > 0) {
+						data[14] = DateUtil.getFormatDate(speed.getOnlinetime());					
+					} 
+					//发送设计需求时间
+					if (speed.getSendneedtime() > 0) {
+						data[15] = DateUtil.getFormatDate(speed.getSendneedtime());					
+					}
+					//发送反馈时间
+					if (speed.getBacktime() > 0) {
+						data[16] = DateUtil.getFormatDate(speed.getBacktime());					
+					}
+				} else {
+					
+				}
+				Online online = baseInfo.getInfoonline();
+				if (online != null) {
+					//编辑后台时间
+					if (online.getEditbackgroundtime() > 0) {
+						data[17] = DateUtil.getFormatDate(online.getEditbackgroundtime());					
+					}
+					//推首时间
+					if (online.getPushheadtime() > 0) {
+						data[17] = DateUtil.getFormatDate(online.getPushheadtime());					
+					}
+					//资讯轮播时间
+					if (online.getInformationtime() > 0) {
+						data[17] = DateUtil.getFormatDate(online.getInformationtime());					
+					}
+					//项目集合时间
+					if (online.getItemsettime() > 0) {
+						data[17] = DateUtil.getFormatDate(online.getItemsettime());					
+					}
+					//首页banner时间
+					if (online.getBannertime() > 0) {
+						data[17] = DateUtil.getFormatDate(online.getBannertime());					
+					}
+					//文章链接
+					data[22] = StringUtils.trimToEmpty(online.getInfohref());
+				}
+				//备注
+				data[23] = StringUtils.trimToEmpty(baseInfo.getNote());
+				datas.add(data);
+			}
+			ExportUtil.doExportFromRow(request, response, datas, "/excelXml/info.xls", "批量导出", 3);
+		}
+			
+	}
     
     //--------------------------------------异步数据---------------------------------------------------
     @RequestMapping("/getPage")
