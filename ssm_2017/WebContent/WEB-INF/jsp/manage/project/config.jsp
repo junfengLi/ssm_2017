@@ -91,7 +91,7 @@
 	</tr>
 	</table>
 	<div class="frame_close">
-		<input type="hidden" name="userid" value="${config.userid }" />
+		<input type="hidden" name="userid" value="${userid }" />
 		<input type="hidden" name="id" value="${config.id }" />
 		<input type="hidden" name="createtime" value="${config.createtime }" />
 		<button class="btn btn-info" onclick="parent.closeFrame()" type="button"> 关闭</button>
