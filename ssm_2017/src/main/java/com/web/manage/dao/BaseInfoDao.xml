@@ -21,6 +21,64 @@
     <result column="speed" property="speed" jdbcType="VARCHAR" /> 
     <result column="ismark" property="ismark" jdbcType="VARCHAR" /> 
   </resultMap>
+  <resultMap id="BaseResultMapForExport" type="com.web.manage.pojo.BaseInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mobile2" property="mobile2" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column= "email2" property="email2" jdbcType="VARCHAR" />
+    <result column="projectname" property="projectname" jdbcType="VARCHAR" />
+    <result column="projecthref" property="projecthref" jdbcType="VARCHAR" />
+    <result column="asker" property="asker" jdbcType="VARCHAR" />
+    <result column="servicetime" property="servicetime" jdbcType="BIGINT" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
+    <result column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="isrefuse" property="isrefuse" jdbcType="VARCHAR" />
+    <result column="speed" property="speed" jdbcType="VARCHAR" /> 
+    <result column="ismark" property="ismark" jdbcType="VARCHAR" /> 
+    <collection property="infospeed" select="selectSpeed" column="id" ofType="Speed"></collection>
+    <collection property="infoonline" select="selectOnline" column="id" ofType="Online"></collection>
+  </resultMap>
+  
+  <resultMap type="com.web.manage.pojo.Speed" id="SpeedResult">  
+	     <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="infoid" property="infoid" jdbcType="VARCHAR" />
+    <result column="asktime" property="asktime" jdbcType="VARCHAR" />
+    <result column="sendmenutime" property="sendmenutime" jdbcType="BIGINT" />
+    <result column="interviewtime" property="interviewtime" jdbcType="BIGINT" />
+    <result column="asktype" property="asktype" jdbcType="VARCHAR" />
+    <result column="finshnewstime" property="finshnewstime" jdbcType="BIGINT" />
+    <result column="onlinetime" property="onlinetime" jdbcType="BIGINT" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="sendneedtime" property="sendneedtime" jdbcType="BIGINT" />
+    <result column="backtime" property="backtime" jdbcType="BIGINT" />
+ </resultMap>  
+	<select id="selectSpeed" parameterType="java.lang.String" resultMap="SpeedResult">  
+	    SELECT s.* from  li_project_speed s  WHERE s.infoid = #{id,jdbcType=VARCHAR} 
+    </select>    
+  
+  <resultMap id="OnlineResult" type="com.web.manage.pojo.Online" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="infoid" property="infoid" jdbcType="VARCHAR" />
+    <result column="editbackgroundtime" property="editbackgroundtime" jdbcType="BIGINT" />
+    <result column="pushheadtime" property="pushheadtime" jdbcType="BIGINT" />
+    <result column="informationtime" property="informationtime" jdbcType="BIGINT" />
+    <result column="itemsettime" property="itemsettime" jdbcType="BIGINT" />
+    <result column="bannertime" property="bannertime" jdbcType="BIGINT" />
+    <result column="infohref" property="infohref" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectOnline" parameterType="java.lang.String" resultMap="OnlineResult">  
+	    SELECT s.* from  li_project_online s  WHERE s.infoid = #{id,jdbcType=VARCHAR} 
+    </select>    
+  
+  
 
   <sql id="Base_Column_List" >
     id, userid, name, mobile, mobile2, email, email2, projectname, projecthref, asker, 
@@ -161,6 +219,15 @@
     order by o.seq desc
      limit #{offset},#{rows} 
   </select>
+  
+  <select id="selectByStatementForExport" resultMap="BaseResultMapForExport" parameterType="com.web.manage.pojo.BaseInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from li_project_info 
+    <include refid="whereFields" />
+    order by seq desc
+  </select>
+  
   <select id="selectByStatementForResultCount" resultType="int" parameterType="com.web.manage.pojo.BaseInfoResult" >
     select count(1) from li_project_info o left join li_project_speed s on o.id=s.infoid
   	 <include refid="whereFieldsForResult" />

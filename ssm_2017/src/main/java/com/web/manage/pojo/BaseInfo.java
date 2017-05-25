@@ -44,6 +44,27 @@ public class BaseInfo  extends BasePage{
     private String speed;
     
     private String ismark;
+    
+    private Speed infospeed;
+    
+    public Speed getInfospeed() {
+		return infospeed;
+	}
+
+	public void setInfospeed(Speed infospeed) {
+		this.infospeed = infospeed;
+	}
+
+	public Online getInfoonline() {
+		return infoonline;
+	}
+
+	public void setInfoonline(Online infoonline) {
+		this.infoonline = infoonline;
+	}
+
+	private Online infoonline;
+    
 
     public String getId() {
         return id;

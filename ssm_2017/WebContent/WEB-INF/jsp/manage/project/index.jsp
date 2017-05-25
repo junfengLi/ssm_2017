@@ -94,8 +94,8 @@
 					<div class="col-sm-7">
 						<div class="page-header">
 							<a href="#" class="menu-text" 
-							 onclick="openFrame('添加采访记录','${ctx }/project/times/forward',500,400);">
-								<span class="icon-cogs"> 添加采访记录 </span>
+							 onclick="openFrame('添加联系记录','${ctx }/project/times/forward',500,400);">
+								<span class="icon-cogs"> 添加联系记录 </span>
 							</a>
 						</div>
 						<div class="widget-main">
@@ -193,7 +193,7 @@ function pageInit(){
 	      mtype:'POST',
 	      colModel : [ 
 	                   {name : 'date',label: '时间', width : 100, sortable : false, align : 'center'}, 
-	                   {name : 'times',label: '采访人次', width : 100, sortable : false, align : 'center'}, 
+	                   {name : 'times',label: '联系人次', width : 100, sortable : false, align : 'center'}, 
 	                   {name: 'note', label: '备注', width: 150, sortable : false,align: 'center',formatter: 
 	                	   function (cellvalue, options, rowObject) {if(cellvalue != '') return '<span class="hide">' + cellvalue + '</span><a href="###" class="blue" onclick="show(this);">点击查看备注信息</a>'; else return '暂无备注信息';}},
 	                   {name: 'flag', label: '操作', width: 100, sortable : false,align: 'center',formatter: 

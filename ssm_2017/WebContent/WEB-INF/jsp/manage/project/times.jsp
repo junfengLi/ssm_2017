@@ -26,7 +26,7 @@
 				<td width="15%"></td>
 			</tr>
 			<tr>
-				<td class="titleTd">采访人次：</td>
+				<td class="titleTd">联系人次：</td>
 				<td height="50px;">
 				<c:choose>
 				<c:when test="${ empty times}"><c:set var="timesval" value="1" /></c:when>

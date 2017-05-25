@@ -21,6 +21,11 @@
 		<div style="float:right;">
 			<table  class="">
 				<tr>
+					<td style="width:90px;">
+					<a href="${ctx }/project/doExport" class="menu-text"  target="_blank">
+						<span class="menu-text"> <i class=" icon-cloud-download"></i>批量导出 </span>
+					</a>
+					</td>
 					<td style="width:90px; text-align: right;"> 姓名：</td>
 					<td >
 					<input type="text" id="name" name="name" placeholder="按姓名搜索"  value="" class="col-xs-10 input-medium col-sm-5" autocomplete="off" />
