@@ -54,6 +54,7 @@
 						<td>
 						<c:if test="${info.isrefuse == '0' }">否</c:if>
 						<c:if test="${info.isrefuse == '1' }">是</c:if>
+						<c:if test="${info.isrefuse == '2' }">僵尸客户</c:if>
 						</td>
 					</tr>
 					<tr>

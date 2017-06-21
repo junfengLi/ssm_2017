@@ -133,7 +133,9 @@ function pageInit(){
 				}, 0);
 			},
 			rowattr: function (rd) { //grid配置  
-				if (rd.isrefuse == '1') {  
+				if (rd.isrefuse == '2') {  
+	                return {"style": "color:#FF974B;"};  
+	            } else if (rd.isrefuse == '1') {  
 	                return {"style": "color:#b9b9b9;"};  
 	            } else {
 	            	 if (rd.backtime != '' && rd.backtime != undefined) {  

@@ -41,8 +41,13 @@
 					</label>
 					<label>
 						<input name="isrefuse" type="radio" class="ace" value="0"
-						 <c:if test="${info.isrefuse != '1' }"> checked="checked" </c:if> />
+						 <c:if test="${info.isrefuse == '0' }"> checked="checked" </c:if> />
 						<span class="lbl"></span><span>&nbsp;&nbsp;否&nbsp;&nbsp;</span>
+					</label>
+					<label>
+						<input name="isrefuse" type="radio" class="ace" value="2"
+						 <c:if test="${info.isrefuse == '2' }"> checked="checked" </c:if> />
+						<span class="lbl"></span><span>&nbsp;&nbsp;僵尸客户&nbsp;&nbsp;</span>
 					</label>
 				</div>
 			</td>
