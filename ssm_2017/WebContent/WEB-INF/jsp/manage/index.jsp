@@ -101,6 +101,12 @@
 						<span class="menu-text"> 客户报表 </span>
 					</a>
 				</li>
+				<li class="">
+					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/info/queryWeek/load">
+						<i class="icon-bar-chart"></i>
+						<span class="menu-text"> 一周（月）统计 </span>
+					</a>
+				</li>
 				<shiro:hasPermission name="sys">
 				<%-- <li class="">
 					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/user/query/load">

@@ -1,5 +1,6 @@
 package com.web.manage.action;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,6 +195,53 @@ public class InfoAction {
 			if (time1 !=0) info.setSendmenutime1(time1);
 			if (time2 !=0) info.setSendmenutime1(time2);
 		} 
+    	UIPage page = infoService.getPage(info, pageNum, pageSize); 
+    	return page;
+    }
+    
+    @RequestMapping("/getPageForWeek")
+    @ResponseBody
+    public UIPage getPageForWeek(BaseInfoResult info,@RequestParam(value="page",defaultValue="1")int pageNum,
+			@RequestParam(value="rows",defaultValue="10")int pageSize,
+			@RequestParam(value="weektime",defaultValue="")String weektime,
+			@RequestParam(value="monthtime",defaultValue="")String monthtime,
+			HttpServletRequest request){
+    	//如果不传用户ID，返回空
+    	if (StringUtils.isBlank(info.getUserid())) new UIPage();
+    	long starttime = 0, endtime = 0;
+    	if (StringUtils.isBlank(weektime) && StringUtils.isBlank(monthtime)) {
+        	Calendar cal = Calendar.getInstance();
+          	cal.setFirstDayOfWeek(Calendar.MONDAY);
+        	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+          	starttime = cal.getTimeInMillis() -1000l;
+        	cal.add(Calendar.WEEK_OF_MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+        	info.setFinshnewstime1(starttime);
+        	info.setFinshnewstime2(endtime);
+    	}
+    	if (StringUtils.isNotBlank(weektime)) {
+    		long times = DateUtil.getLongDateFromString(weektime);
+        	Calendar cal = Calendar.getInstance();
+    		cal.setTimeInMillis(times);
+          	cal.setFirstDayOfWeek(Calendar.MONDAY);
+        	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+          	starttime = cal.getTimeInMillis() -1000l;
+        	cal.add(Calendar.WEEK_OF_MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+        	info.setFinshnewstime1(starttime);
+        	info.setFinshnewstime2(endtime);
+		}
+    	if (StringUtils.isNotBlank(monthtime)) {
+    		long times = DateUtil.getLongDateFromString(monthtime, false);
+        	Calendar cal = Calendar.getInstance();
+    		cal.setTimeInMillis(times);
+        	starttime = times -1000l;
+        	cal.add(Calendar.MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+        	info.setFinshnewstime1(starttime);
+        	info.setFinshnewstime2(endtime);
+		}
+    	
     	UIPage page = infoService.getPage(info, pageNum, pageSize); 
     	return page;
     }
