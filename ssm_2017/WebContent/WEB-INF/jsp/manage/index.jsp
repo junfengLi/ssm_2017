@@ -104,7 +104,7 @@
 				<shiro:hasPermission name="sys">
 				<li class="">
 					<a href="#" class="menu-text" onclick="return LoadPage(this,'main-content');" data-url="${ctx }/info/queryWeek/load">
-						<i class="icon-bar-chart"></i>
+						<i class="icon-edit"></i>
 						<span class="menu-text"> 一周（月）统计 </span>
 					</a>
 				</li>
