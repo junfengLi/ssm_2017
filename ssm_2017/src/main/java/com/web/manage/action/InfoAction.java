@@ -1,7 +1,10 @@
 package com.web.manage.action;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.commons.excel.ExportUtil;
 import com.web.commons.jqgrid.UIPage;
 import com.web.commons.util.CommonUtil;
 import com.web.commons.util.DateUtil;
@@ -26,7 +30,10 @@ import com.web.manage.pojo.BaseInfo;
 import com.web.manage.pojo.BaseInfoResult;
 import com.web.manage.pojo.Online;
 import com.web.manage.pojo.Speed;
+import com.web.manage.pojo.User;
 import com.web.manage.service.InfoService;
+import com.web.manage.service.UserService;
+import com.web.manage.util.AskTypeEnum;
 import com.web.manage.util.SpeedTypeEnum;
 
 @RequestMapping("/info")  
@@ -34,7 +41,8 @@ import com.web.manage.util.SpeedTypeEnum;
 public class InfoAction {  
 	@Autowired
 	private InfoService infoService;
-	
+	@Autowired
+	private UserService userService;
 	
 	private static final String BASE_PATH = "/manage/info/";
 
@@ -369,6 +377,47 @@ public class InfoAction {
     	resultMap.put("success", true);
     	return resultMap;
     }
+    
+    
+    
+    @RequestMapping(value = "/doExport", method = RequestMethod.GET)
+	public void doExport(@RequestParam(value="monthtime",defaultValue="")String monthtime,
+			HttpServletRequest request, HttpServletResponse response){
+    	
+    	String userid = CommonUtil.getLoginName();
+		if (StringUtils.isNotBlank(userid) && StringUtils.isNotBlank(monthtime)) {
+			User user = userService.findByLoginName(userid);
+			long times = DateUtil.getLongDateFromString(monthtime, false);
+			Date date = new Date(times);
+			int month = date.getMonth() +1;
+			String title = user.getName() + month + "月份完成客户明细";
+			BaseInfoResult info = new BaseInfoResult();
+			info.setUserid(userid);
+			List<String[]> datas = new ArrayList<String[]>();
+			long starttime = 0l, endtime = 0l;
+        	Calendar cal = Calendar.getInstance();
+    		cal.setTimeInMillis(times);
+        	starttime = times -1000l;
+        	cal.add(Calendar.MONTH, 1);
+        	endtime = cal.getTimeInMillis() -1000l;
+        	info.setFinshnewstime1(starttime);
+        	info.setFinshnewstime2(endtime);
+			List<BaseInfo> baseInfos = infoService.findList(info);
+			
+			int i = 0;
+			for (BaseInfo baseInfo : baseInfos) {
+				i++;
+				String[] data = new String[4];
+				data[0] = String.valueOf(i);
+				data[1] = StringUtils.trimToEmpty(baseInfo.getName());
+				data[2] = StringUtils.trimToEmpty(baseInfo.getProjectname());
+				data[3] = StringUtils.trimToEmpty(baseInfo.getMobile());
+				datas.add(data);
+			}
+			ExportUtil.doExportFromRow(request, response, datas, "/excelXml/infomonth.xls", "月完成数据统计表", 3, title);
+		}
+			
+	}
   
     
 }  

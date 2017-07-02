@@ -16,6 +16,7 @@ public interface InfoService {
 	UIPage getPage(BaseInfo info, int pageNumber, int pageSize);	
 	UIPage getPage(BaseInfoResult info, int pageNumber, int pageSize);
 	List<BaseInfo> findList(BaseInfo info);
+	List<BaseInfo> findList(BaseInfoResult info);
 	Speed findSpeedByInfoId(String infoid);
 	Online findOnlineByInfoId(String infoid);
 	

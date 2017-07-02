@@ -18,6 +18,11 @@
 		<div style="float:right;">
 			<table  class="">
 				<tr>
+					<td>
+					<a href="###" class="menu-text" onclick="doExportMonth();">
+						<span class="menu-text"> <i class=" icon-cloud-download"></i>按月导出 </span>
+					</a>
+					</td>
 					<td >
 					<div class="tabs-name on" data-type="weeksearch" >按周统计</div>
 					<div class="tabs-name"  data-type="monthsearch" >按月统计</div>
@@ -77,6 +82,19 @@ $(".page-content").resize(function(){
 	var grid_selector = "#grid-table";
 	jQuery(grid_selector).setGridWidth($(".col-xs-12").width());
 });
+
+function doExportMonth() {
+	if (datatype=='monthsearch') {
+		var monthtime=$("#id-date-picker-2").val();
+		if (monthtime=='')
+			layer.alert("请选择月份");
+		else {
+			window.open("${ctx}/info/doExport?monthtime="+ monthtime);   
+		}
+	} else {
+		layer.alert("请选择月份");
+	}
+}
 
 function searchWeekMonth(){
 	

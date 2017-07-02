@@ -89,6 +89,12 @@ public class InfoServiceImpl implements InfoService {
 		return infoDao.selectByStatementForExport(info);
 	}
 	
+	@Override
+	public List<BaseInfo> findList(BaseInfoResult info) {
+		info.setRows(1000);
+		return infoDao.selectByStatementForResult(info);
+	}
+	
 	private void setMaps(List<BaseInfo> infos, List<Map<String, Object>> rows){
 		for (BaseInfo info2 : infos) {
 			@SuppressWarnings("unchecked")
